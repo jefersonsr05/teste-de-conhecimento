@@ -23,7 +23,7 @@ object frmCadastroPai: TfrmCadastroPai
     Align = alTop
     TabOrder = 0
     object BitBtnNovo: TBitBtn
-      Left = 8
+      Left = 0
       Top = 8
       Width = 113
       Height = 49

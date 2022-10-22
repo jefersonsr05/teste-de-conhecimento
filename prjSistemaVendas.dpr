@@ -7,7 +7,8 @@ uses
   uBiblioteca in 'Classes\uBiblioteca.pas',
   fConfigBanco in 'Forms\fConfigBanco.pas' {frmConfigBanco},
   fCadastroPai in 'Forms\fCadastroPai.pas' {frmCadastroPai},
-  fCadastroCliente in 'Forms\fCadastroCliente.pas' {frmCadastroCliente};
+  fCadastroCliente in 'Forms\fCadastroCliente.pas' {frmCadastroCliente},
+  fCadastroProduto in 'Forms\fCadastroProduto.pas' {frmCadastroProdutos};
 
 {$R *.res}
 
@@ -17,5 +18,6 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmConfigBanco, frmConfigBanco);
   Application.CreateForm(TdmDados, dmDados);
+  Application.CreateForm(TfrmCadastroProdutos, frmCadastroProdutos);
   Application.Run;
 end.

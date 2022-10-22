@@ -42,8 +42,8 @@ type
     LabelEmail: TLabel;
     DBEditEmail: TDBEdit;
     DBEditCodigo: TDBEdit;
-    Edit1: TEdit;
     procedure BitBtnNovoClick(Sender: TObject);
+    procedure limpa;
   private
     { Private declarations }
   public
@@ -57,21 +57,43 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmCadastroCliente.limpa;
+var
+  i: integer;
+begin
+
+  //  Limpa os campos
+  for i := 0 to frmCadastroCliente.ComponentCount -1 do
+  begin
+    if frmCadastroCliente.Components[i] is TDBEdit then
+      TDBEdit(frmCadastroCliente.Components[i]).Clear
+
+  end;
+
+
+
+end;
+
 procedure TfrmCadastroCliente.BitBtnNovoClick(Sender: TObject);
 
 var
-  cod: String;
+  cod: integer;
 
 begin
+inherited;
+  limpa;
 
-   FDQueryCadastro.Active := False;
-   FDQueryCadastro.SQL.Text := 'select max(codigo) from cliente';
+  FDQueryCadastro.Close;
+
+   FDQueryCadastro.SQL.Add('select max(codigo) from cliente');
    FDQueryCadastro.Active := True;
 
    if FDQueryCadastro.IsEmpty then
-      cod :='1'
+     cod :=1
    else
-      cod := InttoStr(FDQueryCadastro.FieldByName('CODIGO').AsInteger + 1)
+     cod := FDQueryCadastro.FieldByName('CODIGO').AsInteger + 1;
+
+   FDQueryCadastro.FieldByName('CODIGO').AsInteger := cod;
 end;
 
 end.

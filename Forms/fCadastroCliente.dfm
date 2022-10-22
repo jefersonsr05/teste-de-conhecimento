@@ -171,19 +171,11 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     DataSource = DataSourceCadastro
     TabOrder = 10
   end
-  object Edit1: TEdit [21]
-    Left = 248
-    Top = 296
-    Width = 121
-    Height = 21
-    TabOrder = 11
-    Text = 'Edit1'
-  end
   inherited FDQueryCadastro: TFDQuery
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint]
     UpdateOptions.FetchGeneratorsPoint = gpNone
     SQL.Strings = (
-      'select * from cliente;')
+      'SELECT * FROM CLIENTE')
     object FDQueryCadastroCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
