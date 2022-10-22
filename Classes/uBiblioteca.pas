@@ -26,6 +26,7 @@ uses
 
     vArquivo.Free;
   end;
+  //ExtractFilePath(Application.ExeName) + 'config.ini'
 
   function getValorIni(pLocal, pSessao, pSubSessao: string): string;
 
@@ -40,5 +41,4 @@ uses
   vArquivo.Free;
 
   end;
-
-  end.
+end.

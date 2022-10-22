@@ -2,21 +2,22 @@ object frmConfigBanco: TfrmConfigBanco
   Left = 0
   Top = 0
   Caption = 'Configura'#231#227'o do BD'
-  ClientHeight = 379
-  ClientWidth = 715
+  ClientHeight = 337
+  ClientWidth = 658
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
+  Font.Color = clBtnShadow
+  Font.Height = -19
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poScreenCenter
+  OnClose = FormClose
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 23
   object Image1: TImage
-    Left = 0
-    Top = 32
+    Left = 24
+    Top = 24
     Width = 257
     Height = 257
     Center = True
@@ -286,15 +287,15 @@ object frmConfigBanco: TfrmConfigBanco
     ParentFont = False
   end
   object Label1: TLabel
-    Left = 8
-    Top = 328
-    Width = 330
-    Height = 13
+    Left = 24
+    Top = 304
+    Width = 494
+    Height = 19
     Caption = 'Clique em CONFIGURAR e localize o arquivo .FDB do banco de dados'
     Color = clRed
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clRed
-    Font.Height = -11
+    Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentColor = False

@@ -1,5 +1,6 @@
 object dmDados: TdmDados
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 382
   Width = 664
   object FDConnection: TFDConnection

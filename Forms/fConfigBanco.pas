@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, uBiblioteca;
 
 type
   TfrmConfigBanco = class(TForm)
@@ -15,6 +15,7 @@ type
     ButtonConfigurar: TButton;
     Label1: TLabel;
     procedure ButtonConfigurarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
 
@@ -33,15 +34,39 @@ implementation
 
 procedure TfrmConfigBanco.ButtonConfigurarClick(Sender: TObject);
 begin
-
-  //  Chama a procedure ara configurar o banco
   configura;
-
 end;
 
 procedure TfrmConfigBanco.configura;
+
+var
+  vFileName: string;
+
 begin
 
+  if OpenDialogPastas.Execute then
+  begin
+
+    //  Coloca no edit o caminho e nome completo do arquivo selecionado
+    EditLocal.Text := OpenDialogPastas.FileName;
+
+    //  Setando o caminho do banco
+    vFileName      := ExtractFilePath(Application.ExeName) + 'config.ini';
+
+    //  Passando o caminho do banco para ser adicionado no arquivo ini
+    setValorIni(vFileName, 'CONFIGURACAO', 'LOCAL_DB', EditLocal.Text);
+
+    showmessage('Configuração realizada com sucesso!');
+    Application.Terminate;
+
+    Self.Close;
+  end;
+
+end;
+
+procedure TfrmConfigBanco.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
 end;
 
 end.
