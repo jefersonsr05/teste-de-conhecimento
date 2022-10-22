@@ -19,6 +19,12 @@ type
     Clientes2: TMenuItem;
     N2: TMenuItem;
     Podutos1: TMenuItem;
+    CriarNovaVenda1: TMenuItem;
+    ConsultarVendas1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Vendas2: TMenuItem;
+    Clientes3: TMenuItem;
+    Clientes4: TMenuItem;
     procedure Clientes1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);

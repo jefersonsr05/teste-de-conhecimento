@@ -49,6 +49,24 @@ object frmMain: TfrmMain
     end
     object Vendas1: TMenuItem
       Caption = 'Vendas'
+      object CriarNovaVenda1: TMenuItem
+        Caption = 'Nova Venda'
+      end
+      object ConsultarVendas1: TMenuItem
+        Caption = 'Consultar Vendas'
+      end
+    end
+    object Relatrios1: TMenuItem
+      Caption = 'Relat'#243'rios'
+      object Vendas2: TMenuItem
+        Caption = 'Vendas'
+      end
+      object Clientes3: TMenuItem
+        Caption = 'Clientes'
+      end
+      object Clientes4: TMenuItem
+        Caption = 'Produtos'
+      end
     end
   end
 end
