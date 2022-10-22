@@ -67,6 +67,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     Height = 21
     DataField = 'CODIGO'
     DataSource = DataSourceCadastro
+    Enabled = False
     TabOrder = 1
   end
   object DBEditDescricao: TDBEdit [9]
@@ -103,6 +104,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     Height = 21
     DataField = 'DATA_VENDA'
     DataSource = DataSourceCadastro
+    Enabled = False
     TabOrder = 5
   end
   object DBEditPrecoVenda: TDBEdit [13]

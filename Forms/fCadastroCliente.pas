@@ -66,14 +66,22 @@ begin
 
   cod := 0;
 
+  //  Abre a query
   FDQueryCadastro.Open();
+
+  //  Ve o ultimo registro
   FDQueryCadastro.Last();
 
+  //  Pega o último código gerado e soma + 1
   cod := FDQueryCadastro.FieldByName('CODIGO').AsInteger + 1;
 
+  //  Insere o registro no final da tabela
   FDQueryCadastro.Append();
 
+  //  Seta no edit o codigo gerado
   DBEditCodigo.Text := IntToStr(cod);
+
+  //  Posiciona o cursor
   DBEditNome.SetFocus;
 
 end;
