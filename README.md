@@ -1,6 +1,23 @@
 # Teste de conhecimento
 Teste de conhecimento de programação para candidatos iniciantes da MC Sistemas
 
+Para clonar o repositório:
+
+	git clone https://github.com/jefersonsr05/teste-de-conhecimento.git
+	
+Após o clone, entrar no diretório e criar nova Branch:
+
+	cd teste-de-conhecimento/
+	git checkout -b {{nova-branch}}
+	
+Agora é só trabalhar e depois para subir a primeira vez e criar sua nova branch no repositório use:
+
+	git add .
+	git commit -m "descrição das melhorias realizadas"
+	git push --set-upstream origin jeferson
+
+
+
 ## Proposta do desafio:
 
 ### Cadastros:
