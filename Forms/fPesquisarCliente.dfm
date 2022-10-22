@@ -9,8 +9,13 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
     inherited ButtonNovo: TButton
       OnClick = ButtonNovoClick
     end
+    inherited RadioButtonCodigo: TRadioButton
+      Checked = True
+      TabStop = True
+    end
   end
   inherited DBGridResultadoPesquisa: TDBGrid
+    ReadOnly = True
     Columns = <
       item
         Expanded = False

@@ -14,6 +14,7 @@ type
   TfrmPesquisarClientes = class(TfrmPesquisarPai)
     procedure ButtonNovoClick(Sender: TObject);
     procedure ButtonPesquisaClick(Sender: TObject);
+    procedure ButtonVisualizarClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -58,6 +59,32 @@ begin
   //  Chama a procedure de pesquisas
   Pesquisar;
 
+
+
+
+end;
+
+procedure TfrmPesquisarClientes.ButtonVisualizarClick(Sender: TObject);
+begin
+  inherited;
+
+  //  Cria o form
+  frmCadastroCliente := TfrmCadastroCliente.Create(Self);
+
+  try
+
+    frmPesquisarClientes.FDQueryPesquisar.Locate('codigo', FDQueryPesquisar.FieldByName('codigo').AsInteger, []);
+
+    //  Exibe o form
+    frmCadastroCliente.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmCadastroCliente);
+
+  end;
+
 end;
 
 procedure TfrmPesquisarClientes.Pesquisar;
@@ -82,10 +109,32 @@ begin
     //  Funcao QuotedStr trata o texto e o coloca dentr aspas simples
     FDQueryPesquisar.SQL.Add('and upper(trim(nome)) like ' + QuotedStr('%' + UpperCase(Trim(EditNome.Text)) + '%' ));
 
+  end;
 
+  // Pesquisa por codigo
+  if StrToIntDef(EditCodigo.Text, 0) > 0 then
+  begin
 
+    FDQueryPesquisar.SQL.Add('and codigo = ' + EditCodigo.Text);
 
   end;
+
+  //  Ordena o resultado pelo nome
+  if RadioButtonNome.Checked = True then
+  begin
+
+    FDQueryPesquisar.SQL.Add(' order by nome');
+
+  end;
+
+  //  Ordena o resultado por código
+  if RadioButtonCodigo.Checked = True then
+  begin
+
+    FDQueryPesquisar.SQL.Add('order by codigo');
+
+  end;
+
 
   FDQueryPesquisar.Open();
   FDQueryPesquisar.FetchAll;

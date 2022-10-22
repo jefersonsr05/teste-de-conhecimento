@@ -90,7 +90,9 @@ object frmPesquisarPai: TfrmPesquisarPai
       Width = 65
       Height = 17
       Caption = 'C'#243'digo'
+      Checked = True
       TabOrder = 5
+      TabStop = True
     end
     object RadioButtonNome: TRadioButton
       Left = 95
