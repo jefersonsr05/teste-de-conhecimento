@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
-  fCadastroProduto, fPesquisarCliente;
+  fCadastroProduto, fPesquisarCliente, fPesquisarProdutos;
 
 type
   TfrmMain = class(TForm)
@@ -22,6 +22,7 @@ type
     procedure Clientes1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);
+    procedure Podutos1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,12 +65,34 @@ begin
 
   try
 
-    //frmPesquisarClientes.FDQueryPesquisar.Locate('CODIGO', FDQueryPesquisarcodigo.as, []);
 
     //  Exibe o Form
     frmPesquisarClientes.ShowModal;
 
   finally
+
+    //  Libera da memoria
+    FreeAndNil(frmPesquisarClientes);
+
+  end;
+
+end;
+
+procedure TfrmMain.Podutos1Click(Sender: TObject);
+begin
+
+  // Cria o form
+  frmPesquisarProdutos := TfrmPesquisarProdutos.Create(Self);
+
+  try
+
+    //  Exibe o form
+    frmPesquisarProdutos.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmPesquisarProdutos);
 
   end;
 

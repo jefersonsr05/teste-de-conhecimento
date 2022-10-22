@@ -10,7 +10,8 @@ uses
   fCadastroCliente in 'Forms\fCadastroCliente.pas' {frmCadastroCliente},
   fCadastroProduto in 'Forms\fCadastroProduto.pas' {frmCadastroProdutos},
   fPesquisarPai in 'Forms\fPesquisarPai.pas' {frmPesquisarPai},
-  fPesquisarCliente in 'Forms\fPesquisarCliente.pas' {frmPesquisarClientes};
+  fPesquisarCliente in 'Forms\fPesquisarCliente.pas' {frmPesquisarClientes},
+  fPesquisarProdutos in 'Forms\fPesquisarProdutos.pas' {frmPesquisarProdutos};
 
 {$R *.res}
 
@@ -20,5 +21,6 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmConfigBanco, frmConfigBanco);
   Application.CreateForm(TdmDados, dmDados);
+  Application.CreateForm(TfrmPesquisarProdutos, frmPesquisarProdutos);
   Application.Run;
 end.

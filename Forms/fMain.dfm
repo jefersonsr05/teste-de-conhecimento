@@ -44,6 +44,7 @@ object frmMain: TfrmMain
       end
       object Podutos1: TMenuItem
         Caption = 'Podutos'
+        OnClick = Podutos1Click
       end
     end
     object Vendas1: TMenuItem

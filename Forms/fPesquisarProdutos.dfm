@@ -1,5 +1,5 @@
-inherited frmPesquisarClientes: TfrmPesquisarClientes
-  Caption = 'Pesquisar Clientes'
+inherited frmPesquisarProdutos: TfrmPesquisarProdutos
+  Caption = 'Pesquisar Produtos'
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -11,7 +11,6 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
     end
   end
   inherited DBGridResultadoPesquisa: TDBGrid
-    ReadOnly = True
     Columns = <
       item
         Expanded = False
@@ -21,57 +20,40 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
       end
       item
         Expanded = False
-        FieldName = 'NOME'
+        FieldName = 'DESCRICAO'
+        Width = 250
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'ENDERECO'
+        FieldName = 'REFERENCIA'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'BAIRRO'
-        Width = 100
+        FieldName = 'UNIDADE'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'CIDADE'
-        Width = 100
+        FieldName = 'SALDO'
+        Width = 50
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'CEP'
-        Width = 100
+        FieldName = 'DATA_VENDA'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'UF'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'FONE'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'CELULAR'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'EMAIL'
+        FieldName = 'PRECO_VENDA'
         Visible = True
       end>
   end
   inherited FDQueryPesquisar: TFDQuery
     Active = True
-    Transaction = FDTransactionPesquisar
     SQL.Strings = (
-      'select * from cliente')
+      'select * from produtos;')
   end
 end
