@@ -14,8 +14,9 @@ Agora é só trabalhar e depois para subir a primeira vez e criar sua nova branc
 
 	git add .
 	git commit -m "descrição das melhorias realizadas"
-	git push --set-upstream origin jeferson
+	git push --set-upstream origin {{nova-branch}}
 
+OBS: trocar o {{nova-branch}} pelo nome de sua branch criada!
 
 
 ## Proposta do desafio:
