@@ -10,7 +10,7 @@ Após o clone, entrar no diretório e criar nova Branch:
 	cd teste-de-conhecimento/
 	git checkout -b {{nova-branch}}
 	
-Agora é só trabalhar e depois para subir a primeira vez e criar sua nova branch no repositório use:
+Agora é só trabalhar e depois para subir a primeira versão de seu código, envie seu git para o adm do projeto para que este lhe adicione como colaborador e assim você possa criar sua nova branch no repositório, para isso use:
 
 	git add .
 	git commit -m "descrição das melhorias realizadas"
