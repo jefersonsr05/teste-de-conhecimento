@@ -1,7 +1,7 @@
-object Form1: TForm1
+object frmPesquisarPai: TfrmPesquisarPai
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'fPesquisarPai'
   ClientHeight = 404
   ClientWidth = 759
   Color = clBtnFace
@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
@@ -21,7 +22,6 @@ object Form1: TForm1
     Height = 121
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 758
     object LabelCodigo: TLabel
       Left = 24
       Top = 20

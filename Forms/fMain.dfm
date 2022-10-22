@@ -33,6 +33,19 @@ object frmMain: TfrmMain
         OnClick = Produtos1Click
       end
     end
+    object Pesquisar1: TMenuItem
+      Caption = 'Pesquisar'
+      object Clientes2: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Clientes2Click
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object Podutos1: TMenuItem
+        Caption = 'Podutos'
+      end
+    end
     object Vendas1: TMenuItem
       Caption = 'Vendas'
     end

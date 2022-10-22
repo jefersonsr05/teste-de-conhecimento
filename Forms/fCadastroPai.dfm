@@ -105,6 +105,7 @@ object frmCadastroPai: TfrmCadastroPai
   end
   object FDQueryCadastro: TFDQuery
     Connection = dmDados.FDConnection
+    Transaction = FDTransactionCadastro
     Left = 664
     Top = 96
   end

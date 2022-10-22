@@ -130,7 +130,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Forms\fPesquisarPai.pas">
-            <Form>Form1</Form>
+            <Form>frmPesquisarPai</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Forms\fPesquisarCliente.pas">
+            <Form>frmPesquisarClientes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

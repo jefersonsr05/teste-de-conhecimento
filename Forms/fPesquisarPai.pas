@@ -11,7 +11,7 @@ uses
   Vcl.Grids, Vcl.DBGrids;
 
 type
-  TForm1 = class(TForm)
+  TfrmPesquisarPai = class(TForm)
     Panel1: TPanel;
     LabelCodigo: TLabel;
     EditCodigo: TEdit;
@@ -39,13 +39,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmPesquisarPai: TfrmPesquisarPai;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.ButtonSairClick(Sender: TObject);
+procedure TfrmPesquisarPai.ButtonSairClick(Sender: TObject);
 begin
 
   //  Fecha a tela
@@ -53,14 +53,14 @@ begin
 
 end;
 
-procedure TForm1.ButtonVisualizarClick(Sender: TObject);
+procedure TfrmPesquisarPai.ButtonVisualizarClick(Sender: TObject);
 begin
 
   ValidaQueryVazia;
 
 end;
 
-procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmPesquisarPai.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 
   //  Quando for finalizado limpa a memoria que a tela estava usando
@@ -68,7 +68,7 @@ begin
 
 end;
 
-procedure TForm1.ValidaQueryVazia;
+procedure TfrmPesquisarPai.ValidaQueryVazia;
 begin
 
   //  Se a Query esta vazia exibe uma mensagem
