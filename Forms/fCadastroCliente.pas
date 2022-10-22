@@ -44,6 +44,7 @@ type
     DBEditCodigo: TDBEdit;
     procedure BitBtnNovoClick(Sender: TObject);
     procedure limpa;
+    procedure geraCodigo;
   private
     { Private declarations }
   public
@@ -56,6 +57,26 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroCliente.geraCodigo;
+var
+  cod: integer;
+
+begin
+
+  cod := 0;
+
+  FDQueryCadastro.Open();
+  FDQueryCadastro.Last();
+
+  cod := FDQueryCadastro.FieldByName('CODIGO').AsInteger + 1;
+
+  FDQueryCadastro.Append();
+
+  DBEditCodigo.Text := IntToStr(cod);
+  DBEditNome.SetFocus;
+
+end;
 
 procedure TfrmCadastroCliente.limpa;
 var
@@ -75,25 +96,15 @@ begin
 end;
 
 procedure TfrmCadastroCliente.BitBtnNovoClick(Sender: TObject);
-
-var
-  cod: integer;
-
 begin
 inherited;
+
+  //  Limpa os Dbedits
   limpa;
 
-  FDQueryCadastro.Close;
+  //  Gera codigo do cadastro
+  geraCodigo;
 
-   FDQueryCadastro.SQL.Add('select max(codigo) from cliente');
-   FDQueryCadastro.Active := True;
-
-   if FDQueryCadastro.IsEmpty then
-     cod :=1
-   else
-     cod := FDQueryCadastro.FieldByName('CODIGO').AsInteger + 1;
-
-   FDQueryCadastro.FieldByName('CODIGO').AsInteger := cod;
 end;
 
 end.

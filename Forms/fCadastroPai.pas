@@ -27,8 +27,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BitBtnCancelarClick(Sender: TObject);
     procedure BitBtnExcluirClick(Sender: TObject);
+
   private
     { Private declarations }
+
   public
     { Public declarations }
   end;

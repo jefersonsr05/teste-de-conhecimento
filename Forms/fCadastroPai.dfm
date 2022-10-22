@@ -2,7 +2,7 @@ object frmCadastroPai: TfrmCadastroPai
   Left = 0
   Top = 0
   Caption = 'fCadastroPai'
-  ClientHeight = 359
+  ClientHeight = 349
   ClientWidth = 772
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

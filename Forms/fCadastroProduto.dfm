@@ -1,7 +1,7 @@
 inherited frmCadastroProdutos: TfrmCadastroProdutos
   Caption = 'Cadastro de Produtos'
-  ClientHeight = 348
-  ExplicitHeight = 387
+  ClientHeight = 357
+  ExplicitHeight = 396
   PixelsPerInch = 96
   TextHeight = 13
   object LabelCodigo: TLabel [0]

@@ -65,7 +65,7 @@ begin
   finally
 
     //  Libera da memoria
-    FreeAndNil(frmCadastroProdutos)
+    FreeAndNil(frmCadastroProdutos);
 
   end;
 
