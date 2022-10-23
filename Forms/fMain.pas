@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
-  fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda;
+  fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda,
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -25,6 +26,7 @@ type
     Vendas2: TMenuItem;
     Clientes3: TMenuItem;
     Clientes4: TMenuItem;
+    PanelAcessoRapido: TPanel;
     procedure Clientes1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);

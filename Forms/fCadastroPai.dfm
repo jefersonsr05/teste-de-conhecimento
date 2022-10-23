@@ -53,7 +53,7 @@ object frmCadastroPai: TfrmCadastroPai
       OnClick = BitBtnSalvarClick
     end
     object BitBtnSair: TBitBtn
-      Left = 640
+      Left = 659
       Top = 8
       Width = 113
       Height = 49

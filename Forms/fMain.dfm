@@ -16,8 +16,16 @@ object frmMain: TfrmMain
   WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
+  object PanelAcessoRapido: TPanel
+    Left = 0
+    Top = 0
+    Width = 743
+    Height = 137
+    Align = alTop
+    TabOrder = 0
+  end
   object MainMenu: TMainMenu
-    Left = 480
+    Left = 696
     Top = 248
     object Cadastros1: TMenuItem
       Caption = 'Cadastros'
