@@ -2,10 +2,11 @@ unit uBiblioteca;
 
 interface
 uses
-IniFiles, System.SysUtils;
+IniFiles, System.SysUtils, FireDAC.Comp.Client;
 
   procedure setValorIni(pLocal, pSessao, pSubSessao, pValor: string);
   function getValorIni(pLocal, pSessao, pSubSessao: string): string;
+  procedure AtualizaFDQuery(const pFDQuery: TFDQuery);
 
 implementation
 
@@ -39,6 +40,16 @@ uses
   Result := vArquivo.ReadString(pSessao, pSubSessao, '');
 
   vArquivo.Free;
+
+  end;
+
+  //  Atualiza a Query
+  procedure AtualizaFDQuery(const pFDQuery: TFDQuery);
+  begin
+
+    pFDQuery.Close;
+    pFDQuery.Open();
+    pFDQuery.FetchAll;
 
   end;
 end.
