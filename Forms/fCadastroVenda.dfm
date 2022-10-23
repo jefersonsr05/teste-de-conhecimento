@@ -2,12 +2,14 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   Caption = 'Criar Vendas, Or'#231'amentos e Pr'#233'-Vendas'
   ClientHeight = 506
   ClientWidth = 1025
+  WindowState = wsMaximized
   ExplicitWidth = 1041
   ExplicitHeight = 545
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
     Width = 1025
+    ExplicitWidth = 1025
     inherited BitBtnSair: TBitBtn
       Left = 904
       ExplicitLeft = 904
@@ -34,15 +36,14 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 45
       Height = 13
       Caption = 'EMISS'#195'O'
-      FocusControl = DBEdit2
     end
     object LabelCliente: TLabel
       Left = 336
       Top = 16
-      Width = 41
+      Width = 103
       Height = 13
-      Caption = 'CLIENTE'
-      FocusControl = DBEdit3
+      Caption = 'C'#211'DIGO DO CLIENTE'
+      FocusControl = DBEditCodCLiente
     end
     object LabelTipoVenda: TLabel
       Left = 640
@@ -50,19 +51,17 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 76
       Height = 13
       Caption = 'TIPO DE VENDA'
-      FocusControl = DBEdit4
     end
     object LabelOpVenda: TLabel
-      Left = 752
-      Top = 16
+      Left = 816
+      Top = 14
       Width = 108
       Height = 13
       Caption = 'OPERA'#199#195'O DE VENDA'
-      FocusControl = DBEdit6
     end
     object DBEditNrNota: TDBEdit
       Left = 16
-      Top = 32
+      Top = 35
       Width = 134
       Height = 21
       DataField = 'NRNOTA'
@@ -70,41 +69,56 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Enabled = False
       TabOrder = 0
     end
-    object DBEdit2: TDBEdit
-      Left = 176
-      Top = 32
-      Width = 134
-      Height = 21
-      DataField = 'EMISSAO'
-      DataSource = DataSourceCadastro
-      TabOrder = 1
-    end
-    object DBEdit3: TDBEdit
+    object DBEditCodCLiente: TDBEdit
       Left = 336
-      Top = 32
-      Width = 281
+      Top = 35
+      Width = 233
       Height = 21
       DataField = 'CLIENTE'
       DataSource = DataSourceCadastro
+      TabOrder = 1
+    end
+    object DateTimePickerEmissao: TDateTimePicker
+      Left = 176
+      Top = 35
+      Width = 137
+      Height = 21
+      Date = 44856.000000000000000000
+      Time = 0.826756041664339100
       TabOrder = 2
     end
-    object DBEdit4: TDBEdit
-      Left = 640
+    object ButtonCliente: TButton
+      Left = 575
       Top = 32
-      Width = 17
+      Width = 34
+      Height = 25
+      TabOrder = 3
+      OnClick = ButtonClienteClick
+    end
+    object DBComboBoxTipoVenda: TDBComboBox
+      Left = 640
+      Top = 35
+      Width = 145
       Height = 21
       DataField = 'TIPO_VENDA'
       DataSource = DataSourceCadastro
-      TabOrder = 3
+      Items.Strings = (
+        'A VISTA'
+        'PRAZO')
+      TabOrder = 4
     end
-    object DBEdit6: TDBEdit
-      Left = 752
-      Top = 32
-      Width = 17
+    object DBComboBoxOpVenda: TDBComboBox
+      Left = 816
+      Top = 33
+      Width = 145
       Height = 21
       DataField = 'OPERACAO_VENDA'
       DataSource = DataSourceCadastro
-      TabOrder = 4
+      Items.Strings = (
+        'Or'#231'amento'
+        'Pr'#233'-Venda'
+        'Venda')
+      TabOrder = 5
     end
   end
   object PanelProdutos: TPanel [2]

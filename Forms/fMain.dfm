@@ -51,6 +51,7 @@ object frmMain: TfrmMain
       Caption = 'Vendas'
       object CriarNovaVenda1: TMenuItem
         Caption = 'Nova Venda'
+        OnClick = CriarNovaVenda1Click
       end
       object ConsultarVendas1: TMenuItem
         Caption = 'Consultar Vendas'

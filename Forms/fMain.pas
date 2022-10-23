@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
-  fCadastroProduto, fPesquisarCliente, fPesquisarProdutos;
+  fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda;
 
 type
   TfrmMain = class(TForm)
@@ -29,6 +29,7 @@ type
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);
     procedure Podutos1Click(Sender: TObject);
+    procedure CriarNovaVenda1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,6 +82,27 @@ begin
     FreeAndNil(frmPesquisarClientes);
 
   end;
+
+end;
+
+procedure TfrmMain.CriarNovaVenda1Click(Sender: TObject);
+begin
+
+  //  Cria o form
+  frmCadastroVenda := TfrmCadastroVenda.Create(Self);
+
+  try
+
+    //  Exibe o form
+    frmCadastroVenda.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmCadastroVenda);
+
+  end;
+
 
 end;
 

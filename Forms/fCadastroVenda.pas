@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
+  fPesquisarProdutos, fPesquisarCliente;
 
 type
   TfrmCadastroVenda = class(TfrmCadastroPai)
@@ -22,15 +23,19 @@ type
     LabelNrNota: TLabel;
     DBEditNrNota: TDBEdit;
     LabelEmissao: TLabel;
-    DBEdit2: TDBEdit;
     LabelCliente: TLabel;
-    DBEdit3: TDBEdit;
+    DBEditCodCLiente: TDBEdit;
     LabelTipoVenda: TLabel;
-    DBEdit4: TDBEdit;
     LabelOpVenda: TLabel;
-    DBEdit6: TDBEdit;
     PanelProdutos: TPanel;
     DBGridProdutos: TDBGrid;
+    DateTimePickerEmissao: TDateTimePicker;
+    ButtonCliente: TButton;
+    DBComboBoxTipoVenda: TDBComboBox;
+    DBComboBoxOpVenda: TDBComboBox;
+    procedure ButtonClienteClick(Sender: TObject);
+    procedure GeraNumeroVenda;
+    procedure BitBtnNovoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,5 +48,63 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroVenda.BitBtnNovoClick(Sender: TObject);
+begin
+  inherited;
+
+  //  Cria o numero da venda
+  GeraNumeroVenda;
+
+end;
+
+procedure TfrmCadastroVenda.ButtonClienteClick(Sender: TObject);
+begin
+  inherited;
+
+  //  Cria o Form
+  frmPesquisarClientes := TfrmPesquisarClientes.Create(Self);
+
+  try
+
+
+    //  Exibe o Form
+    frmPesquisarClientes.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmPesquisarClientes);
+
+  end;
+end;
+
+procedure TfrmCadastroVenda.GeraNumeroVenda;
+var
+  cod: integer;
+
+begin
+
+  cod := 0;
+
+  //  Abre a query
+  FDQueryCadastro.Open();
+
+  //  Ve o ultimo registro
+  FDQueryCadastro.Last();
+
+  //  Pega o último código gerado e soma + 1
+  cod := FDQueryCadastro.FieldByName('NRNOTA').AsInteger + 1;
+
+  //  Insere o registro no final da tabela
+  FDQueryCadastro.Append();
+
+  //  Seta no edit o codigo gerado
+  DBEditNrNota.Text := IntToStr(cod);
+
+  //  Posiciona o cursor
+  DBEditCodCLiente.SetFocus;
+
+end;
 
 end.

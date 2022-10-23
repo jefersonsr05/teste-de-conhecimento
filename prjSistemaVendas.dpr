@@ -22,7 +22,5 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmConfigBanco, frmConfigBanco);
   Application.CreateForm(TdmDados, dmDados);
-  Application.CreateForm(TfrmPesquisarProdutos, frmPesquisarProdutos);
-  Application.CreateForm(TfrmCadastroVenda, frmCadastroVenda);
   Application.Run;
 end.
