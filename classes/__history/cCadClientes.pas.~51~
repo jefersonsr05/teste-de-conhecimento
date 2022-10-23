@@ -1,0 +1,380 @@
+unit cCadClientes;
+
+interface
+
+uses System.Classes, vcl.Controls, vcl.ExtCtrls, vcl.Dialogs,
+      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, System.SysUtils;
+
+type
+  TCliente = class
+
+  private
+    { Private declarations }
+
+    ConexaoDB:TZConnection;
+
+    _fCodigo:integer;
+    _fNome:string;
+    _fEndereco:string;
+    _fBairro:string;
+    _fCidade:string;
+    _fCep:string;
+    _fUf:string;
+    _fFone:string;
+    _fCelular:string;
+    _fEmail:string;
+
+    function getBairro: string;
+    function getCelular: string;
+    function getCep: string;
+    function getCidade: string;
+    function getCodigo: integer;
+    function getEmail: string;
+    function getEndereco: string;
+    function getFone: string;
+    function getNome: string;
+    function getUf: string;
+    procedure setBairro(const Value: string);
+    procedure setCelular(const Value: string);
+    procedure setCep(const Value: string);
+    procedure setCidade(const Value: string);
+    procedure setCodigo(const Value: integer);
+    procedure setEmail(const Value: string);
+    procedure setEndereco(const Value: string);
+    procedure setFone(const Value: string);
+    procedure setNome(const Value: string);
+    procedure setUf(const Value: string);
+    function PrimeiroCodigo: boolean;
+
+  public
+    { Public declarations }
+    constructor Create(_Conexao:TZConnection);
+    destructor Destroy; override;
+    function Inserir:boolean;
+    function Atualizar:boolean;
+    function Apagar:boolean;
+    function Selecionar(id:Integer):boolean;
+
+  published
+    { Public declarations properties/runtime }
+    property codigo:integer    read getCodigo   write setCodigo;
+    property nome:string       read getNome     write setNome;
+    property endereco:string   read getEndereco write setEndereco;
+    property bairro:string     read getBairro   write setBairro;
+    property cidade:string     read getCidade   write setCidade;
+    property cep:string        read getCep      write setCep;
+    property uf:string         read getUf       write setUf;
+    property fone:string       read getFone     write setFone;
+    property celular:string    read getCelular  write setCelular;
+    property email:string      read getEmail    write setEmail;
+  end;
+
+implementation
+
+{ TCliente }
+
+{$region 'CONSTRUCTOR AND DESTRUCTOR'}
+
+constructor TCliente.Create(_Conexao:TZConnection);
+begin
+  ConexaoDB := _Conexao;
+end;
+
+destructor TCliente.Destroy;
+begin
+
+  inherited;
+end;
+
+{$endregion}
+
+{$region 'CRUD'}
+
+function TCliente.Inserir: boolean;
+var qry : TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear; //Limpar possiveis sujeiras na memoria.
+    if (PrimeiroCodigo) then
+    begin
+      qry.SQL.Add('INSERT INTO CLIENTE VALUES 1,'+
+                    ':nome,:endereco,:bairro,:cidade,:cep,:uf,:fone,:celular,:email)');
+      qry.ParamByName('nome').Value := self._fNome;
+      qry.ParamByName('endereco').value := self._fEndereco;
+      qry.ParamByName('bairro').value := self._fBairro;
+      qry.ParamByName('cidade').value := self._fCidade;
+      qry.ParamByName('cep').Value := self._fCep;
+      qry.ParamByName('uf').Value := self._fUf;
+      qry.ParamByName('fone').Value := self._fFone;
+      qry.ParamByName('celular').Value := self._fCelular;
+      qry.ParamByName('email').Value := self._fEmail;
+      try
+        qry.ExecSQL;
+      except
+        result := false;
+      end;
+    end
+    else
+      begin
+      qry.SQL.Add('INSERT INTO CLIENTE VALUES ((SELECT max(codigo) FROM cliente)+1,'+
+                    ':nome,:endereco,:bairro,:cidade,:cep,:uf,:fone,:celular,:email)');
+      qry.ParamByName('nome').Value := self._fNome;
+      qry.ParamByName('endereco').value := self._fEndereco;
+      qry.ParamByName('bairro').value := self._fBairro;
+      qry.ParamByName('cidade').value := self._fCidade;
+      qry.ParamByName('cep').Value := self._fCep;
+      qry.ParamByName('uf').Value := self._fUf;
+      qry.ParamByName('fone').Value := self._fFone;
+      qry.ParamByName('celular').Value := self._fCelular;
+      qry.ParamByName('email').Value := self._fEmail;
+      try
+        qry.ExecSQL;
+      except
+        result := false;
+      end;
+    end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+  end;
+end;
+
+function TCliente.PrimeiroCodigo: boolean;
+var qry :TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear; //Limpar possiveis sujeiras na memoria.
+    qry.SQL.Add('select codigo from cliente');
+      try
+        qry.ExecSQL;
+
+        if qry.FieldByName('codigo').AsString = '' then
+          result := true
+        else
+          result := false;
+      except
+        result := false;
+      end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+  end;
+end;
+
+function TCliente.Selecionar(Id: Integer): boolean;
+var qry : TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear;
+    qry.SQL.Add('select codigo,nome,endereco,bairro,cidade,cep,uf,fone,celular,email from cliente where codigo=:codigo');
+    qry.ParamByName('codigo').Value:=Id;
+    try
+      qry.Open;
+
+      self._fCodigo := qry.FieldByName('codigo').AsInteger;
+      self._fNome := qry.FieldByName('nome').AsString;
+      SELF._fEndereco := qry.FieldByName('endereco').AsString;
+      self._fBairro := qry.FieldByName('bairro').AsString;
+      self._fCidade := qry.FieldByName('cidade').AsString;
+      self._fCep := qry.FieldByName('cep').AsString;
+      self._fUf := qry.FieldByName('uf').AsString;
+      self._fFone := qry.FieldByName('fone').AsString;
+      self._fCelular := qry.FieldByName('celular').AsString;
+      self._fEmail := qry.FieldByName('email').AsString;
+    except
+      result := false;
+    end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+end;
+end;
+
+function TCliente.Apagar: boolean;
+var qry : TZQuery;
+begin
+  if MessageDlg('Apagar o cliente '+_fNome,mtConfirmation,[mbYes,mbNo], 0) = mrNo then
+  begin
+    result := false;
+    abort;
+  end;
+
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear;
+    qry.SQL.Add('delete from cliente where codigo=:codigo');
+    qry.ParamByName('codigo').AsInteger := _fCodigo;
+    try
+      qry.ExecSQL;  
+    except
+      result := false;
+    end;
+
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+  end;
+
+
+end;
+
+function TCliente.Atualizar: boolean;
+var qry : TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear;
+    qry.SQL.Add('update cliente' +
+                ' set nome=:nome ' +
+                ',endereco=:endereco' +
+                ',bairro=:bairro' +
+                ',cidade=:cidade' +
+                ',cep=:cep' +
+                ',uf=:uf' +
+                ',fone=:fone' +
+                ',celular=:celular' +
+                ',email=:email ' +
+                ' where codigo=:codigo');
+    qry.ParamByName('codigo').Value := self._fCodigo;
+    qry.ParamByName('nome').Value := self._fNome;
+    qry.ParamByName('endereco').value := self._fEndereco;
+    qry.ParamByName('bairro').value := self._fBairro;
+    qry.ParamByName('cidade').value := self._fCidade;
+    qry.ParamByName('cep').Value := self._fCep;
+    qry.ParamByName('uf').Value := self._fUf;
+    qry.ParamByName('fone').Value := self._fFone;
+    qry.ParamByName('celular').Value := self._fCelular;
+    qry.ParamByName('email').Value := self._fEmail;
+    try
+      qry.ExecSQL;
+    except
+      result := false;
+    end;
+  finally
+  end;
+end;
+
+{$endregion}
+
+{$region 'GETTERS'}
+
+function TCliente.getBairro: string;
+begin
+  Result := self._fBairro;
+end;
+
+function TCliente.getCelular: string;
+begin
+  Result := self._fCelular;
+end;
+
+function TCliente.getCep: string;
+begin
+  Result := self._fCep;
+end;
+
+function TCliente.getCidade: string;
+begin
+  Result := self._fCidade;
+end;
+
+function TCliente.getCodigo: integer;
+begin
+  Result := self._fCodigo;
+end;
+
+function TCliente.getEmail: string;
+begin
+  Result := self._fEmail;
+end;
+
+function TCliente.getEndereco: string;
+begin
+  Result := self._fEndereco;
+end;
+
+function TCliente.getFone: string;
+begin
+  Result := self._fFone;
+end;
+
+function TCliente.getNome: string;
+begin
+  Result := self._fNome;
+end;
+
+function TCliente.getUf: string;
+begin
+  Result := self._fUf;
+end;
+
+{$endregion}
+
+{$region 'SETTERS'}
+
+procedure TCliente.setBairro(const Value: string);
+begin
+  self._fBairro := Value;
+end;
+
+procedure TCliente.setCelular(const Value: string);
+begin
+  self._fCelular := Value;
+end;
+
+procedure TCliente.setCep(const Value: string);
+begin
+ self._fCep := Value;
+end;
+
+procedure TCliente.setCidade(const Value: string);
+begin
+  self._fCidade := Value;
+end;
+
+procedure TCliente.setCodigo(const Value: integer);
+begin
+  self._fCodigo := Value;
+end;
+
+procedure TCliente.setEmail(const Value: string);
+begin
+  self._fEmail := Value;
+end;
+
+procedure TCliente.setEndereco(const Value: string);
+begin
+  self._fEndereco := Value;
+end;
+
+procedure TCliente.setFone(const Value: string);
+begin
+  self._fFone := Value;
+end;
+
+procedure TCliente.setNome(const Value: string);
+begin
+  self._fNome := Value;
+end;
+
+procedure TCliente.setUf(const Value: string);
+begin
+  self._fUf := Value;
+end;
+
+{$endregion}
+
+end.

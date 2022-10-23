@@ -1,0 +1,18 @@
+inherited frmTelaHeranca1: TfrmTelaHeranca1
+  Caption = 'frmVendas'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlBaixo: TPanel
+    inherited btnNavegar: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited qryListagem: TZQuery
+    SQL.Strings = (
+      
+        'select v.nrnota, v.emissao, c.nome, v.tipo_venda, v.valor_venda,' +
+        ' v.operacao_venda'
+      'from venda v'
+      'inner join cliente c on c.codigo = v.cliente')
+  end
+end

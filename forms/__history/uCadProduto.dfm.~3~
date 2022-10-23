@@ -1,0 +1,128 @@
+inherited frmCadProdutos: TfrmCadProdutos
+  Caption = 'Cadastro de Produtos'
+  ExplicitTop = 2
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pgcPrincipal: TPageControl
+    inherited TabSheet2: TTabSheet
+      object edtCodigo: TLabeledEdit
+        Tag = 9
+        Left = 8
+        Top = 24
+        Width = 75
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        NumbersOnly = True
+        TabOrder = 0
+      end
+      object edtDescricao: TLabeledEdit
+        Left = 106
+        Top = 24
+        Width = 413
+        Height = 21
+        EditLabel.Width = 46
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Descri'#231#227'o'
+        TabOrder = 1
+      end
+      object edtReferencia: TLabeledEdit
+        Left = 106
+        Top = 64
+        Width = 327
+        Height = 21
+        EditLabel.Width = 52
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Refer'#234'ncia'
+        TabOrder = 2
+      end
+      object edtUnidade: TLabeledEdit
+        Left = 464
+        Top = 64
+        Width = 55
+        Height = 21
+        EditLabel.Width = 39
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Unidade'
+        TabOrder = 3
+      end
+      object edtPreco: TLabeledEdit
+        Left = 106
+        Top = 112
+        Width = 139
+        Height = 21
+        EditLabel.Width = 75
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Pre'#231'o de Venda'
+        TabOrder = 4
+      end
+      object edtSaldo: TLabeledEdit
+        Left = 444
+        Top = 112
+        Width = 75
+        Height = 21
+        EditLabel.Width = 26
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Saldo'
+        TabOrder = 5
+      end
+      object edtDataVenda: TLabeledEdit
+        Left = 444
+        Top = 152
+        Width = 75
+        Height = 21
+        EditLabel.Width = 62
+        EditLabel.Height = 13
+        EditLabel.Caption = #218'ltima Venda'
+        TabOrder = 6
+      end
+    end
+  end
+  inherited pnlBaixo: TPanel
+    inherited btnNavegar: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited qryListagem: TZQuery
+    Active = True
+    SQL.Strings = (
+      'select * from produtos')
+    object qryListagemCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 10
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qryListagemDESCRICAO: TWideStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      DisplayWidth = 51
+      FieldName = 'DESCRICAO'
+      Size = 35
+    end
+    object qryListagemREFERENCIA: TWideStringField
+      DisplayLabel = 'Refer'#234'ncia'
+      DisplayWidth = 22
+      FieldName = 'REFERENCIA'
+      Size = 15
+    end
+    object qryListagemUNIDADE: TWideStringField
+      DisplayLabel = 'Unidade'
+      DisplayWidth = 8
+      FieldName = 'UNIDADE'
+      Size = 4
+    end
+    object qryListagemPRECO_VENDA: TExtendedField
+      DisplayLabel = 'Pre'#231'o de venda'
+      DisplayWidth = 19
+      FieldName = 'PRECO_VENDA'
+      Precision = 19
+    end
+    object qryListagemSALDO: TExtendedField
+      DisplayLabel = 'Saldo'
+      DisplayWidth = 17
+      FieldName = 'SALDO'
+      Precision = 19
+    end
+  end
+end

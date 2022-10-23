@@ -1,0 +1,186 @@
+inherited frmCadClientes: TfrmCadClientes
+  Caption = 'Cadastro de Clientes'
+  ExplicitTop = -61
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pgcPrincipal: TPageControl
+    ExplicitWidth = 1078
+    ExplicitHeight = 679
+    inherited TabListagem: TTabSheet
+      inherited grdListagem: TDBGrid
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      end
+    end
+    inherited TabSheet2: TTabSheet
+      object edtCodigo: TLabeledEdit
+        Tag = 9
+        Left = 3
+        Top = 24
+        Width = 80
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        MaxLength = 5
+        NumbersOnly = True
+        TabOrder = 0
+      end
+      object edtNome: TLabeledEdit
+        Tag = 1
+        Left = 107
+        Top = 24
+        Width = 458
+        Height = 21
+        EditLabel.Width = 27
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Nome'
+        MaxLength = 35
+        TabOrder = 1
+      end
+      object edtEndereco: TLabeledEdit
+        Tag = 1
+        Left = 107
+        Top = 88
+        Width = 458
+        Height = 21
+        EditLabel.Width = 45
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Endere'#231'o'
+        MaxLength = 35
+        TabOrder = 2
+      end
+      object edtBairro: TLabeledEdit
+        Tag = 1
+        Left = 107
+        Top = 136
+        Width = 121
+        Height = 21
+        EditLabel.Width = 28
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Bairro'
+        MaxLength = 20
+        TabOrder = 3
+      end
+      object edtCidade: TLabeledEdit
+        Tag = 1
+        Left = 251
+        Top = 136
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Cidade'
+        MaxLength = 30
+        TabOrder = 4
+      end
+      object edtCep: TLabeledEdit
+        Tag = 1
+        Left = 444
+        Top = 136
+        Width = 121
+        Height = 21
+        EditLabel.Width = 19
+        EditLabel.Height = 13
+        EditLabel.Caption = 'CEP'
+        MaxLength = 10
+        NumbersOnly = True
+        TabOrder = 6
+      end
+      object edtUf: TLabeledEdit
+        Tag = 1
+        Left = 388
+        Top = 136
+        Width = 37
+        Height = 21
+        EditLabel.Width = 13
+        EditLabel.Height = 13
+        EditLabel.Caption = 'UF'
+        MaxLength = 2
+        TabOrder = 5
+      end
+      object edtFone: TLabeledEdit
+        Left = 107
+        Top = 216
+        Width = 121
+        Height = 21
+        EditLabel.Width = 42
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Telefone'
+        MaxLength = 15
+        NumbersOnly = True
+        TabOrder = 7
+      end
+      object edtCelular: TLabeledEdit
+        Left = 251
+        Top = 216
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Celular'
+        MaxLength = 15
+        NumbersOnly = True
+        TabOrder = 8
+      end
+      object edtEmail: TLabeledEdit
+        Left = 107
+        Top = 264
+        Width = 265
+        Height = 21
+        EditLabel.Width = 28
+        EditLabel.Height = 13
+        EditLabel.Caption = 'E-mail'
+        MaxLength = 50
+        TabOrder = 9
+      end
+    end
+  end
+  inherited pnlBaixo: TPanel
+    inherited btnFechar: TBitBtn
+      ExplicitLeft = 991
+    end
+    inherited btnNavegar: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited qryListagem: TZQuery
+    Active = True
+    SQL.Strings = (
+      'SELECT CODIGO, NOME, CIDADE, UF, FONE, CELULAR FROM CLIENTE')
+    object qryListagemCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 10
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qryListagemNOME: TWideStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 86
+      FieldName = 'NOME'
+      Size = 35
+    end
+    object qryListagemCIDADE: TWideStringField
+      DisplayLabel = 'Cidade'
+      DisplayWidth = 30
+      FieldName = 'CIDADE'
+      Size = 30
+    end
+    object qryListagemUF: TWideStringField
+      DisplayWidth = 5
+      FieldName = 'UF'
+      Size = 2
+    end
+    object qryListagemFONE: TWideStringField
+      DisplayLabel = 'Telefone'
+      DisplayWidth = 19
+      FieldName = 'FONE'
+      Size = 15
+    end
+    object qryListagemCELULAR: TWideStringField
+      DisplayLabel = 'Celular'
+      DisplayWidth = 18
+      FieldName = 'CELULAR'
+      Size = 15
+    end
+  end
+end

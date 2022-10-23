@@ -1,0 +1,11 @@
+unit uEnum;
+
+interface
+
+Type
+  TEstadoDoCadastro = (ecInserir, ecAlterar, ecNennhum);
+
+
+implementation
+
+end.
