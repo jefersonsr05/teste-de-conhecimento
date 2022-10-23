@@ -118,9 +118,6 @@ object frmPesquisarPai: TfrmPesquisarPai
     Align = alClient
     Color = clBtnHighlight
     DataSource = DataSourcePesquisar
-    DrawingStyle = gdsGradient
-    GradientEndColor = clWhite
-    GradientStartColor = clAqua
     ReadOnly = True
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET

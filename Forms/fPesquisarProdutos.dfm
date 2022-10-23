@@ -55,5 +55,40 @@ inherited frmPesquisarProdutos: TfrmPesquisarProdutos
     Active = True
     SQL.Strings = (
       'select * from produtos;')
+    object FDQueryPesquisarCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryPesquisarDESCRICAO: TWideStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 35
+    end
+    object FDQueryPesquisarREFERENCIA: TWideStringField
+      FieldName = 'REFERENCIA'
+      Origin = 'REFERENCIA'
+      Size = 15
+    end
+    object FDQueryPesquisarUNIDADE: TWideStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Size = 4
+    end
+    object FDQueryPesquisarDATA_VENDA: TDateField
+      FieldName = 'DATA_VENDA'
+      Origin = 'DATA_VENDA'
+    end
+    object FDQueryPesquisarPRECO_VENDA: TBCDField
+      FieldName = 'PRECO_VENDA'
+      Origin = 'PRECO_VENDA'
+      Precision = 18
+    end
+    object FDQueryPesquisarSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      Precision = 18
+    end
   end
 end

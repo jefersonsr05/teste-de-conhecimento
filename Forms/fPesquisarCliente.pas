@@ -12,6 +12,16 @@ uses
 
 type
   TfrmPesquisarClientes = class(TfrmPesquisarPai)
+    FDQueryPesquisarCODIGO: TIntegerField;
+    FDQueryPesquisarNOME: TWideStringField;
+    FDQueryPesquisarENDERECO: TWideStringField;
+    FDQueryPesquisarBAIRRO: TWideStringField;
+    FDQueryPesquisarCIDADE: TWideStringField;
+    FDQueryPesquisarCEP: TWideStringField;
+    FDQueryPesquisarUF: TWideStringField;
+    FDQueryPesquisarFONE: TWideStringField;
+    FDQueryPesquisarCELULAR: TWideStringField;
+    FDQueryPesquisarEMAIL: TWideStringField;
     procedure ButtonNovoClick(Sender: TObject);
     procedure ButtonPesquisaClick(Sender: TObject);
     procedure ButtonVisualizarClick(Sender: TObject);
@@ -74,7 +84,7 @@ begin
   try
 
     //  Pega o registro selecionado na tabela e abre o cadastro
-    frmPesquisarClientes.FDQueryPesquisar.Locate('codigo', FDQueryPesquisar.FieldByName('codigo').AsInteger, []);
+    frmCadastroCliente.FDQueryCadastro.Locate('codigo', FDQueryPesquisarCODIGO.AsInteger, []);
 
     //  Exibe o form
     frmCadastroCliente.ShowModal;

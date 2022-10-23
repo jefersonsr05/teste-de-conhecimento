@@ -12,6 +12,13 @@ uses
 
 type
   TfrmPesquisarProdutos = class(TfrmPesquisarPai)
+    FDQueryPesquisarCODIGO: TIntegerField;
+    FDQueryPesquisarDESCRICAO: TWideStringField;
+    FDQueryPesquisarREFERENCIA: TWideStringField;
+    FDQueryPesquisarUNIDADE: TWideStringField;
+    FDQueryPesquisarDATA_VENDA: TDateField;
+    FDQueryPesquisarPRECO_VENDA: TBCDField;
+    FDQueryPesquisarSALDO: TBCDField;
     procedure ButtonPesquisaClick(Sender: TObject);
     procedure ButtonNovoClick(Sender: TObject);
     procedure ButtonVisualizarClick(Sender: TObject);
@@ -73,7 +80,7 @@ begin
   try
 
     //  Pega o registro selecionado na tabela e abre o cadastro
-    frmPesquisarProdutos.FDQueryPesquisar.Locate('codigo', FDQueryPesquisar.FieldByName('codigo').AsInteger, []);
+    frmCadastroProdutos.FDQueryCadastro.Locate('codigo', FDQueryPesquisarCODIGO.AsInteger, []);
 
     //  Exibe o form
     frmCadastroProdutos.ShowModal;

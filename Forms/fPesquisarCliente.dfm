@@ -11,7 +11,6 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
     end
   end
   inherited DBGridResultadoPesquisa: TDBGrid
-    ReadOnly = True
     Columns = <
       item
         Expanded = False
@@ -73,5 +72,56 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
     Transaction = FDTransactionPesquisar
     SQL.Strings = (
       'select * from cliente')
+    object FDQueryPesquisarCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryPesquisarNOME: TWideStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 35
+    end
+    object FDQueryPesquisarENDERECO: TWideStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 35
+    end
+    object FDQueryPesquisarBAIRRO: TWideStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+    end
+    object FDQueryPesquisarCIDADE: TWideStringField
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      Size = 30
+    end
+    object FDQueryPesquisarCEP: TWideStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 10
+    end
+    object FDQueryPesquisarUF: TWideStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object FDQueryPesquisarFONE: TWideStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 15
+    end
+    object FDQueryPesquisarCELULAR: TWideStringField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+      Size = 15
+    end
+    object FDQueryPesquisarEMAIL: TWideStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 50
+    end
   end
 end
