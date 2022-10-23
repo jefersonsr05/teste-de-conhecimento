@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  fPesquisarProdutos, fPesquisarCliente;
+  fPesquisarProdutos, fPesquisarCliente, fCadastroProduto, uDmDados;
 
 type
   TfrmCadastroVenda = class(TfrmCadastroPai)
@@ -29,13 +29,15 @@ type
     LabelOpVenda: TLabel;
     PanelProdutos: TPanel;
     DBGridProdutos: TDBGrid;
-    DateTimePickerEmissao: TDateTimePicker;
     ButtonCliente: TButton;
     DBComboBoxTipoVenda: TDBComboBox;
     DBComboBoxOpVenda: TDBComboBox;
+    DBEditEmissao: TDBEdit;
+    FDQueryProduto: TFDQuery;
     procedure ButtonClienteClick(Sender: TObject);
     procedure GeraNumeroVenda;
     procedure BitBtnNovoClick(Sender: TObject);
+    procedure FDQueryCadastroBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -55,6 +57,8 @@ begin
 
   //  Cria o numero da venda
   GeraNumeroVenda;
+
+  FDQueryCadastroEMISSAO.AsDateTime := Date;
 
 end;
 
@@ -77,6 +81,29 @@ begin
     FreeAndNil(frmPesquisarClientes);
 
   end;
+end;
+
+procedure TfrmCadastroVenda.FDQueryCadastroBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+
+  //  Se for venda ira baixar o estoque e
+  //  adicionar data da ultima venda no produto
+  if FDQueryCadastroOPERACAO_VENDA.Value = 'V' then
+  begin
+
+    //FDQueryProduto.
+
+  end;
+
+  //  Se for pre venda ira baixar somente estoque
+  if FDQueryCadastroOPERACAO_VENDA.Value = 'P' then
+  begin
+
+
+  end;
+
+
 end;
 
 procedure TfrmCadastroVenda.GeraNumeroVenda;

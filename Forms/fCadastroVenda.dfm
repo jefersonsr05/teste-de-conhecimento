@@ -78,21 +78,12 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       DataSource = DataSourceCadastro
       TabOrder = 1
     end
-    object DateTimePickerEmissao: TDateTimePicker
-      Left = 176
-      Top = 35
-      Width = 137
-      Height = 21
-      Date = 44856.000000000000000000
-      Time = 0.826756041664339100
-      TabOrder = 2
-    end
     object ButtonCliente: TButton
       Left = 575
       Top = 32
       Width = 34
       Height = 25
-      TabOrder = 3
+      TabOrder = 2
       OnClick = ButtonClienteClick
     end
     object DBComboBoxTipoVenda: TDBComboBox
@@ -105,7 +96,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Items.Strings = (
         'A VISTA'
         'PRAZO')
-      TabOrder = 4
+      TabOrder = 3
     end
     object DBComboBoxOpVenda: TDBComboBox
       Left = 816
@@ -118,6 +109,16 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         'Or'#231'amento'
         'Pr'#233'-Venda'
         'Venda')
+      TabOrder = 4
+    end
+    object DBEditEmissao: TDBEdit
+      Left = 176
+      Top = 35
+      Width = 134
+      Height = 21
+      DataField = 'EMISSAO'
+      DataSource = DataSourceCadastro
+      Enabled = False
       TabOrder = 5
     end
   end
@@ -147,6 +148,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Top = 304
   end
   inherited FDQueryCadastro: TFDQuery
+    BeforePost = FDQueryCadastroBeforePost
     SQL.Strings = (
       'select * from venda;')
     Left = 984
@@ -190,5 +192,12 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   inherited FDTransactionCadastro: TFDTransaction
     Left = 984
     Top = 440
+  end
+  object FDQueryProduto: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'select * from produtos;')
+    Left = 840
+    Top = 240
   end
 end
