@@ -9,7 +9,8 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  fPesquisarProdutos, fPesquisarCliente, fCadastroProduto, uDmDados, uBiblioteca;
+  fPesquisarProdutos, fPesquisarCliente, fCadastroProduto, uDmDados, uBiblioteca,
+  RxToolEdit, RxCurrEdit;
 
 type
   TfrmCadastroVenda = class(TfrmCadastroPai)
@@ -43,20 +44,29 @@ type
     FDQueryItemNotaVALOR_UNIT: TBCDField;
     FDQueryItemNotaVALOR_TOTAL: TBCDField;
     LabelProduto: TLabel;
-    DBEditProduto: TDBEdit;
     LabelQtde: TLabel;
-    DBEditQtde: TDBEdit;
     LabelValorUnit: TLabel;
-    DBEditValorUnit: TDBEdit;
     LabelValorTotalVenda: TLabel;
-    DBEditValorTotalVenda: TDBEdit;
     ButtonProduto: TButton;
     LabelLcto: TLabel;
-    DBEditLcto: TDBEdit;
     ButtonAdicionar: TButton;
     ButtonExcluir: TButton;
     DBGridItensVenda: TDBGrid;
-    FDQueryItemNotaDescricaoProduto: TStringField;
+    FDTransactionItemNota: TFDTransaction;
+    EditProduto: TEdit;
+    EditQtd: TEdit;
+    EditValorUnit: TEdit;
+    EditValorTotal: TEdit;
+    FDQueryItemNotaDescProduto: TStringField;
+    EditLcto: TEdit;
+    FDQueryProdutoCODIGO: TIntegerField;
+    FDQueryProdutoDESCRICAO: TWideStringField;
+    FDQueryProdutoREFERENCIA: TWideStringField;
+    FDQueryProdutoUNIDADE: TWideStringField;
+    FDQueryProdutoDATA_VENDA: TDateField;
+    FDQueryProdutoPRECO_VENDA: TBCDField;
+    FDQueryProdutoSALDO: TBCDField;
+    FDQuery1: TFDQuery;
     procedure ButtonClienteClick(Sender: TObject);
     procedure GeraNumeroVenda;
     procedure BitBtnNovoClick(Sender: TObject);
@@ -64,15 +74,27 @@ type
     procedure ButtonProdutoClick(Sender: TObject);
     procedure GeraNumeroLcto;
     procedure FormCreate(Sender: TObject);
-    procedure FDQueryItemNotaAfterInsert(DataSet: TDataSet);
+    procedure ButtonAdicionarClick(Sender: TObject);
+    procedure FDQueryCadastroAfterOpen(DataSet: TDataSet);
+    procedure FDQueryCadastroAfterScroll(DataSet: TDataSet);
+    procedure FDQueryItemNotaAfterPost(DataSet: TDataSet);
+    procedure FDQueryItemNotaAfterDelete(DataSet: TDataSet);
+    procedure FDQueryItemNotaAfterCancel(DataSet: TDataSet);
+    procedure EditProdutoExit(Sender: TObject);
   private
     { Private declarations }
+    procedure GravarItem;
+    procedure SetItens(pIdVenda: integer);
+
+//    procedure SetDadosProdutos();
+
   public
     { Public declarations }
   end;
 
 var
   frmCadastroVenda: TfrmCadastroVenda;
+  nr_nota: integer;
 
 implementation
 
@@ -86,6 +108,19 @@ begin
   GeraNumeroVenda;
 
   FDQueryCadastroEMISSAO.AsDateTime := Date;
+
+  FDTransactionItemNota.StartTransaction;
+
+  FDQueryItemNota.Open();
+
+end;
+
+procedure TfrmCadastroVenda.ButtonAdicionarClick(Sender: TObject);
+begin
+  inherited;
+
+
+  GravarItem;
 
 
 end;
@@ -132,6 +167,41 @@ begin
 
 end;
 
+procedure TfrmCadastroVenda.EditProdutoExit(Sender: TObject);
+var
+teste: string;
+
+begin
+  inherited;
+
+  EditValorUnit.Text := FDQueryProdutoPRECO_VENDA.AsString;
+
+  FDQuery1.Close;
+  teste:= IntToStr(FDQuery1.SQL.Add('and codigo = ' + EditProduto.Text));
+  FDQuery1.Open;
+
+  ShowMessage(teste);
+
+end;
+
+procedure TfrmCadastroVenda.FDQueryCadastroAfterOpen(DataSet: TDataSet);
+begin
+  inherited;
+
+  //  Seta o numero da nota na tabela de itens vendas
+  SetItens(FDQueryCadastroNRNOTA.AsInteger);
+
+end;
+
+procedure TfrmCadastroVenda.FDQueryCadastroAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+
+  //  Seta o numero da nota na tabela de itens vendas
+  SetItens(FDQueryCadastroNRNOTA.AsInteger);
+
+end;
+
 procedure TfrmCadastroVenda.FDQueryCadastroBeforePost(DataSet: TDataSet);
 begin
   inherited;
@@ -155,12 +225,27 @@ begin
 
 end;
 
-procedure TfrmCadastroVenda.FDQueryItemNotaAfterInsert(DataSet: TDataSet);
+procedure TfrmCadastroVenda.FDQueryItemNotaAfterCancel(DataSet: TDataSet);
 begin
   inherited;
 
-  //  Pega o numero da venda
-  FDQueryItemNotaNR_VENDA.AsInteger := FDQueryCadastroNRNOTA.AsInteger;
+  FDTransactionItemNota.RollbackRetaining;
+
+end;
+
+procedure TfrmCadastroVenda.FDQueryItemNotaAfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+
+  FDTransactionItemNota.CommitRetaining;
+
+end;
+
+procedure TfrmCadastroVenda.FDQueryItemNotaAfterPost(DataSet: TDataSet);
+begin
+  inherited;
+
+  FDTransactionItemNota.CommitRetaining;
 
 end;
 
@@ -168,7 +253,7 @@ procedure TfrmCadastroVenda.FormCreate(Sender: TObject);
 begin
   inherited;
 
-  AtualizaFDQuery(FDQueryProduto);
+  AtualizaFDQuery(FDQueryProduto, '');
 
 end;
 
@@ -180,23 +265,26 @@ begin
 
   cod := 0;
 
-  //  Abre a query
-  FDQueryCadastro.Open();
+  FDQueryItemNota.Open();
 
   //  Ve o ultimo registro
-  FDQueryCadastro.Last();
+  FDQueryItemNota.Last();
 
   //  Pega o último código gerado e soma + 1
-  cod := FDQueryCadastro.FieldByName('LCTO').AsInteger + 1;
+  //cod := FDQueryItemNota.ExecSQL ('SELECT max(lcto) FROM ITEM_VENDA') + 1;
+  cod := FDQueryItemNota.FieldByName('LCTO').AsInteger + 1;
+
+
+  ShowMessage(inttostr(cod));
 
   //  Insere o registro no final da tabela
-  FDQueryCadastro.Append();
+  FDQueryItemNota.Append();
 
   //  Seta no edit o codigo gerado
-  DBEditLcto.Text := IntToStr(cod);
+  EditLcto.Text := IntToStr(cod);
 
   //  Posiciona o cursor
-  DBEditProduto.SetFocus;
+  EditProduto.SetFocus;
 
 end;
 
@@ -225,6 +313,33 @@ begin
 
   //  Posiciona o cursor
   DBEditCodCLiente.SetFocus;
+
+end;
+
+procedure TfrmCadastroVenda.GravarItem;
+begin
+
+  GeraNumeroLcto;
+
+  FDQueryItemNota.Append;
+
+  FDQueryItemNotaLCTO.AsInteger      := StrToInt(EditLcto.Text);
+  FDQueryItemNotaNR_VENDA.AsInteger  := StrToInt(DBEditNrNota.Text);
+  FDQueryItemNotaPRODUTO.AsInteger   := StrToInt(EditProduto.Text);
+  FDQueryItemNotaQTDE.AsFloat        := StrToFloat(EditQtd.Text);
+  FDQueryItemNotaVALOR_UNIT.AsFloat  := StrToFloat(EditValorUnit.Text);
+  FDQueryItemNotaVALOR_TOTAL.AsFloat := StrToFloat(EditValorTotal.Text);
+
+  FDQueryItemNota.Post;
+
+end;
+
+procedure TfrmCadastroVenda.SetItens(pIdVenda: integer);
+begin
+
+  FDQueryItemNota.Close;
+  FDQueryItemNota.ParamByName('NR_VENDA').AsInteger := pIdVenda;
+  AtualizaFDQuery(FDQueryItemNota, '');
 
 end;
 

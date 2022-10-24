@@ -6,7 +6,7 @@ IniFiles, System.SysUtils, FireDAC.Comp.Client;
 
   procedure setValorIni(pLocal, pSessao, pSubSessao, pValor: string);
   function getValorIni(pLocal, pSessao, pSubSessao: string): string;
-  procedure AtualizaFDQuery(const pFDQuery: TFDQuery);
+  procedure AtualizaFDQuery(const pFDQuery: TFDQuery; pSQL: string);
 
 implementation
 
@@ -44,10 +44,19 @@ uses
   end;
 
   //  Atualiza a Query
-  procedure AtualizaFDQuery(const pFDQuery: TFDQuery);
+  procedure AtualizaFDQuery(const pFDQuery: TFDQuery; pSQL: string);
   begin
 
     pFDQuery.Close;
+
+    if Trim(pSQL) <> '' then
+    begin
+
+    pFDQuery.SQL.Clear;
+    pFDQuery.SQL.Text := pSQL;
+
+    end;
+
     pFDQuery.Open();
     pFDQuery.FetchAll;
 

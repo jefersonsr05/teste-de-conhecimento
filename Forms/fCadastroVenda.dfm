@@ -129,7 +129,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Left = 0
     Top = 145
     Width = 1025
-    Height = 80
+    Height = 88
     Align = alTop
     TabOrder = 2
     object LabelProduto: TLabel
@@ -138,7 +138,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 38
       Height = 13
       Caption = 'Produto'
-      FocusControl = DBEditProduto
     end
     object LabelQtde: TLabel
       Left = 440
@@ -146,7 +145,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 56
       Height = 13
       Caption = 'Quantidade'
-      FocusControl = DBEditQtde
     end
     object LabelValorUnit: TLabel
       Left = 538
@@ -154,7 +152,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 64
       Height = 13
       Caption = 'Valor Unit'#225'rio'
-      FocusControl = DBEditValorUnit
     end
     object LabelValorTotalVenda: TLabel
       Left = 656
@@ -162,7 +159,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 99
       Height = 13
       Caption = 'Valor Total da Venda'
-      FocusControl = DBEditValorTotalVenda
     end
     object LabelLcto: TLabel
       Left = 16
@@ -170,61 +166,14 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 26
       Height = 13
       Caption = 'LCTO'
-      FocusControl = DBEditLcto
-    end
-    object DBEditProduto: TDBEdit
-      Left = 96
-      Top = 35
-      Width = 262
-      Height = 21
-      DataField = 'PRODUTO'
-      DataSource = DataSourceItemNota
-      TabOrder = 0
-    end
-    object DBEditQtde: TDBEdit
-      Left = 440
-      Top = 35
-      Width = 65
-      Height = 21
-      DataField = 'QTDE'
-      DataSource = DataSourceItemNota
-      TabOrder = 1
-    end
-    object DBEditValorUnit: TDBEdit
-      Left = 536
-      Top = 35
-      Width = 89
-      Height = 21
-      DataField = 'VALOR_UNIT'
-      DataSource = DataSourceItemNota
-      TabOrder = 2
-    end
-    object DBEditValorTotalVenda: TDBEdit
-      Left = 656
-      Top = 35
-      Width = 137
-      Height = 21
-      DataField = 'VALOR_TOTAL'
-      DataSource = DataSourceItemNota
-      TabOrder = 3
     end
     object ButtonProduto: TButton
       Left = 375
       Top = 32
       Width = 34
       Height = 25
-      TabOrder = 4
+      TabOrder = 0
       OnClick = ButtonProdutoClick
-    end
-    object DBEditLcto: TDBEdit
-      Left = 16
-      Top = 35
-      Width = 57
-      Height = 21
-      DataField = 'LCTO'
-      DataSource = DataSourceItemNota
-      Enabled = False
-      TabOrder = 5
     end
     object ButtonAdicionar: TButton
       Left = 816
@@ -232,7 +181,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 89
       Height = 41
       Caption = 'ADICIONAR'
-      TabOrder = 6
+      TabOrder = 1
+      OnClick = ButtonAdicionarClick
     end
     object ButtonExcluir: TButton
       Left = 920
@@ -240,27 +190,60 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 89
       Height = 41
       Caption = 'EXCLUIR'
+      TabOrder = 2
+    end
+    object EditProduto: TEdit
+      Left = 96
+      Top = 35
+      Width = 265
+      Height = 21
+      TabOrder = 3
+      OnExit = EditProdutoExit
+    end
+    object EditQtd: TEdit
+      Left = 440
+      Top = 35
+      Width = 74
+      Height = 21
+      TabOrder = 4
+    end
+    object EditValorUnit: TEdit
+      Left = 538
+      Top = 35
+      Width = 95
+      Height = 21
+      TabOrder = 5
+    end
+    object EditValorTotal: TEdit
+      Left = 656
+      Top = 35
+      Width = 113
+      Height = 21
+      TabOrder = 6
+    end
+    object EditLcto: TEdit
+      Left = 16
+      Top = 35
+      Width = 57
+      Height = 21
       TabOrder = 7
     end
   end
   object PanelItems: TPanel [3]
     Left = 0
-    Top = 225
+    Top = 233
     Width = 1025
-    Height = 281
+    Height = 273
     Align = alClient
     TabOrder = 3
-    ExplicitLeft = 448
-    ExplicitTop = 264
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object DBGridItensVenda: TDBGrid
       Left = 1
       Top = 1
       Width = 1023
-      Height = 279
+      Height = 271
       Align = alClient
       DataSource = DataSourceItemNota
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -275,33 +258,32 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         end
         item
           Expanded = False
-          FieldName = 'PRODUTO'
-          Title.Caption = 'Cod'
+          FieldName = 'NR_VENDA'
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'DescricaoProduto'
-          Title.Caption = 'Produto'
-          Width = 350
+          FieldName = 'PRODUTO'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'QTDE'
-          Title.Caption = 'Quantidade'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR_UNIT'
-          Title.Caption = 'Valor Unit'#225'rio'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
-          Title.Caption = 'Valor Total'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DescProduto'
           Visible = True
         end>
     end
@@ -311,7 +293,9 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Top = 304
   end
   inherited FDQueryCadastro: TFDQuery
+    AfterOpen = FDQueryCadastroAfterOpen
     BeforePost = FDQueryCadastroBeforePost
+    AfterScroll = FDQueryCadastroAfterScroll
     SQL.Strings = (
       'select * from venda;')
     Left = 984
@@ -362,6 +346,41 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       'select * from produtos;')
     Left = 840
     Top = 240
+    object FDQueryProdutoCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryProdutoDESCRICAO: TWideStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 35
+    end
+    object FDQueryProdutoREFERENCIA: TWideStringField
+      FieldName = 'REFERENCIA'
+      Origin = 'REFERENCIA'
+      Size = 15
+    end
+    object FDQueryProdutoUNIDADE: TWideStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Size = 4
+    end
+    object FDQueryProdutoDATA_VENDA: TDateField
+      FieldName = 'DATA_VENDA'
+      Origin = 'DATA_VENDA'
+    end
+    object FDQueryProdutoPRECO_VENDA: TBCDField
+      FieldName = 'PRECO_VENDA'
+      Origin = 'PRECO_VENDA'
+      Precision = 18
+    end
+    object FDQueryProdutoSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      Precision = 18
+    end
   end
   object DataSourceItemNota: TDataSource
     DataSet = FDQueryItemNota
@@ -369,13 +388,16 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Top = 304
   end
   object FDQueryItemNota: TFDQuery
-    AfterInsert = FDQueryItemNotaAfterInsert
+    AfterPost = FDQueryItemNotaAfterPost
+    AfterCancel = FDQueryItemNotaAfterCancel
+    AfterDelete = FDQueryItemNotaAfterDelete
     Connection = dmDados.FDConnection
+    Transaction = FDTransactionItemNota
     SQL.Strings = (
       'select * from item_venda'
       'where nr_venda = :nr_venda')
     Left = 408
-    Top = 376
+    Top = 368
     ParamData = <
       item
         Name = 'NR_VENDA'
@@ -412,9 +434,9 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Origin = 'VALOR_TOTAL'
       Precision = 18
     end
-    object FDQueryItemNotaDescricaoProduto: TStringField
+    object FDQueryItemNotaDescProduto: TStringField
       FieldKind = fkLookup
-      FieldName = 'DescricaoProduto'
+      FieldName = 'DescProduto'
       LookupDataSet = FDQueryProduto
       LookupKeyFields = 'CODIGO'
       LookupResultField = 'DESCRICAO'
@@ -422,5 +444,17 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Size = 35
       Lookup = True
     end
+  end
+  object FDTransactionItemNota: TFDTransaction
+    Connection = dmDados.FDConnection
+    Left = 408
+    Top = 425
+  end
+  object FDQuery1: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'select preco_venda from produtos where 1 = 1')
+    Left = 96
+    Top = 337
   end
 end
