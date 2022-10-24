@@ -17,31 +17,6 @@ uses
   uVendas in 'classes\uVendas.pas',
   uVendedor in 'classes\uVendedor.pas',
   dConexao in 'dataModule\dConexao.pas' {dtmConexao: TDataModule},
-  fCadastroDefault in 'formularios\Default\fCadastroDefault.pas' {fmrCadastroDefault},
-  fConsultaDefault in 'formularios\Default\fConsultaDefault.pas' {frmConsultaDefault},
-  fAlteraVenda in 'formularios\fAlteraVenda.pas' {frmAlteraVenda},
-  fAlteraVendaItem in 'formularios\fAlteraVendaItem.pas' {frmAlteraVendaItem},
-  fCadastroCliente in 'formularios\fCadastroCliente.pas' {frmCadastroCliente},
-  fCadastroFPagamento in 'formularios\fCadastroFPagamento.pas' {frmCadastroFPagamento},
-  fCadastroItem in 'formularios\fCadastroItem.pas' {frrCadastroItem},
-  fCadastroItems in 'formularios\fCadastroItems.pas' {frmCadastroItems},
-  fCadastroProduto in 'formularios\fCadastroProduto.pas' {frmCadastroProduto},
-  fCadastroUnidade in 'formularios\fCadastroUnidade.pas' {frmCadastroUnidade},
-  fCadastroUsuario in 'formularios\fCadastroUsuario.pas' {frmCadastroUsuario},
-  fCadastroVenda in 'formularios\fCadastroVenda.pas' {frmCadastroVenda},
-  fCadastroVendedor in 'formularios\fCadastroVendedor.pas' {frmCadastroVendedor},
-  fConfig in 'formularios\fConfig.pas' {frmConfig},
-  fConsultaCliente in 'formularios\fConsultaCliente.pas' {frmConsultaCliente},
-  fConsultaFPagamento in 'formularios\fConsultaFPagamento.pas' {frmConsultaFPagamento},
-  fConsultaProduto in 'formularios\fConsultaProduto.pas' {frmConsultaProduto},
-  fConsultaUnidade in 'formularios\fConsultaUnidade.pas' {frmConsultaUnidade},
-  fConsultaUsuario in 'formularios\fConsultaUsuario.pas' {frmConsultaUsuario},
-  fConsultaVenda in 'formularios\fConsultaVenda.pas' {frmConsultaVenda},
-  fConsultaVendedor in 'formularios\fConsultaVendedor.pas' {frmConsultaVendedor},
-  fLogin in 'formularios\fLogin.pas' {frmLogin},
-  fPrincipal in 'formularios\fPrincipal.pas' {frmPrincipal},
-  fRotinaPagamento in 'formularios\fRotinaPagamento.pas' {frmRotinaPagamento},
-  fVendas in 'formularios\fVendas.pas' {frmVendas},
   fFiltroDefault in 'relatorios\fFiltroDefault.pas' {frmFiltroDefault},
   fRelatorioDefault in 'relatorios\fRelatorioDefault.pas' {frmRelatorioDefault},
   fFiltroCliente in 'relatorios\fFiltroCliente.pas' {frmFiltroCliente},
@@ -57,7 +32,10 @@ uses
   fRelatorioUnidade in 'relatorios\fRelatorioUnidade.pas' {frmRelatorioUnidade},
   fRelatorioUsuario in 'relatorios\fRelatorioUsuario.pas' {frmRelatorioUsuario},
   fRelatorioVenda in 'relatorios\fRelatorioVenda.pas' {frmRelatorioVenda},
-  fRelatorioVendedor in 'relatorios\fRelatorioVendedor.pas' {frmRelatorioVendedor};
+  fRelatorioVendedor in 'relatorios\fRelatorioVendedor.pas' {frmRelatorioVendedor},
+  fPrincipal in 'formularios\fPrincipal.pas' {frmPrincipal},
+  fCadastroCliente in 'formularios\fCadastroCliente.pas' {frmCadastroCliente},
+  fConsultaCliente in 'formularios\fConsultaCliente.pas' {frmConsultaCliente};
 
 {$R *.res}
 
@@ -65,8 +43,8 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdtmConexao, dtmConexao);
-  Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmConfig, frmConfig);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadastroCliente, frmCadastroCliente);
+  Application.CreateForm(TfrmConsultaCliente, frmConsultaCliente);
   Application.Run;
 end.
