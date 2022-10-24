@@ -3,7 +3,6 @@ inherited frmCadProdutos: TfrmCadProdutos
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
-    ActivePage = TabSheet2
     inherited TabSheet2: TTabSheet
       object lblTextoVenda: TLabel
         Left = 106

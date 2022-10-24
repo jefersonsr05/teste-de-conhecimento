@@ -24,26 +24,6 @@ type
     _fCelular:string;
     _fEmail:string;
 
-    function getBairro: string;
-    function getCelular: string;
-    function getCep: string;
-    function getCidade: string;
-    function getCodigo: integer;
-    function getEmail: string;
-    function getEndereco: string;
-    function getFone: string;
-    function getNome: string;
-    function getUf: string;
-    procedure setBairro(const Value: string);
-    procedure setCelular(const Value: string);
-    procedure setCep(const Value: string);
-    procedure setCidade(const Value: string);
-    procedure setCodigo(const Value: integer);
-    procedure setEmail(const Value: string);
-    procedure setEndereco(const Value: string);
-    procedure setFone(const Value: string);
-    procedure setNome(const Value: string);
-    procedure setUf(const Value: string);
     function PrimeiroCodigo: boolean;
 
   public
@@ -57,16 +37,16 @@ type
 
   published
     { Public declarations properties/runtime }
-    property codigo:integer    read getCodigo   write setCodigo;
-    property nome:string       read getNome     write setNome;
-    property endereco:string   read getEndereco write setEndereco;
-    property bairro:string     read getBairro   write setBairro;
-    property cidade:string     read getCidade   write setCidade;
-    property cep:string        read getCep      write setCep;
-    property uf:string         read getUf       write setUf;
-    property fone:string       read getFone     write setFone;
-    property celular:string    read getCelular  write setCelular;
-    property email:string      read getEmail    write setEmail;
+    property codigo:integer    read _fCodigo   write _fCodigo;
+    property nome:string       read _fNome     write _fNome;
+    property endereco:string   read _fEndereco write _fEndereco;
+    property bairro:string     read _fBairro   write _fBairro;
+    property cidade:string     read _fCidade   write _fCidade;
+    property cep:string        read _fCep      write _fCep;
+    property uf:string         read _fUf       write _fUf;
+    property fone:string       read _fFone     write _fFone;
+    property celular:string    read _fCelular  write _fCelular;
+    property email:string      read _fEmail    write _fEmail;
   end;
 
 implementation
@@ -265,114 +245,6 @@ begin
     end;
   finally
   end;
-end;
-
-{$endregion}
-
-{$region 'GETTERS'}
-
-function TCliente.getBairro: string;
-begin
-  Result := self._fBairro;
-end;
-
-function TCliente.getCelular: string;
-begin
-  Result := self._fCelular;
-end;
-
-function TCliente.getCep: string;
-begin
-  Result := self._fCep;
-end;
-
-function TCliente.getCidade: string;
-begin
-  Result := self._fCidade;
-end;
-
-function TCliente.getCodigo: integer;
-begin
-  Result := self._fCodigo;
-end;
-
-function TCliente.getEmail: string;
-begin
-  Result := self._fEmail;
-end;
-
-function TCliente.getEndereco: string;
-begin
-  Result := self._fEndereco;
-end;
-
-function TCliente.getFone: string;
-begin
-  Result := self._fFone;
-end;
-
-function TCliente.getNome: string;
-begin
-  Result := self._fNome;
-end;
-
-function TCliente.getUf: string;
-begin
-  Result := self._fUf;
-end;
-
-{$endregion}
-
-{$region 'SETTERS'}
-
-procedure TCliente.setBairro(const Value: string);
-begin
-  self._fBairro := Value;
-end;
-
-procedure TCliente.setCelular(const Value: string);
-begin
-  self._fCelular := Value;
-end;
-
-procedure TCliente.setCep(const Value: string);
-begin
- self._fCep := Value;
-end;
-
-procedure TCliente.setCidade(const Value: string);
-begin
-  self._fCidade := Value;
-end;
-
-procedure TCliente.setCodigo(const Value: integer);
-begin
-  self._fCodigo := Value;
-end;
-
-procedure TCliente.setEmail(const Value: string);
-begin
-  self._fEmail := Value;
-end;
-
-procedure TCliente.setEndereco(const Value: string);
-begin
-  self._fEndereco := Value;
-end;
-
-procedure TCliente.setFone(const Value: string);
-begin
-  self._fFone := Value;
-end;
-
-procedure TCliente.setNome(const Value: string);
-begin
-  self._fNome := Value;
-end;
-
-procedure TCliente.setUf(const Value: string);
-begin
-  self._fUf := Value;
 end;
 
 {$endregion}

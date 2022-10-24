@@ -35,8 +35,9 @@ object frmInicial: TfrmInicial
     end
     object VENDAS1: TMenuItem
       Caption = 'VENDAS'
-      object Vendas2: TMenuItem
+      object opVendas: TMenuItem
         Caption = 'Venda'
+        OnClick = opVendasClick
       end
       object N2: TMenuItem
         Caption = '-'

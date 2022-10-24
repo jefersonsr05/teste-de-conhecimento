@@ -16,7 +16,7 @@ type
     opProdutos: TMenuItem;
     RELATRIOS1: TMenuItem;
     opSair: TMenuItem;
-    Vendas2: TMenuItem;
+    opVendas: TMenuItem;
     N2: TMenuItem;
     Prvenda1: TMenuItem;
     N3: TMenuItem;
@@ -32,6 +32,7 @@ type
     procedure opClientesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure opProdutosClick(Sender: TObject);
+    procedure opVendasClick(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -46,7 +47,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCadClientes, uCadProduto;
+uses uCadClientes, uCadProduto, uVendas;
 
 procedure TfrmInicial.opClientesClick(Sender: TObject);
 begin
@@ -92,6 +93,13 @@ end;
 procedure TfrmInicial.opSairClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmInicial.opVendasClick(Sender: TObject);
+begin
+  frmVendas:=TfrmVendas.Create(self);
+  frmVendas.showModal;
+  frmVendas.Release;
 end;
 
 end.
