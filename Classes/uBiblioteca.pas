@@ -57,7 +57,7 @@ uses
 
     end;
 
-    pFDQuery.Open();
+    pFDQuery.Open;
     pFDQuery.FetchAll;
 
   end;

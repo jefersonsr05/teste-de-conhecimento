@@ -10,7 +10,7 @@ uses
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
   fPesquisarProdutos, fPesquisarCliente, fCadastroProduto, uDmDados, uBiblioteca,
-  RxToolEdit, RxCurrEdit;
+  RxToolEdit, RxCurrEdit, fCadastroCliente;
 
 type
   TfrmCadastroVenda = class(TfrmCadastroPai)
@@ -66,7 +66,9 @@ type
     FDQueryProdutoDATA_VENDA: TDateField;
     FDQueryProdutoPRECO_VENDA: TBCDField;
     FDQueryProdutoSALDO: TBCDField;
-    FDQuery1: TFDQuery;
+    FDQueryCliente: TFDQuery;
+    LabelNomeCliente: TLabel;
+    LabelDescProd: TLabel;
     procedure ButtonClienteClick(Sender: TObject);
     procedure GeraNumeroVenda;
     procedure BitBtnNovoClick(Sender: TObject);
@@ -81,6 +83,8 @@ type
     procedure FDQueryItemNotaAfterDelete(DataSet: TDataSet);
     procedure FDQueryItemNotaAfterCancel(DataSet: TDataSet);
     procedure EditProdutoExit(Sender: TObject);
+    procedure DBEditCodCLienteExit(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
     procedure GravarItem;
@@ -167,6 +171,40 @@ begin
 
 end;
 
+procedure TfrmCadastroVenda.DBEditCodCLienteExit(Sender: TObject);
+begin
+  inherited;
+
+  if Trim(DBEditCodCLiente.Text) <> '' then
+  begin
+
+    FDQueryCliente.Close;
+    FDQueryCliente.SQL.Clear;
+    FDQueryCliente.SQL.Add(' select nome from cliente ');
+    FDQueryCliente.SQL.Add('where codigo =' + QuotedStr(DBEditCodCLiente.Text));
+    FDQueryCliente.Open;
+
+    if FDQueryCliente.RecordCount > 0 then
+    begin
+
+      LabelNomeCliente.Caption := FDQueryCliente.FieldByName('nome').AsString;
+
+    end
+    else
+    begin
+
+      ShowMessage('Cliente não encontrado!');
+      DBEditCodCLiente.SetFocus;
+      DBEditCodCLiente.Clear;
+
+    end;
+
+
+  end;
+
+
+end;
+
 procedure TfrmCadastroVenda.EditProdutoExit(Sender: TObject);
 var
 teste: string;
@@ -174,13 +212,16 @@ teste: string;
 begin
   inherited;
 
-  EditValorUnit.Text := FDQueryProdutoPRECO_VENDA.AsString;
+  //EditValorUnit.Text := FDQueryProdutoPRECO_VENDA.AsString;
 
-  FDQuery1.Close;
-  teste:= IntToStr(FDQuery1.SQL.Add('and codigo = ' + EditProduto.Text));
-  FDQuery1.Open;
+  FDQueryProduto.Close;
+  FDQueryProduto.SQL.Clear;
+  FDQueryProduto.SQL.Add(  'select preco_venda from produtos');
+  FDQueryProduto.SQL.Add(' where codigo =' + QuotedStr(EditProduto.Text));
 
-  ShowMessage(teste);
+  FDQueryProduto.Open();
+
+  EditValorUnit.Text := FDQueryProduto.FieldByName('preco_venda').AsString;
 
 end;
 
@@ -246,6 +287,15 @@ begin
   inherited;
 
   FDTransactionItemNota.CommitRetaining;
+
+end;
+
+procedure TfrmCadastroVenda.FormActivate(Sender: TObject);
+begin
+  inherited;
+
+  LabelNomeCliente.Caption := '';
+  LabelDescProd.Caption    := '';
 
 end;
 

@@ -3,6 +3,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   ClientHeight = 506
   ClientWidth = 1025
   WindowState = wsMaximized
+  OnActivate = FormActivate
   ExplicitWidth = 1041
   ExplicitHeight = 545
   PixelsPerInch = 96
@@ -62,6 +63,21 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 13
       Caption = 'OPERA'#199#195'O DE VENDA'
     end
+    object LabelNomeCliente: TLabel
+      Left = 465
+      Top = 40
+      Width = 85
+      Height = 13
+      Caption = 'LabelNomeCliente'
+      Color = clHighlight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuHighlight
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+    end
     object DBEditNrNota: TDBEdit
       Left = 16
       Top = 35
@@ -75,15 +91,16 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     object DBEditCodCLiente: TDBEdit
       Left = 336
       Top = 35
-      Width = 233
+      Width = 73
       Height = 21
       DataField = 'CLIENTE'
       DataSource = DataSourceCadastro
       TabOrder = 1
+      OnExit = DBEditCodCLienteExit
     end
     object ButtonCliente: TButton
-      Left = 575
-      Top = 32
+      Left = 415
+      Top = 35
       Width = 34
       Height = 25
       TabOrder = 2
@@ -167,8 +184,23 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 13
       Caption = 'LCTO'
     end
+    object LabelDescProd: TLabel
+      Left = 225
+      Top = 40
+      Width = 70
+      Height = 13
+      Caption = 'LabelDescProd'
+      Color = clHighlight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuHighlight
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+    end
     object ButtonProduto: TButton
-      Left = 375
+      Left = 175
       Top = 32
       Width = 34
       Height = 25
@@ -195,7 +227,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     object EditProduto: TEdit
       Left = 96
       Top = 35
-      Width = 265
+      Width = 73
       Height = 21
       TabOrder = 3
       OnExit = EditProdutoExit
@@ -450,10 +482,10 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Left = 408
     Top = 425
   end
-  object FDQuery1: TFDQuery
+  object FDQueryCliente: TFDQuery
     Connection = dmDados.FDConnection
     SQL.Strings = (
-      'select preco_venda from produtos where 1 = 1')
+      'select * from cliente')
     Left = 96
     Top = 337
   end
