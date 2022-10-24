@@ -34,7 +34,6 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     Width = 45
     Height = 13
     Caption = 'UNIDADE'
-    FocusControl = DBEditUnidade
   end
   object LabelDataVenda: TLabel [4]
     Left = 320
@@ -88,16 +87,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     DataSource = DataSourceCadastro
     TabOrder = 3
   end
-  object DBEditUnidade: TDBEdit [11]
-    Left = 240
-    Top = 168
-    Width = 56
-    Height = 21
-    DataField = 'UNIDADE'
-    DataSource = DataSourceCadastro
-    TabOrder = 4
-  end
-  object DBEditDataVenda: TDBEdit [12]
+  object DBEditDataVenda: TDBEdit [11]
     Left = 320
     Top = 168
     Width = 134
@@ -105,24 +95,41 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     DataField = 'DATA_VENDA'
     DataSource = DataSourceCadastro
     Enabled = False
-    TabOrder = 5
+    TabOrder = 4
   end
-  object DBEditPrecoVenda: TDBEdit [13]
+  object DBEditPrecoVenda: TDBEdit [12]
     Left = 472
     Top = 168
     Width = 251
     Height = 21
     DataField = 'PRECO_VENDA'
     DataSource = DataSourceCadastro
-    TabOrder = 6
+    TabOrder = 5
   end
-  object DBEditSaldo: TDBEdit [14]
+  object DBEditSaldo: TDBEdit [13]
     Left = 19
     Top = 232
     Width = 251
     Height = 21
     DataField = 'SALDO'
     DataSource = DataSourceCadastro
+    TabOrder = 6
+  end
+  object DBComboBox1: TDBComboBox [14]
+    Left = 240
+    Top = 168
+    Width = 65
+    Height = 21
+    DataField = 'UNIDADE'
+    DataSource = DataSourceCadastro
+    Items.Strings = (
+      'UN'
+      'KG'
+      'PC'
+      'CX'
+      'L'
+      'M'
+      'TON')
     TabOrder = 7
   end
   inherited FDQueryCadastro: TFDQuery

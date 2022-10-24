@@ -26,13 +26,13 @@ type
     LabelReferencia: TLabel;
     DBEditreferencia: TDBEdit;
     LabelUnidade: TLabel;
-    DBEditUnidade: TDBEdit;
     LabelDataVenda: TLabel;
     DBEditDataVenda: TDBEdit;
     LabelPrecoVenda: TLabel;
     DBEditPrecoVenda: TDBEdit;
     LabelSaldo: TLabel;
     DBEditSaldo: TDBEdit;
+    DBComboBox1: TDBComboBox;
     procedure limpa;
     procedure geraCodigo;
     procedure BitBtnNovoClick(Sender: TObject);
