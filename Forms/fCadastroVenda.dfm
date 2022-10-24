@@ -1,15 +1,16 @@
 inherited frmCadastroVenda: TfrmCadastroVenda
   Caption = 'Criar Vendas, Or'#231'amentos e Pr'#233'-Vendas'
-  ClientHeight = 506
-  ClientWidth = 1025
+  ClientHeight = 518
+  ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
-  ExplicitWidth = 1041
-  ExplicitHeight = 545
+  ExplicitTop = -101
+  ExplicitWidth = 1039
+  ExplicitHeight = 557
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Width = 1025
+    Width = 1023
     ExplicitWidth = 1025
     inherited BitBtnSair: TBitBtn
       Left = 911
@@ -22,10 +23,11 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   object PanelCabecalhoVenda: TPanel [1]
     Left = 0
     Top = 65
-    Width = 1025
+    Width = 1023
     Height = 80
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 1025
     object LabelNrNota: TLabel
       Left = 16
       Top = 16
@@ -50,15 +52,15 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       FocusControl = DBEditCodCLiente
     end
     object LabelTipoVenda: TLabel
-      Left = 640
+      Left = 848
       Top = 16
       Width = 76
       Height = 13
       Caption = 'TIPO DE VENDA'
     end
     object LabelOpVenda: TLabel
-      Left = 816
-      Top = 14
+      Left = 681
+      Top = 16
       Width = 108
       Height = 13
       Caption = 'OPERA'#199#195'O DE VENDA'
@@ -107,7 +109,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       OnClick = ButtonClienteClick
     end
     object DBComboBoxTipoVenda: TDBComboBox
-      Left = 640
+      Left = 848
       Top = 35
       Width = 145
       Height = 21
@@ -119,8 +121,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       TabOrder = 3
     end
     object DBComboBoxOpVenda: TDBComboBox
-      Left = 816
-      Top = 33
+      Left = 681
+      Top = 35
       Width = 145
       Height = 21
       DataField = 'OPERACAO_VENDA'
@@ -130,6 +132,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         'Pr'#233'-Venda'
         'Venda')
       TabOrder = 4
+      OnExit = DBComboBoxOpVendaExit
     end
     object DBEditEmissao: TDBEdit
       Left = 176
@@ -145,9 +148,10 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   object PanelProdutos: TPanel [2]
     Left = 0
     Top = 145
-    Width = 1025
-    Height = 88
+    Width = 1023
+    Height = 72
     Align = alTop
+    Enabled = False
     TabOrder = 2
     object LabelProduto: TLabel
       Left = 96
@@ -209,7 +213,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     end
     object ButtonAdicionar: TButton
       Left = 816
-      Top = 16
+      Top = 14
       Width = 89
       Height = 41
       Caption = 'ADICIONAR'
@@ -238,6 +242,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 74
       Height = 21
       TabOrder = 4
+      OnExit = EditQtdExit
     end
     object EditValorUnit: TEdit
       Left = 538
@@ -245,6 +250,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 95
       Height = 21
       TabOrder = 5
+      OnExit = EditValorUnitExit
     end
     object EditValorTotal: TEdit
       Left = 656
@@ -258,21 +264,25 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 57
       Height = 21
+      Enabled = False
       TabOrder = 7
     end
   end
   object PanelItems: TPanel [3]
     Left = 0
-    Top = 233
-    Width = 1025
-    Height = 273
+    Top = 217
+    Width = 1023
+    Height = 301
     Align = alClient
     TabOrder = 3
+    ExplicitTop = 233
+    ExplicitWidth = 1025
+    ExplicitHeight = 273
     object DBGridItensVenda: TDBGrid
       Left = 1
       Top = 1
-      Width = 1023
-      Height = 271
+      Width = 1021
+      Height = 299
       Align = alClient
       DataSource = DataSourceItemNota
       ReadOnly = True
@@ -311,11 +321,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'DescProduto'
           Visible = True
         end>
     end
@@ -376,8 +381,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'select * from produtos;')
-    Left = 840
-    Top = 240
+    Left = 56
+    Top = 272
     object FDQueryProdutoCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
@@ -488,5 +493,17 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       'select * from cliente')
     Left = 96
     Top = 337
+  end
+  object DataSource1: TDataSource
+    DataSet = FDQueryProduto
+    Left = 504
+    Top = 256
+  end
+  object FDQueryProduto1: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'select * from produtos;')
+    Left = 184
+    Top = 289
   end
 end
