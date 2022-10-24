@@ -16,14 +16,14 @@ uses
   Vcl.ExtCtrls,
   Vcl.StdCtrls,
   FireDAC.Comp.Client,
-  fConsultaCliente,
-  fConsultaUsuario,
-  fConsultaProduto,
-  fConsultaUnidade,
-  fConsultaFPagamento,
-  fConsultaVendedor,
+//  fConsultaCliente,
+//  fConsultaUsuario,
+//  fConsultaProduto,
+//  fConsultaUnidade,
+//  fConsultaFPagamento,
+//  fConsultaVendedor,
   Vcl.Buttons,
-  fConsultaVenda,
+//  fConsultaVenda,
   fFiltroUsuario,
   fRelatorioUsuario,
   fFiltroCliente,
@@ -31,9 +31,9 @@ uses
   fFiltroProduto,
   fRelatorioUnidade,
   fRelatorioFPagamento,
-  uConfig,
-  fConfig,
-  fConsultaDefault;
+  uConfig;
+//  fConfig,
+//  fConsultaDefault;
 
 type
   TfrmPrincipal = class(TForm)
@@ -45,17 +45,11 @@ type
     mnuCliente: TMenuItem;
     Relatrios1: TMenuItem;
     Configurao1: TMenuItem;
-    mnuUsuario: TMenuItem;
     mnuProduto: TMenuItem;
-    mnuUnidade: TMenuItem;
     mnuFPagamento: TMenuItem;
-    mnuVendedor: TMenuItem;
     mnuVendas: TMenuItem;
-    mnuUsuarioRelat: TMenuItem;
     mnuClienteRelat: TMenuItem;
-    mnuVendedorRelat: TMenuItem;
     mnuProdutoRelat: TMenuItem;
-    mnuUnidadeRelat: TMenuItem;
     mnuFPagamentoRelat: TMenuItem;
     mnuVendaRelat: TMenuItem;
     procedure mnuClienteClick(Sender: TObject);
@@ -84,7 +78,6 @@ type
     FSenha: String;
     FCor: String;
     procedure PintaPainelComCorUsuario(pPanel: TPanel);
-    procedure SetaVisibleBtnCliente;
   public
     { Public declarations }
     property Id: integer read FId write FId;
@@ -101,45 +94,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmPrincipal.SetaVisibleBtnCliente;
-begin
-  lConfig.CarregaRestricoesBanco;
-  // restrições das Consultas
-  if lConfig.FORMUSUARIO < lConfig.CONFIGNACESSO then
-  begin
-    mnuUsuario.Enabled := false;
-  end;
-  if lConfig.FORMCLIENTE < lConfig.CONFIGNACESSO then
-  begin
-    mnuCliente.Enabled := false;
-  end;
-  if lConfig.FORMVENDEDOR < lConfig.CONFIGNACESSO then
-  begin
-    mnuVendedor.Enabled := false;
-  end;
-  if lConfig.FORMPRODUTO < lConfig.CONFIGNACESSO then
-  begin
-    mnuProduto.Enabled := false;
-  end;
-  if lConfig.FORMUNIDADE < lConfig.CONFIGNACESSO then
-  begin
-    mnuUnidade.Enabled := false;
-  end;
-  if lConfig.FORMFPAGAMENTO < lConfig.CONFIGNACESSO then
-  begin
-    mnuFPagamento.Enabled := false;
-  end;
-  if lConfig.FORMVENDA < lConfig.CONFIGNACESSO then
-  begin
-    mnuVendas.Enabled := false;
-  end;
-  // Restrições dos Relatorios
-  if lConfig.RELATORIO < lConfig.CONFIGNACESSO then
-  begin
-    Relatrios1.Enabled := false;
-  end;
-end;
 
 procedure TfrmPrincipal.mnuClienteClick(Sender: TObject);
 var

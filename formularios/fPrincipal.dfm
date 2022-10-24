@@ -58,25 +58,13 @@ object frmPrincipal: TfrmPrincipal
     Top = 61
     object Connsulta1: TMenuItem
       Caption = 'Cadastros'
-      object mnuUsuario: TMenuItem
-        Caption = 'Usu'#225'rio'
-        OnClick = mnuUsuarioClick
-      end
       object mnuCliente: TMenuItem
         Caption = 'Cliente'
         OnClick = mnuClienteClick
       end
-      object mnuVendedor: TMenuItem
-        Caption = 'Vendedor'
-        OnClick = mnuVendedorClick
-      end
       object mnuProduto: TMenuItem
         Caption = 'Produto'
         OnClick = mnuProdutoClick
-      end
-      object mnuUnidade: TMenuItem
-        Caption = 'Unidade'
-        OnClick = mnuUnidadeClick
       end
       object mnuFPagamento: TMenuItem
         Caption = 'Forma de Pagamento'
@@ -89,25 +77,13 @@ object frmPrincipal: TfrmPrincipal
     end
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
-      object mnuUsuarioRelat: TMenuItem
-        Caption = 'Usuario'
-        OnClick = mnuUsuarioRelatClick
-      end
       object mnuClienteRelat: TMenuItem
         Caption = 'Cliente'
         OnClick = mnuClienteRelatClick
       end
-      object mnuVendedorRelat: TMenuItem
-        Caption = 'Vendedor'
-        OnClick = mnuVendedorRelatClick
-      end
       object mnuProdutoRelat: TMenuItem
         Caption = 'Produto'
         OnClick = mnuProdutoRelatClick
-      end
-      object mnuUnidadeRelat: TMenuItem
-        Caption = 'Unidade'
-        OnClick = mnuUnidadeRelatClick
       end
       object mnuFPagamentoRelat: TMenuItem
         Caption = 'Forma de Pagamento'
