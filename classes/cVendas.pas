@@ -70,15 +70,21 @@ end;
 function TVendas.Apagar: boolean;
 var qry:TZQuery;
 begin
+  if MessageDlg('Apagar a venda '+IntToStr(_fNrnota),mtConfirmation,[mbYes,mbNo], 0) = mrNo then
+    begin
+      result := false;
+      abort;
+    end;
+
   try
     result := true;
     qry := TZQuery.Create(nil);
     qry.Connection := ConexaoDB;
-    qry.SQL.Clear;
-    qry.sql.Add('delete from item_venda where nr_venda=:nrnota');
-    qry.ParamByName('nrnota').AsInteger := nrnota;
+    //qry.SQL.Clear;
+    //qry.sql.Add('delete from item_venda where nr_venda=:nrnota');
+    //qry.ParamByName('nrnota').AsInteger := nrnota;
     try
-      qry.ExecSQL;
+      //qry.ExecSQL;
       qry.sql.Clear;
       qry.sql.Add('delete from venda where nrnota=:nrnota');
       qry.ParamByName('nrnota').AsInteger := nrnota;

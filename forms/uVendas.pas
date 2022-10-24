@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls, uDtmConexao, uDtmVenda,
-  RxToolEdit, RxCurrEdit, cVendas;
+  RxToolEdit, RxCurrEdit, cVendas,uEnum;
 
 type
   TfrmVendas = class(TfrmTelaHeranca)
@@ -49,6 +49,8 @@ type
     { Private declarations }
     _Vendas:TVendas;
     dtmVenda:TdtmVenda;
+    function Apagar:boolean; override;
+    function Salvar(EstadoDocadastro:TEstadoDoCadastro):boolean; override;
   public
     { Public declarations }
   end;
@@ -59,6 +61,21 @@ var
 implementation
 
 {$R *.dfm}
+
+{$region 'OVERRIDE'}
+
+function TfrmVendas.Apagar: boolean;
+begin
+  if _Vendas.Selecionar(qryListagem.FieldByName('nrnota').AsInteger)  then
+    Result := _Vendas.Apagar;
+end;
+
+function TfrmVendas.Salvar(EstadoDocadastro: TEstadoDoCadastro): boolean;
+begin
+
+end;
+
+{$region}
 
 procedure TfrmVendas.btnAlterarClick(Sender: TObject);
 begin
