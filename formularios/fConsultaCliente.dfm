@@ -55,8 +55,6 @@ object frmConsultaCliente: TfrmConsultaCliente
       Caption = 'Incluir'
       TabOrder = 0
       OnClick = btnIncluirClick
-      ExplicitLeft = -5
-      ExplicitTop = 5
     end
     object btnAlterar: TButton
       Left = 91

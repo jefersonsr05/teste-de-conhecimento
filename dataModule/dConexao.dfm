@@ -1,15 +1,16 @@
 object dtmConexao: TdtmConexao
   OldCreateOrder = False
-  Height = 490
+  Height = 455
   Width = 268
   object FDConnection: TFDConnection
     Params.Strings = (
       
-        'Database=C:\Users\Alexandre\Documents\TreinoDelphi\BancoIBE\TEST' +
-        'E.FDB'
+        'Database=C:\Users\Marketing\Documents\alexandre\teste-de-conheci' +
+        'mento\BANCO\MC_TESTE.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'DriverID=FB')
+    Connected = True
     Left = 30
     Top = 11
   end
@@ -23,42 +24,30 @@ object dtmConexao: TdtmConexao
   object qryConsultaClientes: TFDQuery
     Connection = FDConnection
     SQL.Strings = (
-      'select * from cliente')
+      'SELECT      '
+      'CODIGO      '
+      ', NOME      '
+      ', ENDERECO  '
+      ', BAIRRO    '
+      ', CIDADE    '
+      ', CEP       '
+      ', UF        '
+      ', FONE      '
+      ', CELULAR   '
+      ', EMAIL     '
+      'FROM CLIENTE')
     Left = 136
-    Top = 58
-    object qryConsultaClientesID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    Top = 66
+    object qryConsultaClientesCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object qryConsultaClientesNOME: TStringField
-      DisplayLabel = 'Nome'
       FieldName = 'NOME'
       Origin = 'NOME'
       Size = 35
-    end
-    object qryConsultaClientesCPF: TStringField
-      FieldName = 'CPF'
-      Origin = 'CPF'
-      Size = 11
-    end
-    object qryConsultaClientesEMAIL: TStringField
-      DisplayLabel = 'Email'
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 60
-    end
-    object qryConsultaClientesCNPJ: TStringField
-      FieldName = 'CNPJ'
-      Origin = 'CNPJ'
-      Size = 14
-    end
-    object qryConsultaClientesFISICOOUJURIDICO: TStringField
-      FieldName = 'FISICOOUJURIDICO'
-      Origin = 'FISICOOUJURIDICO'
-      FixedChar = True
-      Size = 1
     end
     object qryConsultaClientesENDERECO: TStringField
       FieldName = 'ENDERECO'
@@ -69,70 +58,47 @@ object dtmConexao: TdtmConexao
       FieldName = 'BAIRRO'
       Origin = 'BAIRRO'
     end
-    object qryConsultaClientesCEP: TStringField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-      Size = 10
-    end
     object qryConsultaClientesCIDADE: TStringField
       FieldName = 'CIDADE'
       Origin = 'CIDADE'
       Size = 30
     end
+    object qryConsultaClientesCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 10
+    end
+    object qryConsultaClientesUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object qryConsultaClientesFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 15
+    end
+    object qryConsultaClientesCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+      Size = 15
+    end
+    object qryConsultaClientesEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 50
+    end
   end
   object dtsClientes: TDataSource
     DataSet = qryConsultaClientes
     Left = 33
-    Top = 59
-  end
-  object dtsUsuarios: TDataSource
-    DataSet = qryConsultaUsuarios
-    Left = 32
-    Top = 104
-  end
-  object qryConsultaUsuarios: TFDQuery
-    Connection = FDConnection
-    SQL.Strings = (
-      'select * from usuario')
-    Left = 135
-    Top = 104
-    object qryConsultaUsuariosID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryConsultaUsuariosNOME: TStringField
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Size = 50
-    end
-    object qryConsultaUsuariosLOGIN: TStringField
-      FieldName = 'LOGIN'
-      Origin = 'LOGIN'
-      Required = True
-      Size = 5
-    end
-    object qryConsultaUsuariosSENHA: TStringField
-      FieldName = 'SENHA'
-      Origin = 'SENHA'
-      Size = 5
-    end
-    object qryConsultaUsuariosNIVELACESSO: TIntegerField
-      FieldName = 'NIVELACESSO'
-      Origin = 'NIVELACESSO'
-    end
-    object qryConsultaUsuariosEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Required = True
-      Size = 60
-    end
+    Top = 67
   end
   object dtsProdutos: TDataSource
     DataSet = qryConsultaProdutos
     Left = 32
-    Top = 152
+    Top = 128
   end
   object qryConsultaProdutos: TFDQuery
     Connection = FDConnection
@@ -152,7 +118,7 @@ object dtmConexao: TdtmConexao
       'INNER JOIN UNIDADE U'
       'ON P.fk_unidade = U.id')
     Left = 136
-    Top = 149
+    Top = 125
     object qryConsultaProdutosID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -212,40 +178,12 @@ object dtmConexao: TdtmConexao
       Size = 3
     end
   end
-  object qryConsultaUnidade: TFDQuery
-    Connection = FDConnection
-    SQL.Strings = (
-      'SELECT * FROM UNIDADE')
-    Left = 136
-    Top = 198
-    object qryConsultaUnidadeID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryConsultaUnidadeDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 35
-    end
-    object qryConsultaUnidadeUNIDADE: TStringField
-      FieldName = 'UNIDADE'
-      Origin = 'UNIDADE'
-      Size = 3
-    end
-  end
-  object dtsUnidade: TDataSource
-    DataSet = qryConsultaUnidade
-    Left = 32
-    Top = 200
-  end
   object qryConsultaFPagamento: TFDQuery
     Connection = FDConnection
     SQL.Strings = (
       'SELECT * FROM FORMAPAGAMENTO')
     Left = 152
-    Top = 246
+    Top = 198
     object qryConsultaFPagamentoID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -266,58 +204,7 @@ object dtmConexao: TdtmConexao
   object dtsFPagamento: TDataSource
     DataSet = qryConsultaFPagamento
     Left = 32
-    Top = 248
-  end
-  object qryConsultaVendedor: TFDQuery
-    Connection = FDConnection
-    SQL.Strings = (
-      'SELECT * FROM VENDEDOR')
-    Left = 136
-    Top = 296
-    object qryConsultaVendedorID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryConsultaVendedorNOME: TStringField
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Size = 35
-    end
-    object qryConsultaVendedorEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 60
-    end
-    object qryConsultaVendedorENDERECO: TStringField
-      FieldName = 'ENDERECO'
-      Origin = 'ENDERECO'
-      Size = 35
-    end
-    object qryConsultaVendedorBAIRRO: TStringField
-      FieldName = 'BAIRRO'
-      Origin = 'BAIRRO'
-    end
-    object qryConsultaVendedorCEP: TStringField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-      Size = 10
-    end
-    object qryConsultaVendedorCIDADE: TStringField
-      FieldName = 'CIDADE'
-      Origin = 'CIDADE'
-      Size = 30
-    end
-    object qryConsultaVendedorFOTO: TBlobField
-      FieldName = 'FOTO'
-      Origin = 'FOTO'
-    end
-  end
-  object dtsVendedor: TDataSource
-    DataSet = qryConsultaVendedor
-    Left = 32
-    Top = 296
+    Top = 200
   end
   object qryVenda: TFDQuery
     Connection = FDConnection
@@ -349,7 +236,7 @@ object dtmConexao: TdtmConexao
       'inner join FORMAPAGAMENTO FP'
       ' on V.FK_FORMAPAGAMENTO = FP.ID')
     Left = 144
-    Top = 360
+    Top = 288
     object qryVendaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -417,8 +304,8 @@ object dtmConexao: TdtmConexao
   end
   object dtsItens: TDataSource
     DataSet = tblConsultaItens
-    Left = 40
-    Top = 416
+    Left = 32
+    Top = 368
   end
   object tblConsultaItens: TFDMemTable
     Active = True
@@ -465,8 +352,8 @@ object dtmConexao: TdtmConexao
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 168
-    Top = 416
+    Left = 136
+    Top = 368
     object tblConsultaItensFK_VENDA: TIntegerField
       Alignment = taLeftJustify
       FieldName = 'FK_VENDA'
@@ -502,6 +389,6 @@ object dtmConexao: TdtmConexao
   object dtsVenda: TDataSource
     DataSet = qryVenda
     Left = 32
-    Top = 352
+    Top = 288
   end
 end

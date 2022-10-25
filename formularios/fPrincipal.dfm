@@ -57,7 +57,7 @@ object frmPrincipal: TfrmPrincipal
     Left = 29
     Top = 61
     object Connsulta1: TMenuItem
-      Caption = 'Cadastros'
+      Caption = 'Consulta'
       object mnuCliente: TMenuItem
         Caption = 'Cliente'
         OnClick = mnuClienteClick

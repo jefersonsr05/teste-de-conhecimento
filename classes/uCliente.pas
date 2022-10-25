@@ -123,8 +123,6 @@ begin
       begin
         FObjetoBusca := TCliente.Create;
       end;
-
-      FObjetoBusca.FCODIGO := pId;
       FObjetoBusca.Carrega;
     end;
   finally
@@ -142,10 +140,17 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' select gen_id(gen_cliente_id, 0) codigo from CLIENTE ');
+    lQuery.SQL.Add(' SELECT FIRST(1) CODIGO FROM CLIENTE ORDER BY CODIGO DESC');
     lQuery.Open;
 
-    result := lQuery.FieldByName('codigo').AsInteger + 1;
+    if lQuery.RecordCount > 0 then
+    begin
+      result := lQuery.FieldByName('codigo').AsInteger + 1;
+    end
+    else
+    begin
+      result := 1;
+    end;
 
   finally
     lQuery.Free;
@@ -162,51 +167,42 @@ begin
     lQuery.Close;
     lQuery.SQL.Clear;
     lQuery.SQL.Add(' INSERT INTO CLIENTE ( ');
-    lQuery.SQL.Add('  NOME                 ');
-    lQuery.SQL.Add(' ,CPF                  ');
-    lQuery.SQL.Add(' ,CNPJ                 ');
-    lQuery.SQL.Add(' ,FISICOOUJURIDICO     ');
-    lQuery.SQL.Add(' ,EMAIL                ');
-    lQuery.SQL.Add(' ,ENDERECO             ');
-    lQuery.SQL.Add(' ,BAIRRO               ');
-    lQuery.SQL.Add(' ,CEP                  ');
-    lQuery.SQL.Add(' ,FOTO                 ');
-    lQuery.SQL.Add(' ,CIDADE               ');
+    lQuery.SQL.Add(' CODIGO                ');
+    lQuery.SQL.Add(' , NOME                ');
+    lQuery.SQL.Add(' , ENDERECO            ');
+    lQuery.SQL.Add(' , BAIRRO              ');
+    lQuery.SQL.Add(' , CIDADE              ');
+    lQuery.SQL.Add(' , CEP                 ');
+    lQuery.SQL.Add(' , UF                  ');
+    lQuery.SQL.Add(' , FONE                ');
+    lQuery.SQL.Add(' , CELULAR             ');
+    lQuery.SQL.Add(' , EMAIL               ');
     lQuery.SQL.Add(' )                     ');
     lQuery.SQL.Add(' VALUES (              ');
-    lQuery.SQL.Add('  :NOME                ');
-    lQuery.SQL.Add(' ,:CPF                 ');
-    lQuery.SQL.Add(' ,:CNPJ                ');
-    lQuery.SQL.Add(' ,:FISICOOUJURIDICO    ');
-    lQuery.SQL.Add(' ,:EMAIL               ');
-    lQuery.SQL.Add(' ,:ENDERECO            ');
-    lQuery.SQL.Add(' ,:BAIRRO              ');
-    lQuery.SQL.Add(' ,:CEP                 ');
-    lQuery.SQL.Add(' ,:FOTO                ');
-    lQuery.SQL.Add(' ,:CIDADE              ');
+    lQuery.SQL.Add(' :CODIGO               ');
+    lQuery.SQL.Add(' , :NOME               ');
+    lQuery.SQL.Add(' , :ENDERECO           ');
+    lQuery.SQL.Add(' , :BAIRRO             ');
+    lQuery.SQL.Add(' , :CIDADE             ');
+    lQuery.SQL.Add(' , :CEP                ');
+    lQuery.SQL.Add(' , :UF                 ');
+    lQuery.SQL.Add(' , :FONE               ');
+    lQuery.SQL.Add(' , :CELULAR            ');
+    lQuery.SQL.Add(' , :EMAIL              ');
     lQuery.SQL.Add(' )                     ');
+
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.ParamByName('NOME').AsString := FNOME;
-
-    if FFISICOOUJURIDICO = 'F' then
-    begin
-      lQuery.ParamByName('CPF').AsString := FCPF;
-      lQuery.ParamByName('CNPJ').AsString := emptystr;
-      lQuery.ParamByName('FISICOOUJURIDICO').AsString := 'F';
-    end
-    else if FISICOOUJURIDICO = 'J' then
-    begin
-      lQuery.ParamByName('CNPJ').AsString := FCNPJ;
-      lQuery.ParamByName('CPF').AsString := emptystr;
-      lQuery.ParamByName('FISICOOUJURIDICO').AsString := 'J';
-    end;
-
-    lQuery.ParamByName('EMAIL').AsString := FEMAIL;
     lQuery.ParamByName('ENDERECO').AsString := FENDERECO;
     lQuery.ParamByName('BAIRRO').AsString := FBAIRRO;
-    lQuery.ParamByName('CEP').AsString := FCEP;
     lQuery.ParamByName('CIDADE').AsString := FCIDADE;
-    lQuery.ParamByName('FOTO').AsString := FFOTO;
+    lQuery.ParamByName('CEP').AsString := FCEP;
+    lQuery.ParamByName('UF').AsString := FUF;
+    lQuery.ParamByName('FONE').AsString := FFONE;
+    lQuery.ParamByName('CELULAR').AsString := FCELULAR;
+    lQuery.ParamByName('EMAIL').AsString := FEMAIL;
     lQuery.ExecSQL;
+
     if pEfetuarCommit then
     begin
       dtmConexao.FDConnection.Commit;
@@ -225,41 +221,28 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' UPDATE CLIENTE SET                       ');
-    lQuery.SQL.Add('  NOME = :NOME                            ');
-    lQuery.SQL.Add(' ,EMAIL = :EMAIL                          ');
-    lQuery.SQL.Add(' ,CPF = :CPF                              ');
-    lQuery.SQL.Add(' ,CNPJ = :CNPJ                            ');
-    lQuery.SQL.Add(' ,FISICOOUJURIDICO = :FISICOOUJURIDICO    ');
-    lQuery.SQL.Add(' ,CEP = :CEP                              ');
-    lQuery.SQL.Add(' ,CIDADE = :CIDADE                        ');
-    lQuery.SQL.Add(' ,BAIRRO = :BAIRRO                        ');
-    lQuery.SQL.Add(' ,ENDERECO = :ENDERECO                    ');
-    lQuery.SQL.Add(' ,FOTO = :FOTO                            ');
-    lQuery.SQL.Add(' WHERE ID = :ID                           ');
+    lQuery.SQL.Add(' UPDATE CLIENTE SET      ');
+    lQuery.SQL.Add('   NOME = :NOME          ');
+    lQuery.SQL.Add('  , ENDERECO = :ENDERECO ');
+    lQuery.SQL.Add('  , BAIRRO = :BAIRRO     ');
+    lQuery.SQL.Add('  , CIDADE = :CIDADE     ');
+    lQuery.SQL.Add('  , CEP = :CEP           ');
+    lQuery.SQL.Add('  , UF = :UF             ');
+    lQuery.SQL.Add('  , FONE = :FONE         ');
+    lQuery.SQL.Add('  , CELULAR = :CELULAR   ');
+    lQuery.SQL.Add('  , EMAIL = :EMAIL       ');
+    lQuery.SQL.Add(' WHERE CODIGO = :CODIGO  ');
 
-    if FFISICOOUJURIDICO = 'F' then
-    begin
-      lQuery.ParamByName('CPF').AsString := FCPF;
-      lQuery.ParamByName('CNPJ').AsString := emptystr;
-      lQuery.ParamByName('FISICOOUJURIDICO').AsString := 'F';
-    end
-    else if FISICOOUJURIDICO = 'J' then
-    begin
-      lQuery.ParamByName('CNPJ').AsString := FCNPJ;
-      lQuery.ParamByName('CPF').AsString := emptystr;
-      lQuery.ParamByName('FISICOOUJURIDICO').AsString := 'J';
-    end;
-    lQuery.ParamByName('ID').AsInteger := FID;
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.ParamByName('NOME').AsString := FNOME;
-    lQuery.ParamByName('EMAIL').AsString := FEMAIL;
-    lQuery.ParamByName('CPF').AsString := FCPF;
-    lQuery.ParamByName('CNPJ').AsString := FCNPJ;
-    lQuery.ParamByName('CEP').AsString := FCEP;
-    lQuery.ParamByName('CIDADE').AsString := FCIDADE;
-    lQuery.ParamByName('BAIRRO').AsString := FBAIRRO;
     lQuery.ParamByName('ENDERECO').AsString := FENDERECO;
-    lQuery.ParamByName('FOTO').AsString := FFOTO;
+    lQuery.ParamByName('BAIRRO').AsString := FBAIRRO;
+    lQuery.ParamByName('CIDADE').AsString := FCIDADE;
+    lQuery.ParamByName('CEP').AsString := FCEP;
+    lQuery.ParamByName('UF').AsString := FUF;
+    lQuery.ParamByName('FONE').AsString := FFONE;
+    lQuery.ParamByName('CELULAR').AsString := FCELULAR;
+    lQuery.ParamByName('EMAIL').AsString := FEMAIL;
     lQuery.ExecSQL;
 
     if pEfetuarCommit then
@@ -277,16 +260,15 @@ var
 begin
   lQuery := TFDQuery.Create(nil);
   try
-
-    if (MessageDlg('Confirma a Exclusão do Cliente: ' + FID.ToString + '-' +
+    if (MessageDlg('Confirma a Exclusão do Cliente: ' + FCODIGO.ToString + '-' +
       FNOME + ' ?', mtInformation, [mbyes, mbno], 0) = mryes) then
     begin
       lQuery.Connection := dtmConexao.FDConnection;
       lQuery.Close;
       lQuery.SQL.Clear;
       lQuery.SQL.Add(' DELETE FROM CLIENTE ');
-      lQuery.SQL.Add(' WHERE ID = :ID ');
-      lQuery.ParamByName('ID').AsInteger := FID;
+      lQuery.SQL.Add(' WHERE CODIGO = :CODIGO ');
+      lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
       lQuery.ExecSQL;
 
       if pEfetuarCommit = true then
@@ -305,17 +287,16 @@ end;
 
 procedure TCliente.Inicializar;
 begin
-  FID := 0;
-  FNOME := emptystr;
-  FCPF := emptystr;
-  FCNPJ := emptystr;
-  FFISICOOUJURIDICO := emptystr;
-  FEMAIL := emptystr;
-  FENDERECO := emptystr;
-  FBAIRRO := emptystr;
-  FCEP := emptystr;
-  FCIDADE := emptystr;
-  FFOTO := emptystr;
+  FCODIGO := 0;
+  FNOME := EmptyStr;
+  FENDERECO := EmptyStr;
+  FBAIRRO := EmptyStr;
+  FCIDADE := EmptyStr;
+  FCEP := EmptyStr;
+  FUF := EmptyStr;
+  FFONE := EmptyStr;
+  FCELULAR := EmptyStr;
+  FEMAIL := EmptyStr;
 end;
 
 constructor TCliente.Create;

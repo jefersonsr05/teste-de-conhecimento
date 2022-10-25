@@ -206,32 +206,21 @@ begin
   lCliente := TCliente.Create;
   try
     // Alimento id cliente para carregar na classe cliente
-    lCliente.ID := dtmconexao.qryConsultaClientes.FieldByName('ID').AsInteger;
+    lCliente.CODIGO := dtmconexao.qryConsultaClientes.FieldByName('CODIGO').AsInteger;
     lCliente.carrega; // aqui carrega propriedades do cliente na classe
-
-    // aqui carrega propriedades da imagem do cliente na classe
-    lCliente.CarregaImagem(lFormulario.imgCliente);
 
     lFormulario.TipoRotina := 'Alterar';
     // Abaixo uso classe cliente para alimentar os edit do cadastro
-    lFormulario.edtID.Text := lCliente.ID.tostring;
+    lFormulario.edtID.Text := lCliente.CODIGO.tostring;
     lFormulario.edtNome.Text := lCliente.NOME;
-    lFormulario.edtEmail.Text := lCliente.EMAIL;
-    lFormulario.edtCep.Text := lCliente.CEP;
-    lFormulario.edtCidade.Text := lCliente.CIDADE;
-    lFormulario.edtBairro.Text := lCliente.BAIRRO;
     lFormulario.edtEndereco.Text := lCliente.ENDERECO;
-
-    if lCliente.FISICOOUJURIDICO = ('F') then
-    begin
-      lFormulario.edtCpfCnpj.Text := lCliente.CPF;
-      lFormulario.cbxTipoFisJur.ItemIndex := 0;
-    end
-    else
-    begin
-      lFormulario.edtCpfCnpj.Text := lCliente.CNPJ;
-      lFormulario.cbxTipoFisJur.ItemIndex := 1;
-    end;
+    lFormulario.edtBairro.Text := lCliente.BAIRRO;
+    lFormulario.edtCidade.Text := lCliente.CIDADE;
+    lFormulario.edtCep.Text := lCliente.CEP;
+    lFormulario.edtUf.Text := lCliente.UF;
+    lFormulario.edtFone.Text := lCliente.FONE;
+    lFormulario.edtCelular.Text := lCliente.CELULAR;
+    lFormulario.edtEmail.Text := lCliente.EMAIL;
 
     lFormulario.ShowModal; // Abro tela cadastro cliente
   finally
@@ -239,7 +228,8 @@ begin
     lFormulario.Free;
     lCliente.Free;
 
-    CarregaClientes; // Pós alterações carrego grid de novo
+    // Pós alterações carrego grid de novo
+    CarregaClientes;
   end;
 end;
 
@@ -249,7 +239,7 @@ var
 begin
   lCliente := TCliente.Create;
   try
-    lCliente.ID := dtmconexao.qryConsultaClientesID.AsInteger;
+    lCliente.CODIGO := dtmconexao.qryConsultaClientesCODIGO.AsInteger;
     lCliente.carrega;
     lCliente.Excluir(true);
   finally
@@ -268,30 +258,21 @@ begin
   lCliente := TCliente.Create;
   try
     // Alimento id cliente para carregar na classe cliente
-    lCliente.ID := dtmconexao.qryConsultaClientes.FieldByName('ID').AsInteger;
+    lCliente.CODIGO := dtmconexao.qryConsultaClientes.FieldByName('CODIGO').AsInteger;
     lCliente.carrega; // aqui carrega propriedades do cliente na classe
-    lCliente.CarregaImagem(lFormulario.imgCliente);
 
     // Abaixo uso classe cliente para alimentar os edit do cadastro
     lFormulario.TipoRotina := 'Visualizar';
-    lFormulario.edtID.Text := lCliente.ID.tostring;
+    lFormulario.edtID.Text := lCliente.CODIGO.tostring;
     lFormulario.edtNome.Text := lCliente.NOME;
-    lFormulario.edtEmail.Text := lCliente.EMAIL;
-    lFormulario.edtCep.Text := lCliente.CEP;
-    lFormulario.edtCidade.Text := lCliente.CIDADE;
-    lFormulario.edtBairro.Text := lCliente.BAIRRO;
     lFormulario.edtEndereco.Text := lCliente.ENDERECO;
-
-    if lCliente.FISICOOUJURIDICO = ('F') then
-    begin
-      lFormulario.edtCpfCnpj.Text := lCliente.CPF;
-      lFormulario.cbxTipoFisJur.ItemIndex := 0;
-    end
-    else
-    begin
-      lFormulario.edtCpfCnpj.Text := lCliente.CNPJ;
-      lFormulario.cbxTipoFisJur.ItemIndex := 1;
-    end;
+    lFormulario.edtBairro.Text := lCliente.BAIRRO;
+    lFormulario.edtCidade.Text := lCliente.CIDADE;
+    lFormulario.edtCep.Text := lCliente.CEP;
+    lFormulario.edtUf.Text := lCliente.UF;
+    lFormulario.edtFone.Text := lCliente.FONE;
+    lFormulario.edtCelular.Text := lCliente.CELULAR;
+    lFormulario.edtEmail.Text := lCliente.EMAIL;
 
     lFormulario.edtID.ReadOnly := true;
     lFormulario.edtNome.ReadOnly := true;
@@ -300,12 +281,10 @@ begin
     lFormulario.edtCidade.ReadOnly := true;
     lFormulario.edtBairro.ReadOnly := true;
     lFormulario.edtEndereco.ReadOnly := true;
-    lFormulario.edtCpfCnpj.ReadOnly := true;
-    lFormulario.cbxTipoFisJur.Enabled := false;
 
     lFormulario.btnSalvar.visible := false;
 
-    lFormulario.ShowModal; // Abro tela cadastro cliente
+    lFormulario.ShowModal;
   finally
     // Libero da memoria o que usei
     lFormulario.Free;

@@ -27,11 +27,8 @@ type
     btnSalvar: TButton;
     btnSair: TButton;
     edtNome: TEdit;
-    edtCpfCnpj: TEdit;
     lblNome: TLabel;
     lblEmail: TLabel;
-    cbxTipoFisJur: TComboBox;
-    lblCpfCnpj: TLabel;
     lblEndereco: TLabel;
     lblBairro: TLabel;
     lblCep: TLabel;
@@ -42,17 +39,24 @@ type
     edtEndereco: TEdit;
     edtID: TEdit;
     lblID: TLabel;
-    procedure btnSalvarClick(Sender: TObject);
+    edtUf: TEdit;
+    lblUf: TLabel;
+    edtFone: TEdit;
+    edtCelular: TEdit;
+    lblCelular: TLabel;
+    lblFone: TLabel;
     procedure btnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure cbxTipoFisJurChange(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure edtNomeKeyPress(Sender: TObject; var Key: Char);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
 
     procedure IncluirCliente;
     procedure AlterarCliente;
+
+    function ValidaCampos: Boolean;
 
   public
     { Public declarations }
@@ -67,18 +71,126 @@ implementation
 {$R *.dfm}
 { TfrmCadastroCliente }
 
-procedure TfrmCadastroCliente.cbxTipoFisJurChange(Sender: TObject);
+procedure TfrmCadastroCliente.IncluirCliente;
+var
+  lCliente: TCliente;
 begin
-  edtCpfCnpj.clear;
-  if cbxTipoFisJur.ItemIndex = 0 then
+  lCliente := TCliente.Create;
+  try
+    lCliente.CODIGO := StrToInt(edtID.Text);
+    lCliente.NOME := edtNome.Text;
+    lCliente.ENDERECO := edtEndereco.Text;
+    lCliente.BAIRRO := edtBairro.Text;
+    lCliente.CIDADE := edtCidade.Text;
+    lCliente.CEP := edtCep.Text;
+    lCliente.UF := edtUf.Text;
+    lCliente.FONE := edtFone.Text;
+    lCliente.CELULAR := edtCelular.Text;
+    lCliente.EMAIL := edtEmail.Text;
+    lCliente.Incluir(true);
+  finally
+    lCliente.Free;
+  end;
+end;
+
+procedure TfrmCadastroCliente.AlterarCliente;
+var
+  lCliente: TCliente;
+begin
+  lCliente := TCliente.Create;
+  try
+    lCliente.CODIGO := StrToInt(edtID.Text);
+    lCliente.NOME := edtNome.Text;
+    lCliente.ENDERECO := edtEndereco.Text;
+    lCliente.BAIRRO := edtBairro.Text;
+    lCliente.CIDADE := edtCidade.Text;
+    lCliente.CEP := edtCep.Text;
+    lCliente.UF := edtUf.Text;
+    lCliente.FONE := edtFone.Text;
+    lCliente.CELULAR := edtCelular.Text;
+    lCliente.EMAIL := edtEmail.Text;
+
+    lCliente.Alterar(true);
+  finally
+    lCliente.Free;
+  end;
+end;
+
+function TfrmCadastroCliente.ValidaCampos: Boolean;
+begin
+  if trim(edtNome.Text) = emptyStr then
   begin
-    lblCpfCnpj.Caption := 'CPF';
-    edtCpfCnpj.MaxLength := 11;
+    showmessage ('O campo Nome precisa ser preenchido para a conclusão do cadastro.');
+    edtNome.SetFocus;
+    Result := False;
   end
-  else if cbxTipoFisJur.ItemIndex = 1 then
+  else if trim(edtEndereco.Text) = emptyStr then
   begin
-    lblCpfCnpj.Caption := 'CNPJ';
-    edtCpfCnpj.MaxLength := 14;
+    showmessage ('O campo Endereço precisa ser preenchido para a conclusão do cadastro.');
+    edtEndereco.SetFocus;
+    Result := False;
+  end
+  else if trim(edtBairro.Text) = emptyStr then
+  begin
+    showmessage ('O campo Bairro precisa ser preenchido para a conclusão do cadastro.');
+    edtBairro.SetFocus;
+    Result := False;
+  end
+  else if trim(edtCidade.Text) = emptyStr then
+  begin
+    showmessage ('O campo Cidade precisa ser preenchido para a conclusão do cadastro.');
+    edtCep.SetFocus;
+    Result := False;
+  end
+  else if trim(edtCep.Text) = emptyStr then
+  begin
+    showmessage ('O campo CEP precisa ser preenchido para a conclusão do cadastro.');
+    edtCep.SetFocus;
+    Result := False;
+  end
+  else if Length(edtCep.Text) < 8 then
+  begin
+    showmessage('Este CEP é invalido, favor conferir digitação.');
+    edtCep.SetFocus;
+    Result := False;
+  end
+  else if trim(edtEmail.Text) = emptyStr then
+  begin
+    showmessage ('O campo E-mail precisa ser preenchido para a conclusão do cadastro.');
+    edtEmail.SetFocus;
+    Result := False;
+  end
+  else if Trim(edtFone.text) = EmptyStr then
+  begin
+    showmessage ('O campo Fone precisa ser preenchido para a conclusão do cadastro.');
+    edtFone.SetFocus;
+    Result := False;
+  end
+  else if Trim(edtCelular.text) = EmptyStr then
+  begin
+    showmessage ('O campo Celular precisa ser preenchido para a conclusão do cadastro.');
+    edtCelular.SetFocus;
+    Result := False;
+  end
+  else
+  begin
+    Result := True;
+  end;
+end;
+
+procedure TfrmCadastroCliente.btnSalvarClick(Sender: TObject);
+begin
+  if ValidaCampos then
+  begin
+    if TipoRotina = 'Incluir' then
+    begin
+      IncluirCliente;
+    end
+    else if TipoRotina = 'Alterar' then
+    begin
+      AlterarCliente;
+    end;
+    close;
   end;
 end;
 
@@ -99,210 +211,27 @@ begin
   end;
 end;
 
-procedure TfrmCadastroCliente.IncluirCliente;
-var
-  lCliente: TCliente;
-begin
-  lCliente := TCliente.Create;
-  try
-    lCliente.NOME := edtNome.Text;
-    lCliente.EMAIL := edtEmail.Text;
-    case cbxTipoFisJur.ItemIndex of
-      0:
-        begin
-          lCliente.CPF := edtCpfCnpj.Text;
-          lCliente.CNPJ := emptyStr;
-          lCliente.FISICOOUJURIDICO := 'F';
-        end;
-      1:
-        begin
-          lCliente.CPF := emptyStr;
-          lCliente.CNPJ := edtCpfCnpj.Text;
-          lCliente.FISICOOUJURIDICO := 'J';
-        end;
-    end;
-    lCliente.CEP := edtCep.Text;
-    lCliente.CIDADE := edtCidade.Text;
-    lCliente.BAIRRO := edtBairro.Text;
-    lCliente.ENDERECO := edtEndereco.Text;
-    lCliente.Incluir(true);
-  finally
-    lCliente.Free;
-  end;
-end;
-
-procedure TfrmCadastroCliente.AlterarCliente;
-var
-  lCliente: TCliente;
-begin
-  lCliente := TCliente.Create;
-  try
-    lCliente.Id := StrToInt(edtID.Text);
-    lCliente.NOME := edtNome.Text;
-    lCliente.EMAIL := edtEmail.Text;
-    case cbxTipoFisJur.ItemIndex of
-      0:
-        begin
-          lCliente.CPF := edtCpfCnpj.Text;
-          lCliente.CNPJ := emptyStr;
-          lCliente.FISICOOUJURIDICO := 'F';
-        end;
-      1:
-        begin
-          lCliente.CPF := emptyStr;
-          lCliente.CNPJ := edtCpfCnpj.Text;
-          lCliente.FISICOOUJURIDICO := 'J';
-        end;
-    end;
-    lCliente.CEP := edtCep.Text;
-    lCliente.CIDADE := edtCidade.Text;
-    lCliente.BAIRRO := edtBairro.Text;
-    lCliente.ENDERECO := edtEndereco.Text;
-    lCliente.FOTO := imgCliente.Base64;
-    lCliente.Alterar(true);
-  finally
-    lCliente.Free;
-  end;
-end;
-
-procedure TfrmCadastroCliente.btnSalvarClick(Sender: TObject);
-begin
-  if trim(edtNome.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo Nome precisa ser preenchido para a conclusão do cadastro.');
-    edtNome.SetFocus;
-  end
-  else if trim(edtEmail.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo E-mail precisa ser preenchido para a conclusão do cadastro.');
-    edtEmail.SetFocus;
-  end
-  else if trim(edtCep.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo CEP precisa ser preenchido para a conclusão do cadastro.');
-    edtCep.SetFocus;
-  end
-  else if trim(edtCidade.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo Cidade precisa ser preenchido para a conclusão do cadastro.');
-    edtCep.SetFocus;
-  end
-  else if trim(edtBairro.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo Bairro precisa ser preenchido para a conclusão do cadastro.');
-    edtBairro.SetFocus;
-  end
-  else if trim(edtEndereco.Text) = emptyStr then
-  begin
-    showmessage
-      ('O campo Endereço precisa ser preenchido para a conclusão do cadastro.');
-    edtEndereco.SetFocus;
-  end
-  else if Length(edtCep.Text) < 8 then
-  begin
-    showmessage('Este CEP é invalido, favor conferir digitação.');
-    edtCep.SetFocus;
-  end
-  else if cbxTipoFisJur.ItemIndex = 0 then
-  begin
-    if trim(edtCpfCnpj.Text) = emptyStr then
-    begin
-      showmessage
-        ('O campo CPF precisa ser preenchido para a conclusão do cadastro.');
-      edtCpfCnpj.SetFocus;
-    end
-    else if not(TCliente.ValidaCPF(edtCpfCnpj.Text)) then
-    begin
-      showmessage('Este CPF é inválido, favor conferir digitação!');
-      edtCpfCnpj.SetFocus;
-    end
-    else
-    begin
-      begin
-        if TipoRotina = 'Incluir' then
-        begin
-          IncluirCliente;
-        end
-        else if TipoRotina = 'Alterar' then
-        begin
-          AlterarCliente;
-        end;
-        close;
-      end;
-    end;
-  end
-  else if cbxTipoFisJur.ItemIndex = 1 then
-  begin
-    if trim(edtCpfCnpj.Text) = emptyStr then
-    begin
-      showmessage
-        ('O campo CNPJ precisa ser preenchido para a conclusão do cadastro.');
-      edtCpfCnpj.SetFocus;
-    end
-    else if not(TCliente.ValidaCNPJ(edtCpfCnpj.Text)) then
-    begin
-      showmessage('Este CNPJ é inválido, favor conferir digitação!');
-      edtCpfCnpj.SetFocus;
-    end
-    else
-    begin
-      begin
-        if TipoRotina = 'Incluir' then
-        begin
-          IncluirCliente;
-        end
-        else if TipoRotina = 'Alterar' then
-        begin
-          AlterarCliente;
-        end;
-        close;
-      end;
-    end;
-  end;
-end;
-
-procedure TfrmCadastroCliente.btnSairClick(Sender: TObject);
-begin
-  close;
-end;
-
 procedure TfrmCadastroCliente.FormShow(Sender: TObject);
 begin
   WindowState := wsMaximized;
 
   if TipoRotina = 'Incluir' then
   begin
-    imgCliente.Popup;
     edtNome.SetFocus;
   end
   else if TipoRotina = 'Alterar' then
   begin
-    imgCliente.Popup;
     edtNome.SetFocus;
   end
   else
   begin
     btnSair.SetFocus;
   end;
+end;
 
-  if cbxTipoFisJur.ItemIndex = 0 then
-  begin
-    lblCpfCnpj.Caption := 'CPF';
-    edtCpfCnpj.MaxLength := 11;
-  end
-  else if cbxTipoFisJur.ItemIndex = 1 then
-  begin
-    lblCpfCnpj.Caption := 'CNPJ';
-    edtCpfCnpj.MaxLength := 14;
-  end;
-  imgCliente.Stretch := false;
-  imgCliente.Proportional := false;
-  imgCliente.Center := true;
+procedure TfrmCadastroCliente.btnSairClick(Sender: TObject);
+begin
+  close;
 end;
 
 end.

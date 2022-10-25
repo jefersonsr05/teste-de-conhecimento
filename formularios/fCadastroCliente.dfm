@@ -3,7 +3,7 @@ object frmCadastroCliente: TfrmCadastroCliente
   Top = 0
   ActiveControl = edtNome
   Caption = 'Cadastro de Clientes'
-  ClientHeight = 593
+  ClientHeight = 484
   ClientWidth = 986
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -32,7 +32,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     Left = 0
     Top = 41
     Width = 986
-    Height = 512
+    Height = 403
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -41,6 +41,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitHeight = 512
     object lblNome: TLabel
       Left = 18
       Top = 64
@@ -55,8 +56,8 @@ object frmCadastroCliente: TfrmCadastroCliente
       ParentFont = False
     end
     object lblEmail: TLabel
-      Left = 18
-      Top = 116
+      Left = 346
+      Top = 63
       Width = 44
       Height = 18
       Caption = 'Email:'
@@ -67,22 +68,9 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       ParentFont = False
     end
-    object lblCpfCnpj: TLabel
-      Left = 20
-      Top = 222
-      Width = 33
-      Height = 19
-      Caption = 'CPF:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
     object lblEndereco: TLabel
       Left = 18
-      Top = 439
+      Top = 119
       Width = 72
       Height = 18
       Caption = 'Endere'#231'o:'
@@ -95,7 +83,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     end
     object lblBairro: TLabel
       Left = 18
-      Top = 383
+      Top = 176
       Width = 47
       Height = 18
       Caption = 'Bairro:'
@@ -108,7 +96,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     end
     object lblCep: TLabel
       Left = 18
-      Top = 280
+      Top = 284
       Width = 38
       Height = 18
       Caption = 'CEP:'
@@ -121,7 +109,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     end
     object lblCidade: TLabel
       Left = 18
-      Top = 332
+      Top = 231
       Width = 56
       Height = 18
       Caption = 'Cidade:'
@@ -145,6 +133,45 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       ParentFont = False
     end
+    object lblUf: TLabel
+      Left = 18
+      Top = 337
+      Width = 25
+      Height = 18
+      Caption = 'UF:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCelular: TLabel
+      Left = 346
+      Top = 176
+      Width = 53
+      Height = 18
+      Caption = 'Celular:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFone: TLabel
+      Left = 346
+      Top = 119
+      Width = 40
+      Height = 18
+      Caption = 'Fone:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object edtNome: TEdit
       Left = 18
       Top = 83
@@ -161,25 +188,10 @@ object frmCadastroCliente: TfrmCadastroCliente
       TabOrder = 1
       OnKeyPress = edtNomeKeyPress
     end
-    object edtCpfCnpj: TEdit
-      Left = 18
-      Top = 243
-      Width = 150
-      Height = 26
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial'
-      Font.Style = []
-      MaxLength = 11
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 4
-    end
     object edtEmail: TEdit
-      Left = 18
-      Top = 136
-      Width = 300
+      Left = 346
+      Top = 83
+      Width = 327
       Height = 26
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
@@ -187,49 +199,28 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Height = -16
       Font.Name = 'Arial'
       Font.Style = []
-      MaxLength = 60
+      MaxLength = 50
       ParentFont = False
       TabOrder = 2
     end
-    object cbxTipoFisJur: TComboBox
-      Left = 18
-      Top = 181
-      Width = 150
-      Height = 27
-      Style = csDropDownList
-      DropDownCount = 2
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ItemIndex = 0
-      ParentFont = False
-      TabOrder = 3
-      Text = 'Pessoa Fisica'
-      OnChange = cbxTipoFisJurChange
-      Items.Strings = (
-        'Pessoa Fisica'
-        'Pessoa Juridica')
-    end
     object edtCep: TEdit
       Left = 18
-      Top = 300
-      Width = 120
+      Top = 304
+      Width = 143
       Height = 26
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
       Font.Name = 'Arial'
       Font.Style = []
-      MaxLength = 8
+      MaxLength = 10
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
     end
     object edtCidade: TEdit
       Left = 18
-      Top = 351
+      Top = 250
       Width = 180
       Height = 26
       CharCase = ecUpperCase
@@ -240,12 +231,12 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 30
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 4
     end
     object edtBairro: TEdit
       Left = 18
-      Top = 403
-      Width = 200
+      Top = 196
+      Width = 300
       Height = 26
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
@@ -255,12 +246,12 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 20
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 5
     end
     object edtEndereco: TEdit
       Left = 18
-      Top = 459
-      Width = 230
+      Top = 143
+      Width = 300
       Height = 26
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
@@ -270,7 +261,7 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 35
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 6
     end
     object edtID: TEdit
       Left = 18
@@ -288,16 +279,64 @@ object frmCadastroCliente: TfrmCadastroCliente
       ReadOnly = True
       TabOrder = 0
     end
+    object edtUf: TEdit
+      Left = 18
+      Top = 360
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 2
+      ParentFont = False
+      TabOrder = 7
+    end
+    object edtFone: TEdit
+      Left = 346
+      Top = 143
+      Width = 230
+      Height = 26
+      CharCase = ecUpperCase
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 15
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 8
+    end
+    object edtCelular: TEdit
+      Left = 346
+      Top = 196
+      Width = 230
+      Height = 26
+      CharCase = ecUpperCase
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 15
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 9
+    end
   end
   object pnlBotoes: TPanel
     Left = 0
-    Top = 553
+    Top = 444
     Width = 986
     Height = 40
     Align = alBottom
     Color = clTeal
     ParentBackground = False
     TabOrder = 2
+    ExplicitTop = 553
     object btnSalvar: TButton
       Left = 1
       Top = 1
