@@ -93,6 +93,7 @@ type
     procedure DBComboBoxOpVendaExit(Sender: TObject);
     procedure CalculaValorTotalItem;
     procedure LimpaCamposItens;
+    procedure ButtonExcluirClick(Sender: TObject);
   private
     { Private declarations }
     procedure GravarItem;
@@ -154,6 +155,13 @@ begin
     FreeAndNil(frmPesquisarClientes);
   end;
 end;
+procedure TfrmCadastroVenda.ButtonExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DBGridItensVenda.DataSource.DataSet.Delete
+
+end;
+
 procedure TfrmCadastroVenda.ButtonProdutoClick(Sender: TObject);
 begin
   inherited;
@@ -284,7 +292,9 @@ begin
   //  adicionar data da ultima venda no produto
   if FDQueryCadastroOPERACAO_VENDA.Value = 'V' then
   begin
+
     //FDQueryProduto.
+
   end;
   //  Se for pre venda ira baixar somente estoque
   if FDQueryCadastroOPERACAO_VENDA.Value = 'P' then
@@ -320,33 +330,16 @@ var
 begin
   cod := 0;
 
-  //FDQueryItemNota.Open();
-
-  //  Ve o ultimo registro
-  //FDQueryItemNota.Last();
-  //  Pega o último código gerado e soma + 1
-  //cod := FDQueryItemNota.ExecSQL ('SELECT max(lcto) FROM ITEM_VENDA') + 1;
-  //cod := FDQueryItemNota.FieldByName('LCTO').AsInteger + 1;
-
-  //  Insere o registro no final da tabela
-  //FDQueryItemNota.Append();
-
-  //FDQueryItemVenda.Close;
-  //FDQueryItemVenda.SQL.Clear;
-  //FDQueryItemVenda.SQL.Add('select max(lcto) from item_venda');
   FDQueryItemVenda.Open();
 
   cod :=  FDQueryItemVendaMAX.AsInteger + 1 ;
-
-  //ShowMessage(IntToStr(cod));
-
-  //FDQueryItemVenda.Append();
 
   //  Seta no edit o codigo gerado
   EditLcto.Text := IntToStr(cod);
 
   //  Posiciona o cursor
   EditProduto.SetFocus;
+
 end;
 procedure TfrmCadastroVenda.GeraNumeroVenda;
 var

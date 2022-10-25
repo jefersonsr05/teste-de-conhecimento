@@ -4,7 +4,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
-  ExplicitTop = -23
   ExplicitWidth = 1039
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -244,6 +243,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 41
       Caption = 'EXCLUIR'
       TabOrder = 2
+      OnClick = ButtonExcluirClick
     end
     object EditProduto: TEdit
       Left = 96
@@ -317,7 +317,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 299
       Align = alClient
       DataSource = DataSourceItemNota
-      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
