@@ -36,8 +36,6 @@ type
     procedure Incluir(pEfetuarCommit: boolean);
     procedure Alterar(pEfetuarCommit: boolean);
     procedure Excluir(pEfetuarCommit: boolean);
-    procedure CarregaImagem(pImagem: TImage);
-    procedure CarregaRLImagem(pImagem: TRLImage);
 
     constructor Create;
     class property ObjetoBusca: TCliente read FObjetoBusca write FObjetoBusca;
@@ -132,37 +130,6 @@ begin
   finally
     lQuery.Free;
   end;
-end;
-
-procedure TCliente.CarregaImagem(pImagem: TImage);
-begin
-  // Chamar sempre APÓS CARREGAR A CLASSE.
-  pImagem.Picture := nil;
-
-  if trim(FFOTO) <> emptystr then
-  begin
-    pImagem.Base64(FFOTO);
-  End
-  Else
-  Begin
-    // Tratar aqui como nao encontrado
-  End;
-end;
-
-procedure TCliente.CarregaRLImagem(pImagem: TRLImage);
-begin
-  // Chamar sempre APÓS CARREGAR A CLASSE.
-  pImagem.Picture := nil;
-
-  if trim(FFOTO) <> emptystr then
-  begin
-    pImagem.Base64(FFOTO);
-  end
-  else
-  begin
-    // Tratar aqui como nao encontrado
-  end;
-
 end;
 
 class function TCliente.GeraProximoID: integer;
