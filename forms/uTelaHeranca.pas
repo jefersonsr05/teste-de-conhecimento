@@ -178,8 +178,17 @@ begin
           Break;
         end;
     end;
+    if ((Components[i] is TDateEdit)) then
+      if (TDateEdit(Components[i]).Tag = 1) and (TDateEdit(Components[i]).Date=0)then
+        begin
+          MessageDlg('Preencha os campos obrigatórios.', mtInformation,[mbOk],0);
+          TDateEdit(Components[i]).SetFocus;
+          Result:=true;
+          Break;
+        end;
+    end;
   end;
-end;
+
 
 procedure TfrmTelaHeranca.VerificarCampoNaoEditavel;
 var i:integer;

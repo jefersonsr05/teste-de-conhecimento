@@ -146,6 +146,7 @@
             ListField = 'DESCRICAO'
             ListSource = dtmVenda.dtsProduto
             TabOrder = 2
+            OnExit = lkpProdutosExit
           end
           object edtQuantidade: TCurrencyEdit
             Tag = 1
@@ -163,10 +164,11 @@
             Width = 121
             Height = 21
             TabOrder = 4
+            OnExit = edtUnitarioExit
           end
           object edtTotal: TCurrencyEdit
             Tag = 1
-            Left = 664
+            Left = 655
             Top = 32
             Width = 121
             Height = 21
@@ -182,6 +184,7 @@
             Height = 25
             Caption = 'Adicionar'
             TabOrder = 5
+            OnClick = btnAdicionarClick
           end
           object btnRemover: TBitBtn
             Left = 896
@@ -191,6 +194,7 @@
             Caption = 'Remover'
             TabOrder = 1
             TabStop = False
+            OnClick = btnRemoverClick
           end
         end
         object Panel3: TPanel
@@ -205,14 +209,18 @@
             Top = 1
             Width = 1066
             Height = 445
+            TabStop = False
             Align = alClient
             DataSource = dtmVenda.dtsItensVenda
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            OnCellClick = grdVendaCellClick
+            OnDblClick = grdVendaDblClick
             Columns = <
               item
                 Expanded = False

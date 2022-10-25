@@ -57,26 +57,21 @@ object dtmVenda: TdtmVenda
     Params = <>
     Left = 32
     Top = 160
-    object cdsItensVendaprodutoCod: TIntegerField
+    object codigo: TIntegerField
       FieldName = 'C'#243'digo'
     end
-    object cdsItensVendaProdutoDescricao: TStringField
+    object descricao: TStringField
       FieldName = 'Descri'#231#227'o'
       Size = 35
     end
-    object cdsItensVendaquantidader: TFloatField
+    object quantidade: TFloatField
       FieldName = 'Quantidade'
     end
-    object cdsItensVendavalorUn: TFloatField
+    object unitario: TFloatField
       FieldName = 'Unit'#225'rio'
     end
-    object cdsItensVendavalorTotalProduto: TFloatField
+    object total: TFloatField
       FieldName = 'Total'
-    end
-    object cdsItensVendavalorTotalVenda: TAggregateField
-      FieldName = 'valorTotalVenda'
-      DisplayName = ''
-      Expression = 'sum(Total)'
     end
   end
   object dtsClient: TDataSource

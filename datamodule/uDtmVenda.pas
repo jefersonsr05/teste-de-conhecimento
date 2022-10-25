@@ -20,12 +20,11 @@ type
     dtsClient: TDataSource;
     dtsProduto: TDataSource;
     dtsItensVenda: TDataSource;
-    cdsItensVendaprodutoCod: TIntegerField;
-    cdsItensVendaProdutoDescricao: TStringField;
-    cdsItensVendaquantidader: TFloatField;
-    cdsItensVendavalorUn: TFloatField;
-    cdsItensVendavalorTotalProduto: TFloatField;
-    cdsItensVendavalorTotalVenda: TAggregateField;
+    codigo: TIntegerField;
+    descricao: TStringField;
+    quantidade: TFloatField;
+    unitario: TFloatField;
+    total: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
