@@ -18,7 +18,6 @@ type
     _fTipo_Venda:string;
     _fValor_Venda:double;
     _fOperacao_Venda:string;
-    _fOpercao_Venda: string;
 
     function PrimeiroCodigo: boolean;
 
@@ -74,9 +73,7 @@ begin
     qry.SQL.Clear;
     if (PrimeiroCodigo) then
     begin
-      qry.SQL.Add('Insert into venda (1,emissao,cliente,tipo_venda,valor_venda,operacao_venda' +
-                ' values (:nrnota,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
-      qry.ParamByName('nrnota').AsInteger := self._fNrnota;
+      qry.SQL.Add('Insert into venda values (1,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
       qry.ParamByName('emissao').AsDateTime := self._fEmissao;
       qry.ParamByName('cliente').AsInteger := self._fCliente;
       qry.ParamByName('valor_venda').AsFloat := self._fValor_Venda;
@@ -85,9 +82,7 @@ begin
     end
     else
     begin
-      qry.SQL.Add('Insert into venda ((SELECT max(nrnota) FROM venda)+1,emissao,cliente,tipo_venda,valor_venda,operacao_venda' +
-                ' values (:nrnota,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
-      qry.ParamByName('nrnota').AsInteger := self._fNrnota;
+      qry.SQL.Add('Insert into venda values ((SELECT max(nrnota) FROM venda)+1,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
       qry.ParamByName('emissao').AsDateTime := self._fEmissao;
       qry.ParamByName('cliente').AsInteger := self._fCliente;
       qry.ParamByName('valor_venda').AsFloat := self._fValor_Venda;
@@ -97,11 +92,11 @@ begin
 
     try
       qry.ExecSQL;
-      qry.sql.Clear;
-      qry.SQL.Add('select scope_identity() as IdItens');
-      qry.Open;
+      //qry.sql.Clear;
+      //qry.SQL.Add('select scope_identity() as IdItens');
+      //qry.Open;
 
-      IdItens:=qry.FieldByName('IdItens').AsInteger;
+      //IdItens:=qry.FieldByName('IdItens').AsInteger;
 
       ConexaoDB.Commit;
     except
@@ -178,8 +173,8 @@ begin
     qry := TZQuery.Create(nil);
     qry.Connection := ConexaoDB;
     qry.SQL.Clear;
-    qry.sql.Add('update venda set nrnota=:nrnota, emissao=:emissao' +
-                ' cliente:=cliente, valor_venda:=valor_venda, tipo_venda=:tipo_venda' +
+    qry.sql.Add('update venda set nrnota=:nrnota, emissao=:emissao,' +
+                ' cliente=:cliente, valor_venda=:valor_venda, tipo_venda=:tipo_venda,' +
                 ' operacao_venda=:operacao_venda where nrnota=:nrnota ');
     qry.ParamByName('nrnota').AsInteger := self._fNrnota;
     qry.ParamByName('emissao').AsDateTime := self._fEmissao;

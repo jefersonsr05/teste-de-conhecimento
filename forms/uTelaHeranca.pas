@@ -210,6 +210,10 @@ begin
         TCurrencyEdit(Components[i]).Value := 0
       else if (Components[i] is TDatePicker)  then
         TDatePicker(Components[i]).Date := 0
+      else if (Components[i] is TDBLookupComboBox) then
+        TDBLookupComboBox(Components[i]).KeyValue := 0
+      else if (Components[i] is TDateEdit) then
+        TDateEdit(components[i]).Date := 0;
   end;
 end;
 

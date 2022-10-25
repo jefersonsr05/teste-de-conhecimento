@@ -45,6 +45,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAlterarClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
   private
     { Private declarations }
     _Vendas:TVendas;
@@ -129,6 +130,14 @@ begin
       btnCancelar.Click;
       abort;
     end;
+  inherited;
+end;
+
+procedure TfrmVendas.btnNovoClick(Sender: TObject);
+begin
+  rgpVenda.ItemIndex := 0;
+  rgpPagamento.ItemIndex := 0;
+
   inherited;
 end;
 
