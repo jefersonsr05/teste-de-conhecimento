@@ -29,7 +29,7 @@ type
     constructor Create(_Conexao:TZConnection);
     destructor Destroy; override;
     function Inserir(cds:TClientDataSet):boolean;
-    function Atualizar:boolean;
+    //function Atualizar:boolean;
     function Apagar:boolean;
     function Selecionar(id:Integer):boolean;
 
@@ -98,6 +98,9 @@ begin
       qry.ExecSQL;
 
       qry.sql.Clear;
+
+      //Update da data de venda do produto e dos saldos.
+
       qry.sql.Add('update produtos set saldo = saldo-:saldo, data_venda=:data_venda where codigo=:codigo');
       qry.ParamByName('saldo').AsFloat := cds.FieldByName('Quantidade').AsFloat;
       qry.ParamByName('data_venda').AsDateTime := self._fEmissao;
@@ -150,7 +153,7 @@ IdItens:Integer;
 begin
   try
     result := true;
-    ConexaoDB.StartTransaction;
+    ConexaoDB.StartTransaction; //Para garantir a transação.
     qry:=TZQuery.Create(nil);
     qry.Connection:=ConexaoDB;
     qry.SQL.Clear;
@@ -176,11 +179,12 @@ begin
     try
       qry.ExecSQL;
       qry.sql.Clear;
-      //qry.SQL.Add('select scope_identity() as IdItens');
       qry.SQL.Add('SELECT max(nrnota) as IdItens FROM venda');
       qry.Open;
 
       IdItens:=qry.FieldByName('IdItens').AsInteger;
+
+      //Percorrer a dataset do itens vendas.
 
       cds.First;
       while not cds.Eof do
@@ -189,9 +193,9 @@ begin
         cds.Next;
       end;
 
-      ConexaoDB.Commit;
+      ConexaoDB.Commit; //Se tudo certo, commit.
     except
-      conexaodb.Rollback;
+      conexaodb.Rollback;  //Se falhou, rollback.
       result:=false;
     end;
   finally
@@ -256,6 +260,7 @@ begin
   end;
 end;
 
+{
 function TVendas.Atualizar: boolean;
 var qry:TZQuery;
 begin
@@ -282,8 +287,8 @@ begin
     if Assigned(qry) then
       FreeAndNil(qry);
   end;
-
 end;
+ }
 
 function TVendas.Selecionar(id: Integer): boolean;
 var qry:TZQuery;

@@ -1,18 +1,19 @@
 inherited frmCadClientes: TfrmCadClientes
   Caption = 'Cadastro de Clientes'
   ClientWidth = 1074
-  ExplicitTop = -79
   ExplicitWidth = 1080
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
     Width = 1074
     ActivePage = TabSheet2
+    ExplicitWidth = 1074
     ExplicitHeight = 656
     inherited TabListagem: TTabSheet
       ExplicitWidth = 1066
       inherited pnlListagemTopo: TPanel
         Width = 1066
+        ExplicitWidth = 1066
       end
       inherited grdListagem: TDBGrid
         Width = 1066
@@ -28,8 +29,6 @@ inherited frmCadClientes: TfrmCadClientes
         Height = 48
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
-        ExplicitWidth = 1072
         object lblGrandeNome: TLabel
           Left = 207
           Top = 8
@@ -64,10 +63,6 @@ inherited frmCadClientes: TfrmCadClientes
         Height = 580
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 688
-        ExplicitTop = 328
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object lblTextoCelular: TLabel
           Left = 331
           Top = 208
@@ -227,10 +222,10 @@ inherited frmCadClientes: TfrmCadClientes
   end
   inherited pnlBaixo: TPanel
     Width = 1074
-    ExplicitLeft = 0
-    ExplicitTop = 656
+    ExplicitWidth = 1074
     inherited btnFechar: TBitBtn
       Left = 979
+      ExplicitLeft = 979
     end
     inherited btnNavegar: TDBNavigator
       Hints.Strings = ()

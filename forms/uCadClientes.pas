@@ -1,4 +1,4 @@
-unit uCadClientes;
+﻿unit uCadClientes;
 
 interface
 
@@ -58,6 +58,10 @@ implementation
 
 function TfrmCadClientes.Salvar(EstadoDocadastro: TEstadoDoCadastro): boolean;
 begin
+
+  //Verifica primeiro se o campo de codigo do cliente está vazio, para incluir, ou com valor, para fazer update.
+  //Se estiver vazio passa os campos novos para as variaveis da classe.
+
   if (edtCodigo.Text <> EmptyStr) then
     _Cliente.codigo := StrToInt(edtCodigo.Text)
   else

@@ -58,6 +58,10 @@ implementation
 
 function TfrmCadProdutos.Salvar(EstadoDocadastro: TEstadoDoCadastro): boolean;
 begin
+
+  //Verifica primeiro se o campo de codigo do produto está vazio, para incluir, ou com valor, para fazer update.
+  //Se estiver vazio passa os campos novos para as variaveis da classe.
+
   if (edtCodigo.Text <> EmptyStr) then
     _Produto.codigo := StrToInt(edtCodigo.Text)
   else

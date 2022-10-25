@@ -3,7 +3,6 @@
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
-    ActivePage = TabSheet2
     ExplicitHeight = 656
     inherited TabListagem: TTabSheet
       inherited grdListagem: TDBGrid
@@ -322,6 +321,9 @@
     end
   end
   inherited pnlBaixo: TPanel
+    inherited btnAlterar: TBitBtn
+      Enabled = False
+    end
     inherited btnNavegar: TDBNavigator
       Hints.Strings = ()
     end

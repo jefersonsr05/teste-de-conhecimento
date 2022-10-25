@@ -12,8 +12,6 @@ inherited frmCadProdutos: TfrmCadProdutos
         Height = 459
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 1001
-        ExplicitHeight = 483
         object lblUltimaVenda: TLabel
           Left = 170
           Top = 88

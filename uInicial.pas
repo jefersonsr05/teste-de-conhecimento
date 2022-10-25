@@ -82,8 +82,6 @@ begin
 
      // Leitura INI com path do banco
 
-     // Leitura INI com path do banco
-
     ArquivoINI := TIniFile.Create(ExtractFilePath(Application.ExeName)+'TESTE.ini');
     dir := ArquivoINI.ReadString('CONEXAO','DIR','');
     ShowMessage('BANCO DE DADOS EM : ' + dir);

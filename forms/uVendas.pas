@@ -44,7 +44,6 @@ type
     lblTextoTotal: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnAlterarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnAdicionarClick(Sender: TObject);
     procedure lkpProdutosExit(Sender: TObject);
@@ -55,6 +54,7 @@ type
     procedure btnRemoverClick(Sender: TObject);
     procedure grdVendaDblClick(Sender: TObject);
     procedure grdVendaCellClick(Column: TColumn);
+    procedure btnAlterarClick(Sender: TObject);
   private
     { Private declarations }
     _Vendas:TVendas;
@@ -87,10 +87,13 @@ end;
 
 function TfrmVendas.Salvar(EstadoDocadastro: TEstadoDoCadastro): boolean;
 begin
+
+  //Verifica primeiro se o campo de Nrnota está vazio, para incluir, ou com valor, para fazer update.
+  //Se estiver vazio passa os campos novos para as variaveis da classe.
+
   if (edtNrnota.Text <> EmptyStr) then
     _Vendas.nrnota := StrToInt(edtNrnota.Text)
   else
-
   _Vendas.nrnota := 0;
   _Vendas.emissao := edtEmissao.Date;
   _Vendas.cliente := lkpCliente.KeyValue;
@@ -110,8 +113,8 @@ begin
 
   if (EstadoDocadastro=ecInserir) then
     Result := _Vendas.Inserir(dtmVenda.cdsItensVenda)
-  else if (EstadoDocadastro=ecAlterar) then
-    Result := _Vendas.Atualizar;
+  //else if (EstadoDocadastro=ecAlterar) then
+  //Result := _Vendas.Atualizar;
 end;
 
 {$endregion}
@@ -125,13 +128,18 @@ end;
 
 procedure TfrmVendas.LimparItensVenda;
 begin
+
   //Enquanto nao for "End of File" vai deletando os itens da tela.
+
   while not dtmVenda.cdsItensVenda.Eof do
     dtmVenda.cdsItensVenda.Delete;
 end;
 
 procedure TfrmVendas.PreencherItem;
 begin
+
+  //Preenche os campos se o produto no grid for clicado.
+
   lkpProdutos.KeyValue := dtmVenda.cdsItensVenda.FieldByName('Código').AsString;
   edtQuantidade.Value := dtmVenda.cdsItensVenda.FieldByName('Quantidade').AsFloat;
   edtUnitario.Value := dtmVenda.cdsItensVenda.FieldByName('Unitário').AsFloat;
@@ -140,6 +148,9 @@ end;
 
 procedure TfrmVendas.LimparProdutoTela;
 begin
+
+  //Limpa os campos depois de inserir um produto no grid.
+
   lkpProdutos.KeyValue := null;
   edtQuantidade.Value := 0;
   edtUnitario.Value := 0;
@@ -148,6 +159,9 @@ end;
 
 function TfrmVendas.TotalVenda:Double;
 begin
+
+  //Retorna o result do double com o calculo percorrendo os itens no dataset.
+
   result := 0;
   dtmVenda.cdsItensVenda.First;
   while not dtmVenda.cdsItensVenda.Eof do
@@ -209,40 +223,16 @@ begin
   edtValorVenda.Text := FloatToStr(TotalVenda);
   LimparProdutoTela;
 
-  grdVenda.DataSource := dtmVenda.dtsItensVenda;
+  grdVenda.DataSource := dtmVenda.dtsItensVenda; //Confirma a conexão do grid com o dataset de itens venda.
 
   lkpProdutos.SetFocus;
 end;
 
 procedure TfrmVendas.btnAlterarClick(Sender: TObject);
 begin
-  inherited;
-  if _Vendas.Selecionar(qryListagem.FieldByName('nrnota').AsInteger) then
-  begin
-    edtNrnota.Text := IntToStr(_Vendas.nrnota);
-    edtEmissao.Date := _Vendas.emissao;
-    lkpCliente.KeyValue := _Vendas.cliente;
-    edtValorVenda.Value := _Vendas.valor_Venda;
-
-    if (_Vendas.tipo_Venda) = 'A' then
-      rgpPagamento.ItemIndex := 1
-    else
-      rgpVenda.ItemIndex := 0;
-
-    if (_Vendas.operacao_Venda) = 'V' then
-      rgpVenda.ItemIndex := 0
-    else if (_Vendas.operacao_Venda) = 'P' then
-      rgpVenda.ItemIndex := 1
-    else
-      rgpVenda.ItemIndex := 2;
-
-  end
-  else
-    begin
-      btnCancelar.Click;
-      abort;
-    end;
-  inherited;
+  //inherited;
+  ShowMessage('Ainda não implementado.');
+  abort;
 end;
 
 procedure TfrmVendas.btnApagarClick(Sender: TObject);
@@ -259,15 +249,23 @@ end;
 
 procedure TfrmVendas.btnNovoClick(Sender: TObject);
 begin
+
+  //Seta os campos de data com a data do dia e poe o focus nela.
+
   rgpVenda.ItemIndex := 0;
   rgpPagamento.ItemIndex := 0;
   LimparItensVenda;
   inherited;
+  edtEmissao.Date := Date();
+  edtEmissao.SetFocus;
 end;
 
 procedure TfrmVendas.btnRemoverClick(Sender: TObject);
 begin
   inherited;
+
+  //Verifica o dataset para localizar o codigo do produto a ser excluido, se existir ele exclui do dataset.
+
   if (lkpProdutos.KeyValue = null) then
     begin
       MessageDlg('Selecione o produto para excluir.',mtInformation,[mbOk],0);
@@ -313,6 +311,8 @@ begin
   _Vendas:=TVendas.Create(dtmConexao.ConexaoDB);
   indiceAtual:='nrnota';
 end;
+
+//Se clicar em algum produto do grid ele preenche nos campos para ser possível a exclusão.
 
 procedure TfrmVendas.grdVendaCellClick(Column: TColumn);
 begin
