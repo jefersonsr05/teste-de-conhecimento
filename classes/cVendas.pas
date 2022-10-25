@@ -94,10 +94,17 @@ begin
       qry.ParamByName('valor_total').AsFloat := cds.FieldByName('Total').AsFloat;
     end;
 
-
-
     try
       qry.ExecSQL;
+
+      qry.sql.Clear;
+      qry.sql.Add('update produtos set saldo = saldo-:saldo, data_venda=:data_venda where codigo=:codigo');
+      qry.ParamByName('saldo').AsFloat := cds.FieldByName('Quantidade').AsFloat;
+      qry.ParamByName('data_venda').AsDateTime := self._fEmissao;
+      qry.ParamByName('codigo').AsInteger := cds.FieldByName('Código').AsInteger;
+
+      qry.ExecSQL;
+
     except
       result := false;
     end;
