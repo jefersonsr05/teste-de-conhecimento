@@ -25,7 +25,7 @@ uses
   fFiltroVenda, uItem, FireDAC.Comp.Client, fAlteraVenda;
 
 type
-  TfrmConsultaVenda = class(TfrmConsultaDefault)
+  TfrmConsultaVenda = class(TForm)
     pnlData: TPanel;
     dtpEmissao: TDateTimePicker;
     cbxFiltraData: TCheckBox;

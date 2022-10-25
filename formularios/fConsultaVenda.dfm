@@ -1,34 +1,62 @@
-inherited frmConsultaVenda: TfrmConsultaVenda
-  Caption = 'Consulta Venda'
-  ClientHeight = 759
-  ClientWidth = 1092
-  ExplicitWidth = 1110
-  ExplicitHeight = 804
-  PixelsPerInch = 115
-  TextHeight = 18
-  inherited pnlPesquisa: TPanel
-    Width = 1092
+object frmConsultaVenda: TfrmConsultaVenda
+  Left = 0
+  Top = 0
+  Caption = 'frmConsultaVenda'
+  ClientHeight = 570
+  ClientWidth = 972
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 19
+  object pnlPesquisa: TPanel
+    Left = 0
+    Top = 41
+    Width = 972
     Height = 88
+    Align = alTop
+    TabOrder = 0
+    ExplicitLeft = -308
     ExplicitWidth = 1092
-    ExplicitHeight = 88
-    inherited cbxFiltro: TComboBox
+    object cbxFiltro: TComboBox
+      Left = 14
+      Top = 6
+      Width = 145
+      Height = 27
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
       ItemIndex = 0
+      ParentFont = False
+      TabOrder = 0
       Text = 'Id'
-      OnChange = cbxFiltroChange
       Items.Strings = (
         'Id'
         'Cliente'
         'Vendedor'
         'F.Pagamento')
     end
-    inherited edtPesquisar: TEdit
+    object edtPesquisar: TEdit
       Left = 14
       Top = 39
+      Width = 145
+      Height = 27
       CharCase = ecUpperCase
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
       NumbersOnly = True
-      OnChange = edtPesquisarChange
-      ExplicitLeft = 14
-      ExplicitTop = 39
+      ParentFont = False
+      TabOrder = 1
     end
     object pnlData: TPanel
       Left = 181
@@ -69,52 +97,115 @@ inherited frmConsultaVenda: TfrmConsultaVenda
         Left = 16
         Top = 34
         Width = 129
-        Height = 26
+        Height = 27
         Date = 44505.000000000000000000
-        Time = 0.461487210646737400
+        Time = 0.461487210646737300
         TabOrder = 0
       end
     end
   end
-  inherited pnlBotoes: TPanel
-    Top = 719
-    Width = 1092
-    ExplicitTop = 719
+  object pnlBotoes: TPanel
+    Left = 0
+    Top = 530
+    Width = 972
+    Height = 40
+    Align = alBottom
+    Color = clTeal
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitLeft = -308
+    ExplicitTop = 342
     ExplicitWidth = 1092
-    inherited btnAtualizar: TButton
-      OnClick = btnAtualizarClick
+    object btnAtualizar: TButton
+      Left = 361
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Atualizar'
+      TabOrder = 4
     end
-    inherited btnIncluir: TButton
-      OnClick = btnIncluirClick
+    object btnIncluir: TButton
+      Left = 1
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Incluir'
+      TabOrder = 0
     end
-    inherited btnAlterar: TButton
-      OnClick = btnAlterarClick
+    object btnAlterar: TButton
+      Left = 91
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Alterar'
+      TabOrder = 1
     end
-    inherited btnSair: TButton
-      OnClick = btnSairClick
+    object btnSair: TButton
+      Left = 541
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Sair'
+      TabOrder = 6
     end
-    inherited btnExcluir: TButton
-      OnClick = btnExcluirClick
+    object btnExcluir: TButton
+      Left = 181
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Excluir'
+      TabOrder = 2
     end
-    inherited btnRelat: TButton
-      Visible = True
-      OnClick = btnRelatClick
+    object btnRelat: TButton
+      Left = 451
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Relat'#243'rio'
+      TabOrder = 5
     end
-    inherited btnVisualizar: TButton
-      OnClick = btnVisualizarClick
+    object btnVisualizar: TButton
+      Left = 271
+      Top = 1
+      Width = 90
+      Height = 38
+      Align = alLeft
+      Caption = 'Visualizar'
+      TabOrder = 3
     end
   end
-  inherited pnlGrid: TPanel
+  object pnlGrid: TPanel
+    Left = 0
     Top = 129
-    Width = 1092
-    Height = 590
-    ExplicitTop = 129
+    Width = 972
+    Height = 401
+    Align = alClient
+    Caption = 'pnlGrid'
+    TabOrder = 2
+    ExplicitLeft = -308
+    ExplicitTop = -208
     ExplicitWidth = 1092
     ExplicitHeight = 590
-    inherited grdConsulta: TDBGrid
-      Width = 1090
-      Height = 588
+    object grdConsulta: TDBGrid
+      Left = 1
+      Top = 1
+      Width = 970
+      Height = 399
+      Align = alClient
       DataSource = dtmConexao.dtsVenda
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -16
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
       Columns = <
         item
           Expanded = False
@@ -197,8 +288,16 @@ inherited frmConsultaVenda: TfrmConsultaVenda
         end>
     end
   end
-  inherited pnlTitulo: TPanel
-    Width = 1092
+  object pnlTitulo: TPanel
+    Left = 0
+    Top = 0
+    Width = 972
+    Height = 41
+    Align = alTop
+    Color = clTeal
+    ParentBackground = False
+    TabOrder = 3
+    ExplicitLeft = -308
     ExplicitWidth = 1092
   end
 end

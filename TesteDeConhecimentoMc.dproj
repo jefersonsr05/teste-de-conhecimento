@@ -118,20 +118,12 @@
             <Form>frmFiltroProduto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="relatorios\fFiltroVenda.pas">
-            <Form>frmFiltroVenda</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="relatorios\fRelatorioCliente.pas">
             <Form>frmRelatorioCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="relatorios\fRelatorioProduto.pas">
             <Form>frmRelatorioProduto</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="relatorios\fRelatorioVenda.pas">
-            <Form>frmRelatorioVenda</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="formularios\fPrincipal.pas">
@@ -152,6 +144,34 @@
         </DCCReference>
         <DCCReference Include="formularios\fCadastroProduto.pas">
             <Form>frmCadastroProduto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="formularios\fAlteraVenda.pas">
+            <Form>frmAlteraVenda</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="formularios\fAlteraVendaItem.pas">
+            <Form>frmAlteraVendaItem</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="formularios\fRotinaPagamento.pas">
+            <Form>frmRotinaPagamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="formularios\fVendas.pas">
+            <Form>frmVendas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="formularios\fConsultaVenda.pas">
+            <Form>frmConsultaVenda</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="relatorios\fFiltroVenda.pas">
+            <Form>frmFiltroVenda</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="relatorios\fRelatorioVenda.pas">
+            <Form>frmRelatorioVenda</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
