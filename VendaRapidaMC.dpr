@@ -13,7 +13,8 @@ uses
   cCadProdutos in 'classes\cCadProdutos.pas',
   uFrmAtualizarDB in 'datamodule\uFrmAtualizarDB.pas' {frmAtualizarDB},
   uDtmVenda in 'datamodule\uDtmVenda.pas' {dtmVenda: TDataModule},
-  uVendas in 'forms\uVendas.pas' {frmVendas};
+  uVendas in 'forms\uVendas.pas' {frmVendas},
+  cVendas in 'classes\cVendas.pas';
 
 {$R *.res}
 

@@ -7,11 +7,10 @@ object dtmConexao: TdtmConexao
     Catalog = ''
     Properties.Strings = (
       'controls_cp=CP_UTF16')
-    Connected = True
     SQLHourGlass = True
     HostName = 'localhost'
     Port = 3050
-    Database = 'S:\Delphi_Projects\DesafioMC\BANCO\MC_TESTE.FDB'
+    Database = ''
     User = 'SYSDBA'
     Password = 'masterkey'
     Protocol = 'firebirdd-2.5'

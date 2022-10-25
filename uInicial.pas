@@ -1,10 +1,10 @@
-unit uInicial;
+﻿unit uInicial;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDtmConexao, Enter;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDtmConexao, Enter, IniFiles;
 
 type
   TfrmInicial = class(TForm)
@@ -36,6 +36,7 @@ type
   private
     { Private declarations }
     TeclaEnter: TMREnter;
+    ArquivoINI: TIniFile;
   public
     { Public declarations }
   end;
@@ -70,19 +71,33 @@ begin
 end;
 
 procedure TfrmInicial.FormCreate(Sender: TObject);
+var
+  dir : string;
+  dirt : string;
 begin
 
   dtmConexao := TdtmConexao.Create(Self);
   with dtmConexao.ConexaoDB do
   begin
+
+     // Leitura INI com path do banco
+
+     // Leitura INI com path do banco
+
+    ArquivoINI := TIniFile.Create(ExtractFilePath(Application.ExeName)+'TESTE.ini');
+    dir := ArquivoINI.ReadString('CONEXAO','DIR','');
+    ShowMessage('BANCO DE DADOS EM : ' + dir);
+    ArquivoINI.Free;
+
     SQLHourGlass := true;
     Protocol:='firebirdd-2.5';
     HostName:='localhost';
     Port:=3050;
     User:='SYSDBA';
     Password:='masterkey';
-    Database:='S:\Delphi_Projects\DesafioMC\BANCO\MC_TESTE.FDB';
+    Database:=dir;
     Connected := true;
+
   end;
 
   TeclaEnter:=TMREnter.Create(Self);

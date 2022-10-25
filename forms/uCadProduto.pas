@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls,
-  RxToolEdit, RxCurrEdit, cCadProdutos, uEnum, uDtmConexao, Vcl.WinXPickers;
+  RxToolEdit, RxCurrEdit, cCadProdutos, uEnum, uDtmConexao, Vcl.WinXPickers,
+  System.ImageList, Vcl.ImgList;
 
 type
   TfrmCadProdutos = class(TfrmTelaHeranca)
@@ -26,10 +27,17 @@ type
     edtSaldo: TCurrencyEdit;
     lblTextoSaldo: TLabel;
     edtDataVenda: TDatePicker;
-    Label1: TLabel;
+    lblUltimaVenda: TLabel;
+    pnlCima: TPanel;
+    pnlMeio: TPanel;
+    lblGrandeCodigo: TLabel;
+    lblGrandeDescricao: TLabel;
+    pnlCimaCima: TPanel;
     procedure btnAlterarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure pnlCimaCimaClick(Sender: TObject);
   private
     { Private declarations }
     _Produto:TProduto;
@@ -90,15 +98,24 @@ begin
     edtDataVenda.Date := _Produto.datavenda;
     edtPrecoVenda.Value := _Produto.preco;
     edtSaldo.Value := _Produto.saldo;
+
+    lblGrandeCodigo.Caption := IntToStr(_Produto.codigo);
+    lblGrandeDescricao.Caption := _Produto.descricao;
   end
   else
   begin
     btnCancelar.Click;
     abort;
   end;
-
-
   inherited;
+end;
+
+procedure TfrmCadProdutos.btnNovoClick(Sender: TObject);
+begin
+  inherited;
+  lblGrandeCodigo.Caption := '0';
+  lblGrandeDescricao.Caption := 'Novo Produto';
+  edtDescricao.SetFocus;
 end;
 
 procedure TfrmCadProdutos.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -113,6 +130,12 @@ begin
   inherited;
     _Produto:=TProduto.Create(dtmConexao.ConexaoDB);
   indiceAtual:='CODIGO';
+end;
+
+procedure TfrmCadProdutos.pnlCimaCimaClick(Sender: TObject);
+begin
+  inherited;
+
 end;
 
 {$endregion}

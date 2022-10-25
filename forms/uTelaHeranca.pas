@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ExtCtrls, Data.DB,
   Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, uDtmConexao, uEnum, RxToolEdit, RxCurrEdit,
-  Vcl.WinXPickers;
+  Vcl.WinXPickers, System.ImageList, Vcl.ImgList;
 
 type
   TfrmTelaHeranca = class(TForm)
@@ -17,7 +17,6 @@ type
     TabSheet2: TTabSheet;
     pnlListagemTopo: TPanel;
     mskPesquisa: TMaskEdit;
-    btnPesquisar: TBitBtn;
     grdListagem: TDBGrid;
     btnNovo: TBitBtn;
     btnAlterar: TBitBtn;
@@ -30,6 +29,7 @@ type
     dtsListagem: TDataSource;
     lblIndice: TLabel;
     lblTextoPesquisa: TLabel;
+    ImageList1: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -42,6 +42,8 @@ type
     procedure grdListagemTitleClick(Column: TColumn);
     procedure mskPesquisaChange(Sender: TObject);
     procedure grdListagemDblClick(Sender: TObject);
+    procedure TabSheet2ContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
 
   private
     { Private declarations }
@@ -90,6 +92,12 @@ begin
   else if (EstadoDoCadastro=ecAlterar) then
     showMessage('ATUALIZADO');
   Result:=true;
+end;
+
+procedure TfrmTelaHeranca.TabSheet2ContextPopup(Sender: TObject;
+  MousePos: TPoint; var Handled: Boolean);
+begin
+
 end;
 
 {$endregion}
@@ -170,6 +178,7 @@ begin
         end;
     end;
     if ((Components[i] is TCurrencyEdit)) then
+    begin
       if (TCurrencyEdit(Components[i]).Tag = 1) and (TCurrencyEdit(Components[i]).Value=0.00) then
         begin
           MessageDlg('Preencha os campos obrigatórios.', mtInformation,[mbOk],0);
@@ -183,6 +192,15 @@ begin
         begin
           MessageDlg('Preencha os campos obrigatórios.', mtInformation,[mbOk],0);
           TDateEdit(Components[i]).SetFocus;
+          Result:=true;
+          Break;
+        end;
+    end;
+    if ((Components[i] is TDBLookupComboBox)) then
+      if (TDBLookupComboBox(Components[i]).Tag = 1) and (TDBLookupComboBox(Components[i]).KeyValue=null)then
+        begin
+          MessageDlg('Preencha os campos obrigatórios.', mtInformation,[mbOk],0);
+          TDBLookupComboBox(Components[i]).SetFocus;
           Result:=true;
           Break;
         end;

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls, uDtmConexao, uDtmVenda,
-  RxToolEdit, RxCurrEdit, cVendas, uEnum;
+  RxToolEdit, RxCurrEdit, uEnum, System.ImageList, Vcl.ImgList, cVendas;
 
 type
   TfrmVendas = class(TfrmTelaHeranca)
@@ -24,7 +24,7 @@ type
     edtEmissao: TDateEdit;
     lblTextoEmissao: TLabel;
     Panel1: TPanel;
-    Panel2: TPanel;
+    pnlCima: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
     lblTextoVenda: TLabel;
@@ -197,6 +197,7 @@ begin
   edtTotal.Value := TotalProduto(edtUnitario.Value, edtQuantidade.Value);
 
   //Append inclui novo registro e post finaliza adicao.
+
   dtmVenda.cdsItensVenda.Append;
   dtmVenda.cdsItensVenda.FieldByName('Código').AsString:=lkpProdutos.KeyValue;
   dtmVenda.cdsItensVenda.FieldByName('Descrição').AsString:=dtmVenda.qryProduto.FieldByName('descricao').AsString;
@@ -207,6 +208,8 @@ begin
 
   edtValorVenda.Text := FloatToStr(TotalVenda);
   LimparProdutoTela;
+
+  grdVenda.DataSource := dtmVenda.dtsItensVenda;
 
   lkpProdutos.SetFocus;
 end;

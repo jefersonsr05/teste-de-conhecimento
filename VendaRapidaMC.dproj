@@ -127,7 +127,6 @@
         <DCCReference Include="classes\cCadProdutos.pas"/>
         <DCCReference Include="datamodule\uFrmAtualizarDB.pas">
             <Form>frmAtualizarDB</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="datamodule\uDtmVenda.pas">
             <Form>dtmVenda</Form>
@@ -138,6 +137,7 @@
             <Form>frmVendas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="classes\cVendas.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

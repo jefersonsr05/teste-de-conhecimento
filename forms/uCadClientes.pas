@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls, cCadClientes, uDtmConexao, uEnum;
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls, cCadClientes, uDtmConexao, uEnum,
+  System.ImageList, Vcl.ImgList;
 
 type
   TfrmCadClientes = class(TfrmTelaHeranca)
@@ -29,9 +30,14 @@ type
     edtFone: TMaskEdit;
     lblTextoTelefone: TLabel;
     lblTextoCelular: TLabel;
+    pnlCima: TPanel;
+    pnlMeio: TPanel;
+    lblGrandeNome: TLabel;
+    lblGrandeCodigo: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAlterarClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
   private
     { Private declarations }
     _Cliente:TCliente;
@@ -97,6 +103,9 @@ begin
     edtFone.Text := _Cliente.fone;
     edtCelular.Text := _Cliente.celular;
     edtEmail.Text := _Cliente.email;
+
+    lblGrandeCodigo.Caption := IntToStr(_Cliente.codigo);
+    lblGrandeNome.Caption := _Cliente.nome;
   end
   else
   begin
@@ -105,6 +114,14 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmCadClientes.btnNovoClick(Sender: TObject);
+begin
+  inherited;
+  lblGrandeCodigo.Caption := '0';
+  lblGrandeNome.Caption := 'Novo cliente';
+  edtNome.SetFocus;
 end;
 
 procedure TfrmCadClientes.FormClose(Sender: TObject; var Action: TCloseAction);
