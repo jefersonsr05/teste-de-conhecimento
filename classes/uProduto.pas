@@ -10,22 +10,18 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.ExtCtrls,
-  RLReport,
-  uHelpersImagensBase64,
-  uHelpersrlImagensBase64;
+  RLReport;
 
 type
   TProduto = class
   private
-    FID: Integer;
-    FIDUNIDADE: Integer;
-    FDESCRICAO: String;
-    FREFERENCIA: String;
-    FPRECO: Double;
-    FCUSTO: Double;
+    FCODIGO: Integer;
+    FDESCRICAO: string;
+    FREFERENCIA: string;
+    FUNIDADE: string;
+    FDATA_VENDA: TDateTime;
+    FPRECO_VENDA: Double;
     FSALDO: Double;
-    FPESO: Double;
-    FFOTO: String;
 
     class var FObjetoBusca: TProduto;
   public
@@ -35,23 +31,19 @@ type
     procedure Incluir(pEfetuarCommit: boolean);
     procedure Alterar(pEfetuarCommit: boolean);
     procedure Excluir(pEfetuarCommit: boolean);
-    procedure CarregaImagem(pImagem: TImage);
-    procedure CarregaRLImagem(pImagem: TRLImage);
 
     constructor Create;
     class property ObjetoBusca: TProduto read FObjetoBusca write FObjetoBusca;
     class function GeraProximoID: Integer;
     class function Existe(pId: Integer): boolean;
 
-    property ID: Integer read FID write FID;
-    property IDUNIDADE: Integer read FIDUNIDADE write FIDUNIDADE;
-    property DESCRICAO: String read FDESCRICAO write FDESCRICAO;
-    property REFERENCIA: String read FREFERENCIA write FREFERENCIA;
-    property preco: Double read FPRECO write FPRECO;
-    property CUSTO: Double read FCUSTO write FCUSTO;
+    property CODIGO: Integer read FCODIGO write FCODIGO;
+    property DESCRICAO: string read FDESCRICAO write FDESCRICAO;
+    property REFERENCIA: string read FREFERENCIA write FREFERENCIA;
+    property UNIDADE: string read FUNIDADE write FUNIDADE;
+    property DATA_VENDA: TDateTime read FDATA_VENDA write FDATA_VENDA;
+    property PRECO_VENDA: Double read FPRECO_VENDA write FPRECO_VENDA;
     property SALDO: Double read FSALDO write FSALDO;
-    property PESO: Double read FPESO write FPESO;
-    property FOTO: string read FFOTO write FFOTO;
 
   end;
 
@@ -68,22 +60,29 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT * FROM PRODUTO ');
-    lQuery.SQL.Add(' WHERE ID = :ID        ');
-    lQuery.ParamByName('ID').AsInteger := FID;
+    lQuery.SQL.Add(' SELECT        ');
+    lQuery.SQL.Add(' CODIGO        ');
+    lQuery.SQL.Add(' , DESCRICAO   ');
+    lQuery.SQL.Add(' , REFERENCIA  ');
+    lQuery.SQL.Add(' , UNIDADE     ');
+    lQuery.SQL.Add(' , DATA_VENDA  ');
+    lQuery.SQL.Add(' , PRECO_VENDA ');
+    lQuery.SQL.Add(' , SALDO       ');
+    lQuery.SQL.Add(' FROM PRODUTOS ');
+    lQuery.SQL.Add(' WHERE CODIGO = :CODIGO  ');
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.Open;
+    lQuery.FetchAll;
 
     if lQuery.RecordCount > 0 then
     begin
-      FID := lQuery.ParamByName('ID').AsInteger;
-      FIDUNIDADE := lQuery.FieldByName('FK_UNIDADE').AsInteger;
-      FDESCRICAO := lQuery.FieldByName('DESCRICAO').AsString;
-      FREFERENCIA := lQuery.FieldByName('REFERENCIA').AsString;
-      FPRECO := lQuery.FieldByName('PRECO').AsFloat;
-      FCUSTO := lQuery.FieldByName('CUSTO').AsFloat;
-      FSALDO := lQuery.FieldByName('SALDO').AsFloat;
-      FPESO := lQuery.FieldByName('PESO').AsFloat;
-      FFOTO := lQuery.FieldByName('FOTO').AsString;
+      //FCODIGO := lQuery.ParamByName('CODIGO').AsInteger;
+      FDESCRICAO := lQuery.ParamByName('DESCRICAO').AsString;
+      FREFERENCIA := lQuery.ParamByName('REFERENCIA').AsString;
+      FUNIDADE := lQuery.ParamByName('UNIDADE').AsString;
+      FDATA_VENDA := lQuery.ParamByName('FDATA_VENDA').AsDateTime;
+      FPRECO_VENDA := lQuery.ParamByName('PRECO_VENDA').AsFloat;
+      FSALDO := lQuery.ParamByName('SALDO').AsFloat;
     end;
   finally
     lQuery.Free;
@@ -98,8 +97,8 @@ begin
   lQuery := TFDQuery.Create(nil);
   try
     lQuery.Connection := dtmConexao.FDConnection;
-    lQuery.SQL.Add('SELECT * FROM PRODUTO WHERE ID = :ID');
-    lQuery.ParamByName('ID').AsInteger := pId;
+    lQuery.SQL.Add('SELECT * FROM PRODUTOS WHERE CODIGO = :CODIGO');
+    lQuery.ParamByName('CODIGO').AsInteger := pId;
     lQuery.Open;
 
     if (lQuery.RecordCount > 0) then
@@ -111,43 +110,12 @@ begin
         FObjetoBusca := TProduto.Create;
       end;
 
-      FObjetoBusca.FID := pId;
+      FObjetoBusca.FCODIGO := pId;
       FObjetoBusca.Carrega;
     end;
   finally
     lQuery.Free;
   end;
-end;
-
-procedure TProduto.CarregaImagem(pImagem: TImage);
-begin
-  // Chamar sempre APÓS CARREGAR A CLASSE.
-  pImagem.Picture := nil;
-
-  if trim(FFOTO) <> emptystr then
-  begin
-    pImagem.Base64(FFOTO);
-  End
-  Else
-  Begin
-    // tratar aqui como nao encontrado
-  End;
-end;
-
-procedure TProduto.CarregaRLImagem(pImagem: TRLImage);
-begin
-  // Chamar sempre APÓS CARREGAR A CLASSE.
-  pImagem.Picture := nil;
-
-  if trim(FFOTO) <> emptystr then
-  begin
-    pImagem.Base64(FFOTO);
-  end
-  else
-  begin
-    // Tratar aqui como nao encontrado
-  end;
-
 end;
 
 class function TProduto.GeraProximoID: Integer;
@@ -160,11 +128,17 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' select gen_id(gen_produto_id, 0) codigo from PRODUTO ');
+    lQuery.SQL.Add(' SELECT FIRST(1) CODIGO FROM PRODUTOS ORDER BY CODIGO DESC');
     lQuery.Open;
 
-    result := lQuery.FieldByName('codigo').AsInteger + 1;
-
+    if lQuery.RecordCount > 0 then
+    begin
+      result := lQuery.FieldByName('CODIGO').AsInteger + 1;
+    end
+    else
+    begin
+      result := 1;
+    end;
   finally
     lQuery.Free;
   end;
@@ -179,34 +153,31 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' INSERT INTO PRODUTO ( ');
-    lQuery.SQL.Add('  FK_UNIDADE           ');
-    lQuery.SQL.Add(' ,DESCRICAO            ');
-    lQuery.SQL.Add(' ,REFERENCIA           ');
-    lQuery.SQL.Add(' ,PRECO                ');
-    lQuery.SQL.Add(' ,CUSTO                ');
-    lQuery.SQL.Add(' ,SALDO                ');
-    lQuery.SQL.Add(' ,PESO                 ');
-    lQuery.SQL.Add(' ,FOTO                 ');
+    lQuery.SQL.Add(' INSERT INTO PRODUTOS ( ');
+    lQuery.SQL.Add(' CODIGO                ');
+    lQuery.SQL.Add(' , DESCRICAO           ');
+    lQuery.SQL.Add(' , REFERENCIA          ');
+    lQuery.SQL.Add(' , UNIDADE             ');
+    lQuery.SQL.Add(' , DATA_VENDA          ');
+    lQuery.SQL.Add(' , PRECO_VENDA         ');
+    lQuery.SQL.Add(' , SALDO               ');
     lQuery.SQL.Add(' )VALUES (             ');
-    lQuery.SQL.Add('  :FK_UNIDADE          ');
-    lQuery.SQL.Add(' ,:DESCRICAO           ');
-    lQuery.SQL.Add(' ,:REFERENCIA          ');
-    lQuery.SQL.Add(' ,:PRECO               ');
-    lQuery.SQL.Add(' ,:CUSTO               ');
-    lQuery.SQL.Add(' ,:SALDO               ');
-    lQuery.SQL.Add(' ,:PESO                ');
-    lQuery.SQL.Add(' ,:FOTO                ');
+    lQuery.SQL.Add(' :CODIGO               ');
+    lQuery.SQL.Add(' , :DESCRICAO          ');
+    lQuery.SQL.Add(' , :REFERENCIA         ');
+    lQuery.SQL.Add(' , :UNIDADE            ');
+    lQuery.SQL.Add(' , :DATA_VENDA         ');
+    lQuery.SQL.Add(' , :PRECO_VENDA        ');
+    lQuery.SQL.Add(' , :SALDO              ');
     lQuery.SQL.Add(' )                     ');
 
-    lQuery.ParamByName('FK_UNIDADE').AsInteger := FIDUNIDADE;
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.ParamByName('DESCRICAO').AsString := FDESCRICAO;
     lQuery.ParamByName('REFERENCIA').AsString := FREFERENCIA;
-    lQuery.ParamByName('PRECO').AsFloat := FPRECO;
-    lQuery.ParamByName('CUSTO').AsFloat := FCUSTO;
+    lQuery.ParamByName('UNIDADE').AsString := FUNIDADE;
+    lQuery.ParamByName('DATA_VENDA').AsDate := FDATA_VENDA;
+    lQuery.ParamByName('PRECO_VENDA').AsFloat := FPRECO_VENDA;
     lQuery.ParamByName('SALDO').AsFloat := FSALDO;
-    lQuery.ParamByName('PESO').AsFloat := FPESO;
-    lQuery.ParamByName('FOTO').AsString := FFOTO;
     lQuery.ExecSQL;
 
     if pEfetuarCommit = true then
@@ -227,26 +198,22 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' UPDATE PRODUTO SET        ');
-    lQuery.SQL.Add('  FK_UNIDADE = :FK_UNIDADE ');
-    lQuery.SQL.Add(' ,DESCRICAO = :DESCRICAO   ');
-    lQuery.SQL.Add(' ,REFERENCIA = :REFERENCIA ');
-    lQuery.SQL.Add(' ,PRECO = :PRECO           ');
-    lQuery.SQL.Add(' ,CUSTO = :CUSTO           ');
-    lQuery.SQL.Add(' ,SALDO = :SALDO           ');
-    lQuery.SQL.Add(' ,PESO = :PESO             ');
-    lQuery.SQL.Add(' ,FOTO = :FOTO             ');
-    lQuery.SQL.Add(' WHERE ID = :ID            ');
+    lQuery.SQL.Add(' UPDATE PRODUTOS SET           ');
+    lQuery.SQL.Add(' DESCRICAO = :DESCRICAO       ');
+    lQuery.SQL.Add(' , REFERENCIA = :REFERENCIA   ');
+    lQuery.SQL.Add(' , UNIDADE = :UNIDADE         ');
+    lQuery.SQL.Add(' , DATA_VENDA = :DATA_VENDA   ');
+    lQuery.SQL.Add(' , PRECO_VENDA = :PRECO_VENDA ');
+    lQuery.SQL.Add(' , SALDO = :SALDO             ');
+    lQuery.SQL.Add(' WHERE CODIGO = :CODIGO       ');
 
-    lQuery.ParamByName('ID').AsInteger := FID;
-    lQuery.ParamByName('FK_UNIDADE').AsInteger := FIDUNIDADE;
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.ParamByName('DESCRICAO').AsString := FDESCRICAO;
     lQuery.ParamByName('REFERENCIA').AsString := FREFERENCIA;
-    lQuery.ParamByName('PRECO').AsFloat := FPRECO;
-    lQuery.ParamByName('CUSTO').AsFloat := FCUSTO;
+    lQuery.ParamByName('UNIDADE').AsString := FUNIDADE;
+    lQuery.ParamByName('DATA_VENDA').AsDate := FDATA_VENDA;
+    lQuery.ParamByName('PRECO_VENDA').AsFloat := FPRECO_VENDA;
     lQuery.ParamByName('SALDO').AsFloat := FSALDO;
-    lQuery.ParamByName('PESO').AsFloat := FPESO;
-    lQuery.ParamByName('FOTO').AsString := FFOTO;
     lQuery.ExecSQL;
 
     if pEfetuarCommit = true then
@@ -264,15 +231,15 @@ var
 begin
   lQuery := TFDQuery.Create(nil);
   try
-    if (MessageDlg('Confirma a Exclusão do Produto: ' + FID.ToString + '-' +
+    if (MessageDlg('Confirma a Exclusão do Produto: ' + FCODIGO.ToString + '-' +
       FDESCRICAO + ' ?', mtInformation, [mbyes, mbno], 0) = mryes) then
     begin
       lQuery.Connection := dtmConexao.FDConnection;
       lQuery.Close;
       lQuery.SQL.Clear;
-      lQuery.SQL.Add(' DELETE FROM PRODUTO ');
-      lQuery.SQL.Add(' WHERE ID = :ID      ');
-      lQuery.ParamByName('ID').AsInteger := FID;
+      lQuery.SQL.Add(' DELETE FROM PRODUTOS     ');
+      lQuery.SQL.Add(' WHERE CODIGO = :CODIGO  ');
+      lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
       lQuery.ExecSQL;
 
       if pEfetuarCommit = true then
@@ -291,15 +258,12 @@ end;
 
 procedure TProduto.Inicializar;
 begin
-  FID := 0;
-  FIDUNIDADE := 0;
-  FDESCRICAO := emptystr;
-  FREFERENCIA := emptystr;
-  FPRECO := 0;
-  FCUSTO := 0;
+  FCODIGO := 0;
+  FDESCRICAO := EmptyStr;
+  FREFERENCIA := EmptyStr;
+  FUNIDADE := EmptyStr;
+  FPRECO_VENDA := 0;
   FSALDO := 0;
-  FPESO := 0;
-  FFOTO := emptystr;
 end;
 
 constructor TProduto.Create;

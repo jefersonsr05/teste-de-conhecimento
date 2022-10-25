@@ -2,7 +2,7 @@ object frmRelatorioCliente: TfrmRelatorioCliente
   Left = 0
   Top = 0
   Caption = 'Relat'#243'rio'
-  ClientHeight = 552
+  ClientHeight = 333
   ClientWidth = 795
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,7 +28,7 @@ object frmRelatorioCliente: TfrmRelatorioCliente
       Left = 38
       Top = 105
       Width = 718
-      Height = 304
+      Height = 112
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -16
@@ -36,8 +36,8 @@ object frmRelatorioCliente: TfrmRelatorioCliente
       Font.Style = []
       ParentFont = False
       object txtNome: TRLDBText
-        Left = 126
-        Top = 24
+        Left = 82
+        Top = 41
         Width = 51
         Height = 18
         DataField = 'NOME'
@@ -50,33 +50,9 @@ object frmRelatorioCliente: TfrmRelatorioCliente
         ParentFont = False
         Text = ''
       end
-      object txtBairro: TRLDBText
-        Left = 126
-        Top = 144
-        Width = 63
-        Height = 18
-        DataField = 'BAIRRO'
-        DataSource = DataSource1
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -16
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Text = ''
-      end
-      object txtcpfcnpj: TRLDBText
-        Left = 126
-        Top = 48
-        Width = 68
-        Height = 18
-        DataSource = DataSource1
-        Text = ''
-        BeforePrint = txtcpfcnpjBeforePrint
-      end
       object txtEmail: TRLDBText
-        Left = 126
-        Top = 72
+        Left = 446
+        Top = 41
         Width = 51
         Height = 18
         DataField = 'EMAIL'
@@ -85,88 +61,81 @@ object frmRelatorioCliente: TfrmRelatorioCliente
       end
       object RLLabel1: TRLLabel
         Left = 16
-        Top = 24
+        Top = 41
         Width = 50
         Height = 18
         Caption = 'Nome:'
       end
       object txtCidade: TRLDBText
-        Left = 126
-        Top = 120
+        Left = 82
+        Top = 89
         Width = 65
         Height = 18
         DataField = 'CIDADE'
         DataSource = DataSource1
         Text = ''
       end
-      object txtEndereco: TRLDBText
-        Left = 126
-        Top = 168
-        Width = 95
-        Height = 18
-        DataField = 'ENDERECO'
-        DataSource = DataSource1
-        Text = ''
-      end
       object txtCEP: TRLDBText
-        Left = 126
-        Top = 96
+        Left = 82
+        Top = 65
         Width = 38
         Height = 18
         DataField = 'CEP'
         DataSource = DataSource1
         Text = ''
       end
-      object RLImage1: TRLImage
-        Left = 424
-        Top = 24
-        Width = 130
-        Height = 150
-        Center = True
-        Scaled = True
-        BeforePrint = RLImage1BeforePrint
-      end
-      object RLLabel2: TRLLabel
-        Left = 16
-        Top = 48
-        Width = 72
-        Height = 18
-        BeforePrint = RLLabel2BeforePrint
-      end
       object RLLabel3: TRLLabel
-        Left = 16
-        Top = 72
+        Left = 384
+        Top = 41
         Width = 53
         Height = 18
         Caption = 'E-Mail:'
       end
       object RLLabel4: TRLLabel
         Left = 16
-        Top = 96
+        Top = 65
         Width = 42
         Height = 18
         Caption = 'CEP:'
       end
       object RLLabel5: TRLLabel
         Left = 16
-        Top = 120
+        Top = 89
         Width = 60
         Height = 18
         Caption = 'Cidade:'
       end
-      object RLLabel6: TRLLabel
-        Left = 16
-        Top = 144
-        Width = 51
+      object lblCelular: TRLLabel
+        Left = 384
+        Top = 65
+        Width = 57
         Height = 18
-        Caption = 'Bairro:'
+        Caption = 'Celular:'
       end
-      object RLLabel7: TRLLabel
-        Left = 16
-        Top = 168
-        Width = 76
+      object RLDBText1: TRLDBText
+        Left = 446
+        Top = 65
+        Width = 78
         Height = 18
-        Caption = 'Endere'#231'o:'
+        DataField = 'CELULAR'
+        DataSource = DataSource1
+        Text = ''
+      end
+      object lblCod: TRLLabel
+        Left = 5
+        Top = 2
+        Width = 60
+        Height = 18
+        Caption = 'Codigo:'
+      end
+      object txtCod: TRLDBText
+        Left = 71
+        Top = 2
+        Width = 67
+        Height = 18
+        DataField = 'CODIGO'
+        DataSource = DataSource1
+        Text = ''
       end
     end
     object rlbCabecalho: TRLBand
@@ -191,15 +160,14 @@ object frmRelatorioCliente: TfrmRelatorioCliente
     end
   end
   object qryRelatorio: TFDQuery
-    Active = True
     Connection = dtmConexao.FDConnection
     SQL.Strings = (
       'SELECT * FROM CLIENTE')
-    Left = 48
-    Top = 496
-    object qryRelatorioID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    Left = 120
+    Top = 248
+    object qryRelatorioCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
@@ -207,27 +175,6 @@ object frmRelatorioCliente: TfrmRelatorioCliente
       FieldName = 'NOME'
       Origin = 'NOME'
       Size = 35
-    end
-    object qryRelatorioCPF: TStringField
-      FieldName = 'CPF'
-      Origin = 'CPF'
-      Size = 11
-    end
-    object qryRelatorioCNPJ: TStringField
-      FieldName = 'CNPJ'
-      Origin = 'CNPJ'
-      Size = 14
-    end
-    object qryRelatorioFISICOOUJURIDICO: TStringField
-      FieldName = 'FISICOOUJURIDICO'
-      Origin = 'FISICOOUJURIDICO'
-      FixedChar = True
-      Size = 1
-    end
-    object qryRelatorioEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 60
     end
     object qryRelatorioENDERECO: TStringField
       FieldName = 'ENDERECO'
@@ -238,24 +185,41 @@ object frmRelatorioCliente: TfrmRelatorioCliente
       FieldName = 'BAIRRO'
       Origin = 'BAIRRO'
     end
-    object qryRelatorioCEP: TStringField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-      Size = 10
-    end
     object qryRelatorioCIDADE: TStringField
       FieldName = 'CIDADE'
       Origin = 'CIDADE'
       Size = 30
     end
-    object qryRelatorioFOTO: TBlobField
-      FieldName = 'FOTO'
-      Origin = 'FOTO'
+    object qryRelatorioCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 10
+    end
+    object qryRelatorioUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object qryRelatorioFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 15
+    end
+    object qryRelatorioCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+      Size = 15
+    end
+    object qryRelatorioEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 50
     end
   end
   object DataSource1: TDataSource
     DataSet = qryRelatorio
     Left = 48
-    Top = 448
+    Top = 248
   end
 end

@@ -28,9 +28,8 @@ type
     edtMaiValor: TEdit;
     procedure btnVisualizarClick(Sender: TObject);
     procedure cbxListaTodosClick(Sender: TObject);
-    procedure cbxListaTodosEnter(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure btnLimparClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FRelatorio: TfrmRelatorioProduto;
@@ -45,14 +44,6 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmFiltroProduto.btnLimparClick(Sender: TObject);
-begin
-  rdgFiltro.ItemIndex := -1;
-  rdgBusca.ItemIndex := -1;
-  edtMenValor.Text := emptystr;
-  edtMaiValor.Text := emptystr;
-end;
-
 procedure TfrmFiltroProduto.btnVisualizarClick(Sender: TObject);
 begin
   FRelatorio := TfrmRelatorioProduto.create(nil);
@@ -63,59 +54,45 @@ begin
 
     FRelatorio.qryRelatorio.close;
     FRelatorio.qryRelatorio.SQL.clear;
-    FRelatorio.qryRelatorio.SQL.Add('   SELECT                  ');
-    FRelatorio.qryRelatorio.SQL.Add('   P.id                    ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.descricao             ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.REFERENCIA            ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.CUSTO                 ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.PRECO                 ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.SALDO                 ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.FK_UNIDADE            ');
-    FRelatorio.qryRelatorio.SQL.Add(' , U.descricao             ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.PESO                  ');
-    FRelatorio.qryRelatorio.SQL.Add(' , P.FOTO                  ');
-    FRelatorio.qryRelatorio.SQL.Add(' from PRODUTO P            ');
-    FRelatorio.qryRelatorio.SQL.Add(' inner join unidade U      ');
-    FRelatorio.qryRelatorio.SQL.Add(' on P.fk_unidade = U.ID    ');
+    FRelatorio.qryRelatorio.SQL.Add(' SELECT * FROM PRODUTOS ');
 
-    if cbxListaTodos.Checked = false then
+    if not cbxListaTodos.Checked then
     begin
       case rdgBusca.ItemIndex of
         0:
           begin
-            FRelatorio.qryRelatorio.SQL.Add(' WHERE P.CUSTO >= ' +
-              QuotedStr('%' + edtMenValor.Text + '%') + ' AND P.CUSTO <= ' +
-              QuotedStr('%' + edtMaiValor.Text + '%'));
+            FRelatorio.qryRelatorio.SQL.Add(' WHERE CUSTO >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
+            ' AND CUSTO <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));
           end;
         1:
           begin
-            FRelatorio.qryRelatorio.SQL.Add(' WHERE P.PRECO >= ' +
-              QuotedStr('%' + edtMenValor.Text + '%') + ' AND P.PRECO <= ' +
-              QuotedStr('%' + edtMaiValor.Text + '%'));
+            FRelatorio.qryRelatorio.SQL.Add(' WHERE PRECO_VENDA >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
+            ' AND PRECO_VENDA <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));
           end;
         2:
           begin
-            FRelatorio.qryRelatorio.SQL.Add(' WHERE P.PESO >= ' +
-              QuotedStr('%' + edtMenValor.Text + '%') + ' AND P.PESO <= ' +
-              QuotedStr('%' + edtMaiValor.Text + '%'));
+            FRelatorio.qryRelatorio.SQL.Add(' WHERE SALDO >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
+            ' AND SALDO <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));
           end;
       end;
     end;
 
+
     case rdgFiltro.ItemIndex of
-      0:
-        begin
-          FRelatorio.qryRelatorio.SQL.Add(' ORDER BY P.ID ');
-        end;
-      1:
-        begin
-          FRelatorio.qryRelatorio.SQL.Add(' ORDER BY P.DESCRICAO ');
-        end;
-      2:
-        begin
-          FRelatorio.qryRelatorio.SQL.Add(' ORDER BY U.DESCRICAO ');
-        end;
+    0:
+      begin
+        FRelatorio.qryRelatorio.SQL.Add(' ORDER BY CODIGO ');
+      end;
+    1:
+      begin
+        FRelatorio.qryRelatorio.SQL.Add(' ORDER BY DESCRICAO ');
+      end;
+    2:
+      begin
+        FRelatorio.qryRelatorio.SQL.Add(' ORDER BY DATA_VENDA ');
+      end;
     end;
+
 
     FRelatorio.qryRelatorio.Open;
     FRelatorio.rlpRelatorio.preview;
@@ -128,37 +105,9 @@ procedure TfrmFiltroProduto.cbxListaTodosClick(Sender: TObject);
 begin
   if cbxListaTodos.Checked then
   begin
-    rdgBusca.Enabled := false;
-    rdgBusca.ItemIndex := -1;
-    edtMenValor.Enabled := false;
-    edtMaiValor.Enabled := false;
     edtMenValor.Text := emptystr;
     edtMaiValor.Text := emptystr;
-  end
-  else
-  begin
-    rdgBusca.Enabled := true;
-    edtMenValor.Enabled := true;
-    edtMaiValor.Enabled := true;
   end;
-end;
-
-procedure TfrmFiltroProduto.cbxListaTodosEnter(Sender: TObject);
-begin
-  if cbxListaTodos.Checked then
-  begin
-    rdgBusca.Enabled := false;
-    rdgBusca.ItemIndex := -1;
-    edtMenValor.Enabled := false;
-    edtMaiValor.Enabled := false;
-  end
-  else
-  begin
-    rdgBusca.Enabled := true;
-    edtMenValor.Enabled := true;
-    edtMaiValor.Enabled := true;
-  end;
-
 end;
 
 procedure TfrmFiltroProduto.FormKeyPress(Sender: TObject; var Key: Char);
@@ -168,6 +117,12 @@ begin
     Key := #0;
     Perform(WM_NEXTDLGCTL, 0, 0);
   end;
+end;
+
+procedure TfrmFiltroProduto.FormShow(Sender: TObject);
+begin
+  inherited;
+  btnLimpar.Visible := False;
 end;
 
 end.

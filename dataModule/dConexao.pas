@@ -24,16 +24,6 @@ type
     qryConsultaFPagamentoID: TIntegerField;
     qryConsultaFPagamentoDESCRICAO: TStringField;
     qryConsultaFPagamentoTIPO: TStringField;
-    qryConsultaProdutosID: TIntegerField;
-    qryConsultaProdutosFK_UNIDADE: TIntegerField;
-    qryConsultaProdutosDESCRICAO: TStringField;
-    qryConsultaProdutosREFERENCIA: TStringField;
-    qryConsultaProdutosPRECO: TBCDField;
-    qryConsultaProdutosCUSTO: TBCDField;
-    qryConsultaProdutosSALDO: TBCDField;
-    qryConsultaProdutosPESO: TBCDField;
-    qryConsultaProdutosFOTO: TBlobField;
-    qryConsultaProdutosUNIDADE: TStringField;
     qryVenda: TFDQuery;
     dtsItens: TDataSource;
     tblConsultaItens: TFDMemTable;
@@ -68,6 +58,13 @@ type
     qryConsultaClientesFONE: TStringField;
     qryConsultaClientesCELULAR: TStringField;
     qryConsultaClientesEMAIL: TStringField;
+    qryConsultaProdutosCODIGO: TIntegerField;
+    qryConsultaProdutosDESCRICAO: TStringField;
+    qryConsultaProdutosREFERENCIA: TStringField;
+    qryConsultaProdutosUNIDADE: TStringField;
+    qryConsultaProdutosDATA_VENDA: TDateField;
+    qryConsultaProdutosPRECO_VENDA: TBCDField;
+    qryConsultaProdutosSALDO: TBCDField;
   private
     { Private declarations }
     function DevolveCaminhoBanco: String;

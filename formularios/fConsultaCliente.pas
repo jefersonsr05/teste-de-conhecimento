@@ -100,7 +100,7 @@ procedure TfrmConsultaCliente.CarregaClientes;
 begin
   dtmconexao.qryConsultaClientes.close;
   dtmconexao.qryConsultaClientes.sql.clear;
-  dtmconexao.qryConsultaClientes.sql.Add(' select * from CLIENTE ');
+  dtmconexao.qryConsultaClientes.sql.Add(' SELECT * from CLIENTE ');
 
   if edtPesquisar.Text <> emptyStr then
   begin
@@ -108,25 +108,19 @@ begin
     case cbxFiltro.ItemIndex of
       0:
         begin
-          dtmconexao.qryConsultaClientes.sql.Add
-            ('WHERE ID LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryConsultaClientes.sql.Add('WHERE CODIGO LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
       1:
         begin
-          dtmconexao.qryConsultaClientes.sql.Add('WHERE NOME LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryConsultaClientes.sql.Add('WHERE NOME LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
       2:
         begin
-          dtmconexao.qryConsultaClientes.sql.Add
-            ('WHERE CPF LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
-          dtmconexao.qryConsultaClientes.sql.Add
-            ('OR CNPJ LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryConsultaClientes.sql.Add('WHERE EMAIL LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
       3:
         begin
-          dtmconexao.qryConsultaClientes.sql.Add(' WHERE EMAIL LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryConsultaClientes.sql.Add(' WHERE CELULAR LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
     end;
   end;
@@ -157,7 +151,7 @@ begin
       end;
     3:
       begin
-        edtPesquisar.NumbersOnly := false;
+        edtPesquisar.NumbersOnly := True;
         edtPesquisar.clear;
         edtPesquisar.SetFocus;
       end;
@@ -198,6 +192,7 @@ end;
 
 procedure TfrmConsultaCliente.Alterar;
 var
+  lCodigo: Integer;
   lCliente: TCliente;
   lFormulario: TfrmCadastroCliente;
 begin
@@ -207,7 +202,8 @@ begin
   try
     // Alimento id cliente para carregar na classe cliente
     lCliente.CODIGO := dtmconexao.qryConsultaClientes.FieldByName('CODIGO').AsInteger;
-    lCliente.carrega; // aqui carrega propriedades do cliente na classe
+    // aqui carrega propriedades do cliente na classe
+    lCliente.Carrega;
 
     lFormulario.TipoRotina := 'Alterar';
     // Abaixo uso classe cliente para alimentar os edit do cadastro
@@ -240,7 +236,6 @@ begin
   lCliente := TCliente.Create;
   try
     lCliente.CODIGO := dtmconexao.qryConsultaClientesCODIGO.AsInteger;
-    lCliente.carrega;
     lCliente.Excluir(true);
   finally
     lCliente.Free;
@@ -352,7 +347,6 @@ begin
   lFormulario := TfrmfiltroCliente.Create(nil);
   try
     lFormulario.ShowModal;
-
   finally
     lFormulario.Free;
   end;

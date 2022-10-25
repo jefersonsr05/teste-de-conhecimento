@@ -15,9 +15,7 @@ object dtmConexao: TdtmConexao
     Top = 11
   end
   object FDPhysFBDriverLink: TFDPhysFBDriverLink
-    VendorLib = 
-      'C:\Users\Marketing\Documents\alexandre\teste-de-conhecimento\fbc' +
-      'lient.dll'
+    VendorLib = 'fbclient.dll'
     Left = 139
     Top = 10
   end
@@ -103,31 +101,21 @@ object dtmConexao: TdtmConexao
   object qryConsultaProdutos: TFDQuery
     Connection = FDConnection
     SQL.Strings = (
-      'select'
-      '  P.ID'
-      ', P.FK_UNIDADE'
-      ', P.DESCRICAO'
-      ', P.REFERENCIA'
-      ', P.PRECO'
-      ', P.CUSTO'
-      ', P.SALDO'
-      ', P.PESO'
-      ', P.FOTO'
-      ', U.unidade'
-      'from PRODUTO  P'
-      'INNER JOIN UNIDADE U'
-      'ON P.fk_unidade = U.id')
+      'SELECT       '
+      'CODIGO       '
+      ', DESCRICAO  '
+      ', REFERENCIA '
+      ', UNIDADE    '
+      ', DATA_VENDA '
+      ', PRECO_VENDA'
+      ', SALDO      '
+      'FROM PRODUTOS ')
     Left = 136
     Top = 125
-    object qryConsultaProdutosID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object qryConsultaProdutosCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryConsultaProdutosFK_UNIDADE: TIntegerField
-      FieldName = 'FK_UNIDADE'
-      Origin = 'FK_UNIDADE'
       Required = True
     end
     object qryConsultaProdutosDESCRICAO: TStringField
@@ -140,42 +128,24 @@ object dtmConexao: TdtmConexao
       Origin = 'REFERENCIA'
       Size = 15
     end
-    object qryConsultaProdutosPRECO: TBCDField
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
-      DisplayFormat = '#,#0.00'
-      Precision = 18
+    object qryConsultaProdutosUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Size = 4
     end
-    object qryConsultaProdutosCUSTO: TBCDField
-      FieldName = 'CUSTO'
-      Origin = 'CUSTO'
-      DisplayFormat = '#,#0.00'
+    object qryConsultaProdutosDATA_VENDA: TDateField
+      FieldName = 'DATA_VENDA'
+      Origin = 'DATA_VENDA'
+    end
+    object qryConsultaProdutosPRECO_VENDA: TBCDField
+      FieldName = 'PRECO_VENDA'
+      Origin = 'PRECO_VENDA'
       Precision = 18
     end
     object qryConsultaProdutosSALDO: TBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
-      DisplayFormat = '#,#0.00'
       Precision = 18
-    end
-    object qryConsultaProdutosPESO: TBCDField
-      FieldName = 'PESO'
-      Origin = 'PESO'
-      DisplayFormat = '#,#0.00'
-      Precision = 18
-    end
-    object qryConsultaProdutosFOTO: TBlobField
-      FieldName = 'FOTO'
-      Origin = 'FOTO'
-    end
-    object qryConsultaProdutosUNIDADE: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE'
-      Origin = 'UNIDADE'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 3
     end
   end
   object qryConsultaFPagamento: TFDQuery

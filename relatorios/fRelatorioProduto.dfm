@@ -1,7 +1,7 @@
 inherited frmRelatorioProduto: TfrmRelatorioProduto
   Caption = 'frmRelatorioProduto'
   ClientWidth = 793
-  ExplicitWidth = 811
+  ExplicitWidth = 809
   PixelsPerInch = 115
   TextHeight = 16
   inherited rlpRelatorio: TRLReport
@@ -18,8 +18,8 @@ inherited frmRelatorioProduto: TfrmRelatorioProduto
     end
     inherited rlbRegistros: TRLBand
       object RLDBText1: TRLDBText
-        Left = 128
-        Top = 24
+        Left = 152
+        Top = 27
         Width = 99
         Height = 18
         DataField = 'DESCRICAO'
@@ -27,116 +27,110 @@ inherited frmRelatorioProduto: TfrmRelatorioProduto
         Text = ''
       end
       object RLLabel1: TRLLabel
-        Left = 16
-        Top = 24
+        Left = 40
+        Top = 27
         Width = 80
         Height = 18
         Caption = 'Descri'#231#227'o:'
       end
       object RLLabel2: TRLLabel
-        Left = 16
-        Top = 48
+        Left = 40
+        Top = 51
         Width = 84
         Height = 18
         Caption = 'Refer'#234'ncia:'
       end
-      object RLLabel3: TRLLabel
-        Left = 16
-        Top = 72
-        Width = 49
+      object lblUnidade: TRLLabel
+        Left = 40
+        Top = 88
+        Width = 67
         Height = 18
-        Caption = 'Custo:'
+        Caption = 'Unidade:'
       end
       object RLDBText2: TRLDBText
-        Left = 128
-        Top = 48
+        Left = 152
+        Top = 51
         Width = 106
         Height = 18
         DataField = 'REFERENCIA'
         DataSource = DataSource1
         Text = ''
       end
-      object RLDBText3: TRLDBText
-        Left = 128
-        Top = 72
-        Width = 59
+      object txtUnidade: TRLDBText
+        Left = 113
+        Top = 88
+        Width = 75
         Height = 18
-        DataField = 'CUSTO'
+        DataField = 'UNIDADE'
         DataSource = DataSource1
         Text = ''
       end
-      object RLDBText4: TRLDBText
-        Left = 128
-        Top = 96
-        Width = 61
+      object txtPreco: TRLDBText
+        Left = 280
+        Top = 88
+        Width = 126
         Height = 18
-        DataField = 'PRECO'
+        Alignment = taRightJustify
+        DataField = 'PRECO_VENDA'
         DataSource = DataSource1
         Text = ''
       end
       object RLDBText5: TRLDBText
-        Left = 128
-        Top = 120
+        Left = 511
+        Top = 88
         Width = 59
         Height = 18
+        Alignment = taRightJustify
         DataField = 'SALDO'
         DataSource = DataSource1
         Text = ''
       end
-      object RLDBText6: TRLDBText
-        Left = 128
-        Top = 144
-        Width = 49
+      object txtData: TRLDBText
+        Left = 600
+        Top = 3
+        Width = 112
         Height = 18
-        DataField = 'PESO'
+        Alignment = taRightJustify
+        DataField = 'DATA_VENDA'
         DataSource = DataSource1
         Text = ''
       end
-      object RLDBText7: TRLDBText
-        Left = 128
-        Top = 168
-        Width = 117
+      object txtCodigo: TRLDBText
+        Left = 88
+        Top = 3
+        Width = 67
         Height = 18
-        DataField = 'DESCRICAO_1'
+        DataField = 'CODIGO'
         DataSource = DataSource1
         Text = ''
       end
-      object RLLabel4: TRLLabel
-        Left = 16
-        Top = 96
+      object lblPreco: TRLLabel
+        Left = 224
+        Top = 88
         Width = 50
         Height = 18
         Caption = 'Pre'#231'o:'
       end
       object RLLabel5: TRLLabel
-        Left = 16
-        Top = 120
+        Left = 440
+        Top = 88
         Width = 49
         Height = 18
         Caption = 'Saldo:'
       end
-      object RLLabel6: TRLLabel
-        Left = 16
-        Top = 144
-        Width = 45
+      object lblData: TRLLabel
+        Left = 538
+        Top = 3
+        Width = 42
         Height = 18
-        Caption = 'Peso:'
+        Caption = 'Data:'
       end
-      object RLLabel7: TRLLabel
-        Left = 16
-        Top = 168
-        Width = 61
+      object lblCodigo: TRLLabel
+        Left = 5
+        Top = 3
+        Width = 60
         Height = 18
-        Caption = 'Medida:'
-      end
-      object RLImage1: TRLImage
-        Left = 408
-        Top = 24
-        Width = 130
-        Height = 150
-        Center = True
-        Scaled = True
-        BeforePrint = RLImage1BeforePrint
+        Caption = 'Codigo:'
       end
     end
   end
@@ -147,25 +141,20 @@ inherited frmRelatorioProduto: TfrmRelatorioProduto
   inherited qryRelatorio: TFDQuery
     Connection = dtmConexao.FDConnection
     SQL.Strings = (
-      ' select'
-      '   P.id'
-      ' , P.descricao '
-      ' , P.REFERENCIA'
-      ' , P.CUSTO'
-      ' , P.PRECO'
-      ' , P.SALDO'
-      ' , P.FK_UNIDADE'
-      ' , U.descricao '
-      ' , P.PESO'
-      ' , P.FOTO'
-      ' from PRODUTO P'
-      ' inner join unidade U'
-      ' on P.fk_unidade = U.ID')
+      'SELECT       '
+      'CODIGO       '
+      ', DESCRICAO  '
+      ', REFERENCIA '
+      ', UNIDADE    '
+      ', DATA_VENDA '
+      ', PRECO_VENDA'
+      ', SALDO      '
+      'FROM PRODUTOS ')
     Left = 45
     Top = 520
-    object qryRelatorioID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object qryRelatorioCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
@@ -179,42 +168,24 @@ inherited frmRelatorioProduto: TfrmRelatorioProduto
       Origin = 'REFERENCIA'
       Size = 15
     end
-    object qryRelatorioCUSTO: TBCDField
-      FieldName = 'CUSTO'
-      Origin = 'CUSTO'
-      Precision = 18
+    object qryRelatorioUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Size = 4
     end
-    object qryRelatorioPRECO: TBCDField
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
+    object qryRelatorioDATA_VENDA: TDateField
+      FieldName = 'DATA_VENDA'
+      Origin = 'DATA_VENDA'
+    end
+    object qryRelatorioPRECO_VENDA: TBCDField
+      FieldName = 'PRECO_VENDA'
+      Origin = 'PRECO_VENDA'
       Precision = 18
     end
     object qryRelatorioSALDO: TBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
       Precision = 18
-    end
-    object qryRelatorioFK_UNIDADE: TIntegerField
-      FieldName = 'FK_UNIDADE'
-      Origin = 'FK_UNIDADE'
-      Required = True
-    end
-    object qryRelatorioDESCRICAO_1: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_1'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 35
-    end
-    object qryRelatorioPESO: TBCDField
-      FieldName = 'PESO'
-      Origin = 'PESO'
-      Precision = 18
-    end
-    object qryRelatorioFOTO: TBlobField
-      FieldName = 'FOTO'
-      Origin = 'FOTO'
     end
   end
 end

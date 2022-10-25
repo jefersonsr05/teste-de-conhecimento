@@ -132,68 +132,52 @@ object frmConsultaCliente: TfrmConsultaCliente
       Columns = <
         item
           Expanded = False
-          FieldName = 'ID'
-          Title.Caption = 'Id'
-          Width = 60
+          FieldName = 'CODIGO'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'NOME'
-          Width = 280
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'EMAIL'
-          Title.Caption = 'E-mail'
-          Width = 300
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CPF'
-          Width = 120
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CNPJ'
-          Width = 150
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FISICOOUJURIDICO'
-          Title.Caption = 'FisicoOuJuridico'
-          Width = 125
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CEP'
-          Width = 110
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CIDADE'
-          Title.Caption = 'Cidade'
-          Width = 230
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'BAIRRO'
-          Title.Caption = 'Bairro'
-          Width = 230
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'ENDERECO'
-          Title.Caption = 'Endere'#231'o'
-          Width = 230
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'BAIRRO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CIDADE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CEP'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'UF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FONE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CELULAR'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'EMAIL'
           Visible = True
         end>
     end
@@ -241,13 +225,13 @@ object frmConsultaCliente: TfrmConsultaCliente
       ItemIndex = 0
       ParentFont = False
       TabOrder = 0
-      Text = 'Id'
+      Text = 'Codigo'
       OnChange = cbxFiltroChange
       Items.Strings = (
-        'Id'
+        'Codigo'
         'Nome'
-        'CPF/CNPJ'
-        'E-mail')
+        'E-mail'
+        'Celular')
     end
   end
 end

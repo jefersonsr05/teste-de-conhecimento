@@ -10,9 +10,7 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.ExtCtrls,
-  RLReport,
-  uHelpersImagensBase64,
-  uHelpersrlImagensBase64;
+  RLReport;
 
 type
   TCliente = class
@@ -82,12 +80,14 @@ begin
     lQuery.SQL.Add(' , CELULAR    ');
     lQuery.SQL.Add(' , EMAIL      ');
     lQuery.SQL.Add(' FROM CLIENTE ');
+    lQuery.SQL.Add(' WHERE CODIGO = :CODIGO ');
+    lQuery.ParamByName('CODIGO').AsInteger := FCODIGO;
     lQuery.Open;
     lQuery.FetchAll;
 
     if lQuery.RecordCount > 0 then
     begin
-      FCODIGO := lQuery.FieldByName('CODIGO').AsInteger;
+//      FCODIGO := lQuery.FieldByName('CODIGO').AsInteger;
       FNOME := lQuery.FieldByName('NOME').AsString;
       FENDERECO := lQuery.FieldByName('ENDERECO').AsString;
       FBAIRRO := lQuery.FieldByName('BAIRRO').AsString;
@@ -111,7 +111,7 @@ begin
   lQuery := TFDQuery.Create(nil);
   try
     lQuery.Connection := dtmConexao.FDConnection;
-    lQuery.SQL.Add('SELECT * FROM CLIENTE WHERE ID = :CODIGO');
+    lQuery.SQL.Add('SELECT * FROM CLIENTE WHERE CODIGO = :CODIGO');
     lQuery.ParamByName('CODIGO').AsInteger := pId;
     lQuery.Open;
 
@@ -145,13 +145,12 @@ begin
 
     if lQuery.RecordCount > 0 then
     begin
-      result := lQuery.FieldByName('codigo').AsInteger + 1;
+      result := lQuery.FieldByName('CODIGO').AsInteger + 1;
     end
     else
     begin
       result := 1;
     end;
-
   finally
     lQuery.Free;
   end;
