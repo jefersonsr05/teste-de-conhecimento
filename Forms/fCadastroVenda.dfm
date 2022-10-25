@@ -1,12 +1,11 @@
 inherited frmCadastroVenda: TfrmCadastroVenda
   Caption = 'Criar Vendas, Or'#231'amentos e Pr'#233'-Vendas'
-  ClientHeight = 518
+  ClientHeight = 606
   ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
-  ExplicitTop = -28
   ExplicitWidth = 1039
-  ExplicitHeight = 557
+  ExplicitHeight = 645
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -24,9 +23,9 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Left = 0
     Top = 65
     Width = 1023
-    Height = 80
+    Height = 126
     Align = alTop
-    Color = clGradientInactiveCaption
+    Color = clHighlight
     Enabled = False
     ParentBackground = False
     TabOrder = 1
@@ -54,15 +53,15 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       FocusControl = DBEditCodCLiente
     end
     object LabelTipoVenda: TLabel
-      Left = 848
-      Top = 16
+      Left = 183
+      Top = 72
       Width = 76
       Height = 13
       Caption = 'TIPO DE VENDA'
     end
     object LabelOpVenda: TLabel
-      Left = 681
-      Top = 16
+      Left = 16
+      Top = 72
       Width = 108
       Height = 13
       Caption = 'OPERA'#199#195'O DE VENDA'
@@ -75,7 +74,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Caption = 'LabelNomeCliente'
       Color = clHighlight
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMenuHighlight
+      Font.Color = clBtnHighlight
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -113,8 +112,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       OnClick = ButtonClienteClick
     end
     object DBComboBoxTipoVenda: TDBComboBox
-      Left = 848
-      Top = 35
+      Left = 183
+      Top = 91
       Width = 145
       Height = 21
       Style = csDropDownList
@@ -126,8 +125,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       TabOrder = 4
     end
     object DBComboBoxOpVenda: TDBComboBox
-      Left = 681
-      Top = 35
+      Left = 16
+      Top = 91
       Width = 145
       Height = 21
       Style = csDropDownList
@@ -150,23 +149,86 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Enabled = False
       TabOrder = 5
     end
+    object PanelOpVenda: TPanel
+      Left = 728
+      Top = 16
+      Width = 281
+      Height = 104
+      Align = alCustom
+      TabOrder = 6
+      object LabelOp: TLabel
+        Left = 8
+        Top = 8
+        Width = 118
+        Height = 13
+        Caption = 'Opera'#231#245'es de Venda:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlightText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object LabelOrc: TLabel
+        Left = 8
+        Top = 35
+        Width = 150
+        Height = 13
+        Caption = 'Or'#231'amento: N'#227'o baixa estoque'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlightText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object LabelPreVenda: TLabel
+        Left = 8
+        Top = 54
+        Width = 125
+        Height = 13
+        Caption = 'Pr'#233'-venda: Baixa Estoque'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlightText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object LabelVenda: TLabel
+        Left = 8
+        Top = 73
+        Width = 233
+        Height = 31
+        Caption = 'Venda: Baixa Estoque e grava data da '#250'ltima venda no produto'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlightText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
+      end
+    end
   end
   object PanelProdutos: TPanel [2]
     Left = 0
-    Top = 145
+    Top = 191
     Width = 1023
     Height = 72
     Align = alTop
-    Color = 16776176
+    Color = clBtnHighlight
     Enabled = False
     ParentBackground = False
     TabOrder = 2
+    ExplicitLeft = 8
+    ExplicitTop = 228
     object LabelProduto: TLabel
       Left = 96
       Top = 16
-      Width = 38
+      Width = 60
       Height = 13
-      Caption = 'Produto'
+      Caption = 'Cod Produto'
     end
     object LabelQtde: TLabel
       Left = 392
@@ -316,16 +378,18 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   end
   object PanelItems: TPanel [3]
     Left = 0
-    Top = 217
+    Top = 263
     Width = 1023
-    Height = 301
+    Height = 343
     Align = alClient
     TabOrder = 3
+    ExplicitTop = 217
+    ExplicitHeight = 301
     object DBGridItensVenda: TDBGrid
       Left = 1
       Top = 1
       Width = 1021
-      Height = 299
+      Height = 341
       Align = alClient
       DataSource = DataSourceItemNota
       TabOrder = 0

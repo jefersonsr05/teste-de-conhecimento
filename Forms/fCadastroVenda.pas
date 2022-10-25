@@ -73,6 +73,11 @@ type
     FDQueryVenda: TFDQuery;
     Label2: TLabel;
     FDQueryVendaEMISSAO: TDateField;
+    PanelOpVenda: TPanel;
+    LabelOp: TLabel;
+    LabelOrc: TLabel;
+    LabelPreVenda: TLabel;
+    LabelVenda: TLabel;
     procedure ButtonClienteClick(Sender: TObject);
     procedure BitBtnNovoClick(Sender: TObject);
     procedure ButtonProdutoClick(Sender: TObject);
