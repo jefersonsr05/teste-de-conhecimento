@@ -94,9 +94,5 @@ object frmPrincipal: TfrmPrincipal
         OnClick = mnuVendaRelatClick
       end
     end
-    object Configurao1: TMenuItem
-      Caption = 'Configura'#231#227'o'
-      OnClick = Configurao1Click
-    end
   end
 end

@@ -17,17 +17,16 @@ uses
 type
   TCliente = class
   private
-    FID: integer;
+    FCODIGO: integer;
     FNOME: string;
-    FCPF: string;
-    FCNPJ: string;
-    FFISICOOUJURIDICO: string;
-    FEMAIL: string;
     FENDERECO: string;
     FBAIRRO: string;
-    FCEP: string;
     FCIDADE: string;
-    FFOTO: string;
+    FCEP: string;
+    FUF: string;
+    FFONE: string;
+    FCELULAR: string;
+    FEMAIL: string;
 
     class var FObjetoBusca: TCliente;
   public
@@ -47,18 +46,16 @@ type
     class function ValidaCNPJ(Const s: String): boolean;
     class function Existe(pId: integer): boolean;
 
-    property ID: integer read FID write FID;
+    property CODIGO: integer read FCODIGO write FCODIGO;
     property NOME: string read FNOME write FNOME;
-    property CPF: string read FCPF write FCPF;
-    property CNPJ: string read FCNPJ write FCNPJ;
-    property FISICOOUJURIDICO: string read FFISICOOUJURIDICO
-      write FFISICOOUJURIDICO;
-    property EMAIL: string read FEMAIL write FEMAIL;
     property ENDERECO: string read FENDERECO write FENDERECO;
     property BAIRRO: string read FBAIRRO write FBAIRRO;
-    property CEP: string read FCEP write FCEP;
     property CIDADE: string read FCIDADE write FCIDADE;
-    property FOTO: string read FFOTO write FFOTO;
+    property CEP: string read FCEP write FCEP;
+    property UF: string read FUF write FUF;
+    property FONE: string read FFONE write FFONE;
+    property CELULAR: string read FCELULAR write FCELULAR;
+    property EMAIL: string read FEMAIL write FEMAIL;
 
   end;
 
@@ -75,24 +72,33 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT * FROM CLIENTE ');
-    lQuery.SQL.Add(' WHERE ID = :ID        ');
-    lQuery.ParamByName('ID').AsInteger := FID;
+    lQuery.SQL.Add(' SELECT       ');
+    lQuery.SQL.Add(' CODIGO       ');
+    lQuery.SQL.Add(' , NOME       ');
+    lQuery.SQL.Add(' , ENDERECO   ');
+    lQuery.SQL.Add(' , BAIRRO     ');
+    lQuery.SQL.Add(' , CIDADE     ');
+    lQuery.SQL.Add(' , CEP        ');
+    lQuery.SQL.Add(' , UF         ');
+    lQuery.SQL.Add(' , FONE       ');
+    lQuery.SQL.Add(' , CELULAR    ');
+    lQuery.SQL.Add(' , EMAIL      ');
+    lQuery.SQL.Add(' FROM CLIENTE ');
     lQuery.Open;
+    lQuery.FetchAll;
 
     if lQuery.RecordCount > 0 then
     begin
-      FID := lQuery.FieldByName('ID').AsInteger;
+      FCODIGO := lQuery.FieldByName('CODIGO').AsInteger;
       FNOME := lQuery.FieldByName('NOME').AsString;
-      FCPF := lQuery.FieldByName('CPF').AsString;
-      FCNPJ := lQuery.FieldByName('CNPJ').AsString;
-      FFISICOOUJURIDICO := lQuery.FieldByName('FISICOOUJURIDICO').AsString;
-      FEMAIL := lQuery.FieldByName('EMAIL').AsString;
       FENDERECO := lQuery.FieldByName('ENDERECO').AsString;
       FBAIRRO := lQuery.FieldByName('BAIRRO').AsString;
-      FCEP := lQuery.FieldByName('CEP').AsString;
       FCIDADE := lQuery.FieldByName('CIDADE').AsString;
-      FFOTO := lQuery.FieldByName('FOTO').AsString;
+      FCEP := lQuery.FieldByName('CEP').AsString;
+      FUF := lQuery.FieldByName('UF').AsString;
+      FFONE := lQuery.FieldByName('FONE').AsString;
+      FCELULAR := lQuery.FieldByName('CELULAR').AsString;
+      FEMAIL := lQuery.FieldByName('EMAIL').AsString;
     end;
   finally
     lQuery.Free;
@@ -107,8 +113,8 @@ begin
   lQuery := TFDQuery.Create(nil);
   try
     lQuery.Connection := dtmConexao.FDConnection;
-    lQuery.SQL.Add('SELECT * FROM CLIENTE WHERE ID = :ID');
-    lQuery.ParamByName('ID').AsInteger := pId;
+    lQuery.SQL.Add('SELECT * FROM CLIENTE WHERE ID = :CODIGO');
+    lQuery.ParamByName('CODIGO').AsInteger := pId;
     lQuery.Open;
 
     if (lQuery.RecordCount > 0) then
@@ -120,7 +126,7 @@ begin
         FObjetoBusca := TCliente.Create;
       end;
 
-      FObjetoBusca.FID := pId;
+      FObjetoBusca.FCODIGO := pId;
       FObjetoBusca.Carrega;
     end;
   finally

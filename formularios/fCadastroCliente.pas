@@ -42,8 +42,6 @@ type
     edtEndereco: TEdit;
     edtID: TEdit;
     lblID: TLabel;
-    pnlImagem: TPanel;
-    imgCliente: TImage;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -127,7 +125,6 @@ begin
     lCliente.CIDADE := edtCidade.Text;
     lCliente.BAIRRO := edtBairro.Text;
     lCliente.ENDERECO := edtEndereco.Text;
-    lCliente.FOTO := imgCliente.Base64;
     lCliente.Incluir(true);
   finally
     lCliente.Free;

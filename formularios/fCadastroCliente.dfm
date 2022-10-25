@@ -288,26 +288,6 @@ object frmCadastroCliente: TfrmCadastroCliente
       ReadOnly = True
       TabOrder = 0
     end
-    object pnlImagem: TPanel
-      Left = 352
-      Top = 31
-      Width = 200
-      Height = 230
-      Color = clWhite
-      ParentBackground = False
-      TabOrder = 9
-      object imgCliente: TImage
-        Left = 1
-        Top = 1
-        Width = 198
-        Height = 228
-        Align = alClient
-        ExplicitLeft = 56
-        ExplicitTop = 80
-        ExplicitWidth = 105
-        ExplicitHeight = 105
-      end
-    end
   end
   object pnlBotoes: TPanel
     Left = 0
