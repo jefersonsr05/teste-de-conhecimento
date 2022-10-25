@@ -383,7 +383,6 @@ begin
   totalVenda := StrToFloat(DBEditTotalVenda.Text);
   DBEditTotalVenda.Text :=  FloatToStr(totalVenda - StrToFloat(DBGridItensVenda.Columns.Items[5].Field.Text))
 
-
 end;
 
 procedure TfrmCadastroVenda.EditProdutoExit(Sender: TObject);

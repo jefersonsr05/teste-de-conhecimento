@@ -18,28 +18,33 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
       item
         Expanded = False
         FieldName = 'CODIGO'
+        Title.Caption = 'C'#243'digo'
         Width = 50
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'NOME'
+        Title.Caption = 'Nome'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'ENDERECO'
+        Title.Caption = 'Endere'#231'o'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'BAIRRO'
+        Title.Caption = 'Bairro'
         Width = 100
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'CIDADE'
+        Title.Caption = 'Cidade'
         Width = 100
         Visible = True
       end
@@ -57,16 +62,19 @@ inherited frmPesquisarClientes: TfrmPesquisarClientes
       item
         Expanded = False
         FieldName = 'FONE'
+        Title.Caption = 'Fone'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'CELULAR'
+        Title.Caption = 'Celular'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'EMAIL'
+        Title.Caption = 'E-mail'
         Visible = True
       end>
   end

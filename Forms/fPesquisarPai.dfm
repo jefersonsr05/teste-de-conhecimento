@@ -21,6 +21,8 @@ object frmPesquisarPai: TfrmPesquisarPai
     Width = 759
     Height = 121
     Align = alTop
+    Color = clWhite
+    ParentBackground = False
     TabOrder = 0
     object LabelCodigo: TLabel
       Left = 24
@@ -118,6 +120,8 @@ object frmPesquisarPai: TfrmPesquisarPai
     Align = alClient
     Color = clBtnHighlight
     DataSource = DataSourcePesquisar
+    DrawingStyle = gdsGradient
+    GradientEndColor = 13602864
     ReadOnly = True
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET

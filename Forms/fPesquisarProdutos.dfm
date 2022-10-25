@@ -15,39 +15,47 @@ inherited frmPesquisarProdutos: TfrmPesquisarProdutos
       item
         Expanded = False
         FieldName = 'CODIGO'
+        Title.Caption = 'C'#243'digo'
         Width = 50
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'DESCRICAO'
+        Title.Caption = 'Descri'#231#227'o'
         Width = 250
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'REFERENCIA'
+        Title.Caption = 'Refer'#234'ncia'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'UNIDADE'
+        Title.Caption = 'Un Medida'
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'SALDO'
+        Title.Caption = 'Saldo'
         Width = 50
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'DATA_VENDA'
+        Title.Caption = 'Data '#218'ltima Venda'
+        Width = 95
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'PRECO_VENDA'
+        Title.Caption = 'Pre'#231'o de Venda R$'
         Visible = True
       end>
   end
