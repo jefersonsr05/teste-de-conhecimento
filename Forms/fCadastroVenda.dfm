@@ -4,6 +4,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
+  ExplicitTop = -28
   ExplicitWidth = 1039
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -542,19 +543,14 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Left = 56
     Top = 329
   end
-  object DataSource1: TDataSource [13]
-    DataSet = FDQueryProduto
-    Left = 504
-    Top = 256
-  end
-  object FDQueryProduto1: TFDQuery [14]
+  object FDQueryProduto1: TFDQuery [13]
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'select * from produtos;')
     Left = 56
     Top = 385
   end
-  object FDQueryItemVenda: TFDQuery [15]
+  object FDQueryItemVenda: TFDQuery [14]
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'SELECT max(lcto) FROM item_venda')
@@ -569,6 +565,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     end
   end
   inherited ImageList1: TImageList
+    Left = 408
+    Top = 264
     Bitmap = {
       494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
@@ -841,9 +839,15 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       F81F8601EFE7803FF81FFFFFFFFFE0FF00000000000000000000000000000000
       000000000000}
   end
-  object FDQuery1: TFDQuery
+  object FDQueryVenda: TFDQuery
     Connection = dmDados.FDConnection
-    Left = 280
-    Top = 305
+    SQL.Strings = (
+      'select * from venda')
+    Left = 56
+    Top = 497
+    object FDQueryVendaEMISSAO: TDateField
+      FieldName = 'EMISSAO'
+      Origin = 'EMISSAO'
+    end
   end
 end

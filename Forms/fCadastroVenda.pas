@@ -65,14 +65,14 @@ type
     FDQueryCliente: TFDQuery;
     LabelNomeCliente: TLabel;
     LabelDescProd: TLabel;
-    DataSource1: TDataSource;
     FDQueryProduto1: TFDQuery;
     FDQueryItemVenda: TFDQuery;
     FDQueryItemVendaMAX: TIntegerField;
     Label1: TLabel;
     DBEditTotalVenda: TDBEdit;
-    FDQuery1: TFDQuery;
+    FDQueryVenda: TFDQuery;
     Label2: TLabel;
+    FDQueryVendaEMISSAO: TDateField;
     procedure ButtonClienteClick(Sender: TObject);
     procedure BitBtnNovoClick(Sender: TObject);
     procedure ButtonProdutoClick(Sender: TObject);
@@ -115,62 +115,91 @@ implementation
 procedure TfrmCadastroVenda.BaixaEstoque;
 var
   nrnota: string;
+  data_emissao: TDate;
+
 
 begin
 
-  nrnota := DBEditNrNota.text;
-
-  FDQueryItemNota.Close;
-  FDQueryItemNota.SQL.Clear;
-  FDQueryItemNota.SQL.Add('select * from item_venda ');
-  FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota));
-  FDQueryItemNota.Open();
-
-  while not FDQueryItemNota.Eof do
+  if FDQueryCadastroOPERACAO_VENDA.Value = 'V' then
   begin
 
-    FDQueryProduto.Close;
-    FDQueryProduto.SQL.Clear;
-    FDQueryProduto.SQL.Add('update produtos ');
-    FDQueryProduto.SQL.Add(' set ');
-    FDQueryProduto.SQL.Add('saldo = saldo - :pr00 ');
-    FDQueryProduto.SQL.Add('where codigo = :pr01 ');
+    //  Pasa o numero da venda para a variavel nrnota
+    nrnota := DBEditNrNota.text;
 
-    FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
-    FDQueryProduto.Params[1].AsFloat :=  FDQueryItemNotaPRODUTO.Value;
+    //  consulta os itens da venda de acordo com nrnota
+    FDQueryItemNota.Close;
+    FDQueryItemNota.SQL.Clear;
+    FDQueryItemNota.SQL.Add('select * from item_venda ');
+    FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota));
+    FDQueryItemNota.Open();
 
-    FDQueryProduto.ExecSQL;
+    //  Busca emissao da venda de acordo com nrnota
+    FDQueryVenda.Close;
+    FDQueryVenda.SQL.Clear;
+    FDQueryVenda.SQL.Add('select * from venda ');
+    FDQueryVenda.SQL.Add(' where nrnota = ' + QuotedStr(nrnota));
+    FDQueryVenda.Open();
 
-    FDQueryItemNota.Next;
 
+    //  Atualiza o estoque dos produtos e seta
+    //  a data da ultima venda
+    while not FDQueryItemNota.Eof do
+    begin
+
+      FDQueryProduto.Close;
+      FDQueryProduto.SQL.Clear;
+      FDQueryProduto.SQL.Add('update produtos ');
+      FDQueryProduto.SQL.Add(' set ');
+      FDQueryProduto.SQL.Add('saldo = saldo - :pr00, ');
+      FDQueryProduto.SQL.Add('data_venda = :pr01 ');
+      FDQueryProduto.SQL.Add('where codigo = :pr02 ');
+
+      //FDQueryProduto.ParamByName('data').AsDate := FDQueryCadastroEMISSAO.Value;
+
+      FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
+      FDQueryProduto.Params[1].AsDateTime := FDQueryVendaEMISSAO.Value;
+      FDQueryProduto.Params[2].AsFloat :=  FDQueryItemNotaPRODUTO.Value;
+
+      FDQueryProduto.ExecSQL;
+
+      FDQueryItemNota.Next;
+
+    end;
   end;
 
-
-  //  Se for venda ira baixar o estoque e
-  //  adicionar data da ultima venda no produto
-  //if FDQueryCadastroOPERACAO_VENDA.Value = 'V' then
-  //begin
-
-    //FDQuery1.Close;
-    //FDQuery1.SQL.Clear;
-    //FDQuery1.SQL.Add('select produto, qtde from item_venda ');
-    //FDQuery1.SQL.Add(' where nr_venda = ' + QuotedStr(DBEditNrNota.Text));
-    //FDQuery1.Open;
-
-//    FDQueryProduto.Close;
-//    FDQueryProduto.SQL.Add('update produtos set saldo = saldo :qtde, data_venda = :data where codigo = :cod');
-//    FDQueryProduto.Open;
-//    FDQueryProduto.ParamByName('cod').AsInteger := FDQueryProduto.FieldByName('codigo').AsInteger;
-//    FDQueryProduto.ParamByName('qtde').AsFloat := FDQueryItemNota.FieldByName('qtde').AsFloat;
-//    FDQueryProduto.ParamByName('data').AsDate := FDQueryCadastro.FieldByName('emissao').AsDateTime;
-
-
-
-
-  //end;
   //  Se for pre venda ira baixar somente estoque
   if FDQueryCadastroOPERACAO_VENDA.Value = 'P' then
   begin
+
+    //  Pasa o numero da venda para a variavel nrnota
+    nrnota := DBEditNrNota.text;
+
+    //  consulta os itens da venda de acordo com nrnota
+    FDQueryItemNota.Close;
+    FDQueryItemNota.SQL.Clear;
+    FDQueryItemNota.SQL.Add('select * from item_venda ');
+    FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota));
+    FDQueryItemNota.Open();
+
+    //  Atualiza o estoque dos produtos
+    while not FDQueryItemNota.Eof do
+    begin
+
+      FDQueryProduto.Close;
+      FDQueryProduto.SQL.Clear;
+      FDQueryProduto.SQL.Add('update produtos ');
+      FDQueryProduto.SQL.Add(' set');
+      FDQueryProduto.SQL.Add('saldo = saldo - :pr00 ');
+      FDQueryProduto.SQL.Add('where codigo = :pr01 ');
+
+      FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
+      FDQueryProduto.Params[1].AsFloat :=  FDQueryItemNotaPRODUTO.Value;
+
+      FDQueryProduto.ExecSQL;
+
+      FDQueryItemNota.Next;
+
+    end;
 
   end;
 
