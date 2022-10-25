@@ -195,7 +195,7 @@ begin
 
       ConexaoDB.Commit; //Se tudo certo, commit.
     except
-      conexaodb.Rollback;  //Se falhou, rollback.
+      conexaoDB.Rollback;  //Se falhou, rollback.
       result:=false;
     end;
   finally

@@ -1,5 +1,6 @@
 inherited frmCadProdutos: TfrmCadProdutos
   Caption = 'Cadastro de Produtos'
+  ExplicitTop = -98
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl

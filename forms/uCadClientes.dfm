@@ -111,7 +111,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'E-mail'
           MaxLength = 50
-          TabOrder = 0
+          TabOrder = 9
         end
         object edtUf: TLabeledEdit
           Tag = 1
@@ -123,7 +123,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'UF'
           MaxLength = 2
-          TabOrder = 1
+          TabOrder = 5
         end
         object edtCidade: TLabeledEdit
           Tag = 1
@@ -135,7 +135,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'Cidade'
           MaxLength = 30
-          TabOrder = 2
+          TabOrder = 4
         end
         object edtFone: TMaskEdit
           Left = 155
@@ -144,7 +144,7 @@ inherited frmCadClientes: TfrmCadClientes
           Height = 21
           EditMask = '(00) 0000-0000;1;_'
           MaxLength = 14
-          TabOrder = 3
+          TabOrder = 7
           Text = '(  )     -    '
         end
         object edtCelular: TMaskEdit
@@ -154,7 +154,7 @@ inherited frmCadClientes: TfrmCadClientes
           Height = 21
           EditMask = '(00) 00000-0000;1;_'
           MaxLength = 15
-          TabOrder = 4
+          TabOrder = 8
           Text = '(  )      -    '
         end
         object edtCep: TMaskEdit
@@ -165,7 +165,7 @@ inherited frmCadClientes: TfrmCadClientes
           Height = 21
           EditMask = '00.000-000;1;_'
           MaxLength = 10
-          TabOrder = 5
+          TabOrder = 6
           Text = '  .   -   '
         end
         object edtBairro: TLabeledEdit
@@ -178,7 +178,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'Bairro'
           MaxLength = 20
-          TabOrder = 6
+          TabOrder = 3
         end
         object edtEndereco: TLabeledEdit
           Tag = 1
@@ -190,7 +190,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'Endere'#231'o'
           MaxLength = 35
-          TabOrder = 7
+          TabOrder = 2
         end
         object edtNome: TLabeledEdit
           Tag = 1
@@ -202,7 +202,7 @@ inherited frmCadClientes: TfrmCadClientes
           EditLabel.Height = 13
           EditLabel.Caption = 'Nome'
           MaxLength = 35
-          TabOrder = 8
+          TabOrder = 1
         end
         object edtCodigo: TLabeledEdit
           Tag = 9
@@ -210,12 +210,13 @@ inherited frmCadClientes: TfrmCadClientes
           Top = 32
           Width = 80
           Height = 21
+          TabStop = False
           EditLabel.Width = 33
           EditLabel.Height = 13
           EditLabel.Caption = 'C'#243'digo'
           MaxLength = 5
           NumbersOnly = True
-          TabOrder = 9
+          TabOrder = 0
         end
       end
     end

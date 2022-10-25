@@ -6,7 +6,6 @@ object dtmVenda: TdtmVenda
   Width = 515
   object qryCliente: TZQuery
     Connection = dtmConexao.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select codigo,nome from cliente')
     Params = <>
@@ -25,29 +24,26 @@ object dtmVenda: TdtmVenda
   end
   object qryProduto: TZQuery
     Connection = dtmConexao.ConexaoDB
-    Active = True
     SQL.Strings = (
-      'select codigo,descricao,preco_venda,saldo from produtos')
+      
+        'select codigo,descricao,preco_venda,saldo from produtos where co' +
+        'digo = codigo')
     Params = <>
     Left = 32
     Top = 96
     object qryProdutoCODIGO: TIntegerField
-      DisplayLabel = 'Codigo'
       FieldName = 'CODIGO'
       Required = True
     end
     object qryProdutoDESCRICAO: TWideStringField
-      DisplayLabel = 'Descri'#231#227'o'
       FieldName = 'DESCRICAO'
       Size = 35
     end
     object qryProdutoPRECO_VENDA: TExtendedField
-      DisplayLabel = 'Pre'#231'o'
       FieldName = 'PRECO_VENDA'
       Precision = 19
     end
     object qryProdutoSALDO: TExtendedField
-      DisplayLabel = 'Saldo'
       FieldName = 'SALDO'
       Precision = 19
     end

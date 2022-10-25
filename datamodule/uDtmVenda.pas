@@ -12,10 +12,6 @@ type
     qryClienteCODIGO: TIntegerField;
     qryClienteNOME: TWideStringField;
     qryProduto: TZQuery;
-    qryProdutoCODIGO: TIntegerField;
-    qryProdutoDESCRICAO: TWideStringField;
-    qryProdutoPRECO_VENDA: TExtendedField;
-    qryProdutoSALDO: TExtendedField;
     cdsItensVenda: TClientDataSet;
     dtsClient: TDataSource;
     dtsProduto: TDataSource;
@@ -25,6 +21,10 @@ type
     quantidade: TFloatField;
     unitario: TFloatField;
     total: TFloatField;
+    qryProdutoCODIGO: TIntegerField;
+    qryProdutoDESCRICAO: TWideStringField;
+    qryProdutoPRECO_VENDA: TExtendedField;
+    qryProdutoSALDO: TExtendedField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

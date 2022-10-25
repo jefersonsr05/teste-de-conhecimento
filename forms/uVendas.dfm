@@ -3,7 +3,6 @@
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
-    ExplicitHeight = 656
     inherited TabListagem: TTabSheet
       inherited grdListagem: TDBGrid
         Columns = <
@@ -15,7 +14,7 @@
           item
             Expanded = False
             FieldName = 'EMISSAO'
-            Width = 71
+            Width = 96
             Visible = True
           end
           item
@@ -26,24 +25,25 @@
           item
             Expanded = False
             FieldName = 'NOME'
-            Width = 342
+            Width = 357
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_VENDA'
-            Width = 74
+            Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_VENDA'
-            Width = 75
+            Width = 131
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'OPERACAO_VENDA'
+            Width = 143
             Visible = True
           end>
       end
@@ -329,6 +329,7 @@
     end
   end
   inherited qryListagem: TZQuery
+    Active = True
     SQL.Strings = (
       'select v.nrnota, v.emissao, v.cliente,c.nome, v.tipo_venda, '
       'v.valor_venda, v.operacao_venda  '

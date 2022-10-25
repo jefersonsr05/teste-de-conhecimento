@@ -99,7 +99,7 @@ begin
   _Vendas.cliente := lkpCliente.KeyValue;
   _Vendas.valor_Venda := edtValorVenda.Value;
 
-  if (rgpPagamento.ItemIndex = 1) then
+  if (rgpPagamento.ItemIndex = 0) then
     _Vendas.tipo_Venda := 'A'
   else
     _vendas.tipo_Venda := 'P';
@@ -112,9 +112,11 @@ begin
     _Vendas.operacao_Venda := 'O';
 
   if (EstadoDocadastro=ecInserir) then
-    Result := _Vendas.Inserir(dtmVenda.cdsItensVenda)
+    Result := _Vendas.Inserir(dtmVenda.cdsItensVenda);
   //else if (EstadoDocadastro=ecAlterar) then
   //Result := _Vendas.Atualizar;
+
+  LimparItensVenda;
 end;
 
 {$endregion}
@@ -131,8 +133,12 @@ begin
 
   //Enquanto nao for "End of File" vai deletando os itens da tela.
 
+  dtmVenda.cdsItensVenda.First;
   while not dtmVenda.cdsItensVenda.Eof do
     dtmVenda.cdsItensVenda.Delete;
+
+  grdVenda.Refresh;
+
 end;
 
 procedure TfrmVendas.PreencherItem;
@@ -215,6 +221,7 @@ begin
   dtmVenda.cdsItensVenda.Append;
   dtmVenda.cdsItensVenda.FieldByName('Código').AsString:=lkpProdutos.KeyValue;
   dtmVenda.cdsItensVenda.FieldByName('Descrição').AsString:=dtmVenda.qryProduto.FieldByName('descricao').AsString;
+  //dtmVenda.cdsItensVenda.FieldByName('Descrição').AsString:=lkpProdutos.ListFieldIndex;
   dtmVenda.cdsItensVenda.FieldByName('Quantidade').AsFloat:=edtQuantidade.Value;
   dtmVenda.cdsItensVenda.FieldByName('Unitário').AsFloat:=edtUnitario.Value;
   dtmVenda.cdsItensVenda.FieldByName('Total').AsFloat:=edtTotal.Value;
@@ -249,13 +256,11 @@ end;
 
 procedure TfrmVendas.btnNovoClick(Sender: TObject);
 begin
-
+  inherited;
   //Seta os campos de data com a data do dia e poe o focus nela.
-
   rgpVenda.ItemIndex := 0;
   rgpPagamento.ItemIndex := 0;
   LimparItensVenda;
-  inherited;
   edtEmissao.Date := Date();
   edtEmissao.SetFocus;
 end;
@@ -329,7 +334,7 @@ end;
 procedure TfrmVendas.lkpProdutosExit(Sender: TObject);
 begin
   inherited;
-  edtUnitario.Value := dtmVenda.qryProduto.FieldByName('preco_venda').AsFloat;
+  edtUnitario.Value := dtmVenda.qryProduto.FieldByName('PRECO_VENDA').AsFloat;
 end;
 
 {$endregion}
