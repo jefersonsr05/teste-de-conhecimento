@@ -68,13 +68,16 @@ type
     LabelDescProd: TLabel;
     DataSource1: TDataSource;
     FDQueryProduto1: TFDQuery;
+    FDQueryItemVenda: TFDQuery;
+    FDQueryItemVendaMAX: TIntegerField;
+    Label1: TLabel;
+    DBEditTotalVenda: TDBEdit;
     procedure ButtonClienteClick(Sender: TObject);
     procedure GeraNumeroVenda;
     procedure BitBtnNovoClick(Sender: TObject);
     procedure FDQueryCadastroBeforePost(DataSet: TDataSet);
     procedure ButtonProdutoClick(Sender: TObject);
     procedure GeraNumeroLcto;
-    procedure FormCreate(Sender: TObject);
     procedure ButtonAdicionarClick(Sender: TObject);
     procedure FDQueryCadastroAfterOpen(DataSet: TDataSet);
     procedure FDQueryCadastroAfterScroll(DataSet: TDataSet);
@@ -89,6 +92,7 @@ type
     procedure EditValorUnitExit(Sender: TObject);
     procedure DBComboBoxOpVendaExit(Sender: TObject);
     procedure CalculaValorTotalItem;
+    procedure LimpaCamposItens;
   private
     { Private declarations }
     procedure GravarItem;
@@ -105,11 +109,15 @@ implementation
 procedure TfrmCadastroVenda.BitBtnNovoClick(Sender: TObject);
 begin
   inherited;
+
+  PanelCabecalhoVenda.Enabled := True;
+
   //  Cria o numero da venda
   GeraNumeroVenda;
   FDQueryCadastroEMISSAO.AsDateTime := Date;
   FDTransactionItemNota.StartTransaction;
   FDQueryItemNota.Open();
+  DBEditTotalVenda.Text := '0';
 end;
 procedure TfrmCadastroVenda.BitBtnSalvarClick(Sender: TObject);
 begin
@@ -120,10 +128,16 @@ begin
 end;
 
 procedure TfrmCadastroVenda.ButtonAdicionarClick(Sender: TObject);
+var
+  i: integer;
+
 begin
   inherited;
 
   GravarItem;
+  LimpaCamposItens;
+
+
 
 end;
 procedure TfrmCadastroVenda.ButtonClienteClick(Sender: TObject);
@@ -300,27 +314,37 @@ begin
   LabelNomeCliente.Caption := '';
   LabelDescProd.Caption    := '';
 end;
-procedure TfrmCadastroVenda.FormCreate(Sender: TObject);
-begin
-  inherited;
-  //AtualizaFDQuery(FDQueryProduto, '');
-end;
 procedure TfrmCadastroVenda.GeraNumeroLcto;
 var
-  cod: integer;
+  cod, result: integer;
 begin
   cod := 0;
-  FDQueryItemNota.Open();
+
+  //FDQueryItemNota.Open();
+
   //  Ve o ultimo registro
-  FDQueryItemNota.Last();
+  //FDQueryItemNota.Last();
   //  Pega o último código gerado e soma + 1
   //cod := FDQueryItemNota.ExecSQL ('SELECT max(lcto) FROM ITEM_VENDA') + 1;
-  cod := FDQueryItemNota.FieldByName('LCTO').AsInteger + 1;
+  //cod := FDQueryItemNota.FieldByName('LCTO').AsInteger + 1;
 
   //  Insere o registro no final da tabela
-  FDQueryItemNota.Append();
+  //FDQueryItemNota.Append();
+
+  //FDQueryItemVenda.Close;
+  //FDQueryItemVenda.SQL.Clear;
+  //FDQueryItemVenda.SQL.Add('select max(lcto) from item_venda');
+  FDQueryItemVenda.Open();
+
+  cod :=  FDQueryItemVendaMAX.AsInteger + 1 ;
+
+  //ShowMessage(IntToStr(cod));
+
+  //FDQueryItemVenda.Append();
+
   //  Seta no edit o codigo gerado
   EditLcto.Text := IntToStr(cod);
+
   //  Posiciona o cursor
   EditProduto.SetFocus;
 end;
@@ -343,17 +367,61 @@ begin
   DBEditCodCLiente.SetFocus;
 end;
 procedure TfrmCadastroVenda.GravarItem;
+var
+  i: integer;
+  totalVenda: Double;
+
 begin
-  GeraNumeroLcto;
+
   FDQueryItemNota.Append;
+
+  if EditProduto.Text <> '' then
+  begin
+
+    FDQueryItemNotaPRODUTO.AsInteger   := StrToInt(EditProduto.Text);
+    FDQueryItemNotaQTDE.AsFloat        := StrToFloat(EditQtd.Text);
+    FDQueryItemNotaVALOR_UNIT.AsFloat  := StrToFloat(EditValorUnit.Text);
+
+  end
+  else
+  begin
+
+    ShowMessage('Preencha o campo Cod Produto!');
+    Abort;
+    EditProduto.SetFocus;
+  end;
+
+
+  if EditLcto.Text <> '' then
+  begin
+    i:= StrToInt(EditLcto.Text) + 1;
+    EditLcto.Text := IntToStr(i);
+  end
+  else
+  begin
+    GeraNumeroLcto;
+  end;
+
+
   FDQueryItemNotaLCTO.AsInteger      := StrToInt(EditLcto.Text);
   FDQueryItemNotaNR_VENDA.AsInteger  := StrToInt(DBEditNrNota.Text);
-  FDQueryItemNotaPRODUTO.AsInteger   := StrToInt(EditProduto.Text);
-  FDQueryItemNotaQTDE.AsFloat        := StrToFloat(EditQtd.Text);
-  FDQueryItemNotaVALOR_UNIT.AsFloat  := StrToFloat(EditValorUnit.Text);
   FDQueryItemNotaVALOR_TOTAL.AsFloat := StrToFloat(EditValorTotal.Text);
 
+
+  totalVenda := StrToFloat(DBEditTotalVenda.Text);
+  DBEditTotalVenda.Text := FloatToStr(totalVenda + StrToFloat(EditValorTotal.Text))
+
 end;
+procedure TfrmCadastroVenda.LimpaCamposItens;
+begin
+
+  EditProduto.Clear;
+  EditQtd.Clear;
+  EditValorUnit.Clear;
+  EditValorTotal.Clear;
+
+end;
+
 procedure TfrmCadastroVenda.SetItens(pIdVenda: integer);
 begin
   FDQueryItemNota.Close;

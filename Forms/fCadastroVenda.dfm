@@ -4,7 +4,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
-  ExplicitTop = -101
+  ExplicitTop = -23
   ExplicitWidth = 1039
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -26,6 +26,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Width = 1023
     Height = 80
     Align = alTop
+    Enabled = False
     TabOrder = 1
     ExplicitWidth = 1025
     object LabelNrNota: TLabel
@@ -113,6 +114,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 145
       Height = 21
+      Style = csDropDownList
       DataField = 'TIPO_VENDA'
       DataSource = DataSourceCadastro
       Items.Strings = (
@@ -125,6 +127,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 145
       Height = 21
+      Style = csDropDownList
       DataField = 'OPERACAO_VENDA'
       DataSource = DataSourceCadastro
       Items.Strings = (
@@ -161,25 +164,25 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Caption = 'Produto'
     end
     object LabelQtde: TLabel
-      Left = 440
+      Left = 392
       Top = 16
       Width = 56
       Height = 13
       Caption = 'Quantidade'
     end
     object LabelValorUnit: TLabel
-      Left = 538
+      Left = 490
       Top = 16
       Width = 64
       Height = 13
       Caption = 'Valor Unit'#225'rio'
     end
     object LabelValorTotalVenda: TLabel
-      Left = 656
+      Left = 600
       Top = 16
-      Width = 99
+      Width = 65
       Height = 13
-      Caption = 'Valor Total da Venda'
+      Caption = 'Total Produto'
     end
     object LabelLcto: TLabel
       Left = 16
@@ -201,6 +204,20 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentColor = False
+      ParentFont = False
+    end
+    object Label1: TLabel
+      Left = 704
+      Top = 16
+      Width = 84
+      Height = 13
+      Caption = 'Valor Total Venda'
+      FocusControl = DBEditTotalVenda
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuHighlight
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
       ParentFont = False
     end
     object ButtonProduto: TButton
@@ -237,7 +254,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       OnExit = EditProdutoExit
     end
     object EditQtd: TEdit
-      Left = 440
+      Left = 392
       Top = 35
       Width = 74
       Height = 21
@@ -245,17 +262,17 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       OnExit = EditQtdExit
     end
     object EditValorUnit: TEdit
-      Left = 538
+      Left = 490
       Top = 35
-      Width = 95
+      Width = 87
       Height = 21
       TabOrder = 5
       OnExit = EditValorUnitExit
     end
     object EditValorTotal: TEdit
-      Left = 656
+      Left = 600
       Top = 35
-      Width = 113
+      Width = 81
       Height = 21
       TabOrder = 6
     end
@@ -266,6 +283,21 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 21
       Enabled = False
       TabOrder = 7
+    end
+    object DBEditTotalVenda: TDBEdit
+      Left = 704
+      Top = 35
+      Width = 84
+      Height = 21
+      DataField = 'VALOR_VENDA'
+      DataSource = DataSourceCadastro
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
     end
   end
   object PanelItems: TPanel [3]
@@ -300,12 +332,12 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         end
         item
           Expanded = False
-          FieldName = 'NR_VENDA'
+          FieldName = 'PRODUTO'
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'PRODUTO'
+          FieldName = 'DescProduto'
           Visible = True
         end
         item
@@ -491,8 +523,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'select * from cliente')
-    Left = 96
-    Top = 337
+    Left = 56
+    Top = 329
   end
   object DataSource1: TDataSource
     DataSet = FDQueryProduto
@@ -503,7 +535,21 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'select * from produtos;')
-    Left = 184
-    Top = 289
+    Left = 56
+    Top = 385
+  end
+  object FDQueryItemVenda: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'SELECT max(lcto) FROM item_venda')
+    Left = 56
+    Top = 441
+    object FDQueryItemVendaMAX: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'MAX'
+      Origin = '"MAX"'
+      ProviderFlags = []
+      ReadOnly = True
+    end
   end
 end
