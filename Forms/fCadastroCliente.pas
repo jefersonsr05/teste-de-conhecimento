@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, uDmDados;
 
 type
   TfrmCadastroCliente = class(TfrmCadastroPai)
@@ -42,6 +42,8 @@ type
     LabelEmail: TLabel;
     DBEditEmail: TDBEdit;
     DBEditCodigo: TDBEdit;
+    FDQueryCliente: TFDQuery;
+    FDQueryClienteMAX: TIntegerField;
     procedure BitBtnNovoClick(Sender: TObject);
     procedure limpa;
     procedure geraCodigo;

@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet, Vcl.Buttons, Vcl.ExtCtrls;
+  FireDAC.Comp.DataSet, Vcl.Buttons, Vcl.ExtCtrls, uDmDados;
 
 type
   TfrmCadastroProdutos = class(TfrmCadastroPai)
@@ -33,6 +33,8 @@ type
     LabelSaldo: TLabel;
     DBEditSaldo: TDBEdit;
     DBComboBox1: TDBComboBox;
+    FDQueryProduto: TFDQuery;
+    FDQueryProdutoMAX: TIntegerField;
     procedure limpa;
     procedure geraCodigo;
     procedure BitBtnNovoClick(Sender: TObject);

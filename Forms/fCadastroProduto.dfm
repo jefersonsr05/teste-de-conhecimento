@@ -171,4 +171,18 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
       Precision = 18
     end
   end
+  object FDQueryProduto: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'select max(codigo) from produtos')
+    Left = 312
+    Top = 272
+    object FDQueryProdutoMAX: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'MAX'
+      Origin = '"MAX"'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
 end

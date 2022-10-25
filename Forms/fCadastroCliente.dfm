@@ -229,4 +229,18 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       Size = 50
     end
   end
+  object FDQueryCliente: TFDQuery
+    Connection = dmDados.FDConnection
+    SQL.Strings = (
+      'select max(codigo) from cliente')
+    Left = 352
+    Top = 296
+    object FDQueryClienteMAX: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'MAX'
+      Origin = '"MAX"'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
 end
