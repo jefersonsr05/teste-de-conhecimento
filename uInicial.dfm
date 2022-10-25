@@ -42,34 +42,16 @@ object frmInicial: TfrmInicial
       object N2: TMenuItem
         Caption = '-'
       end
-      object Prvenda1: TMenuItem
-        Caption = 'Pr'#233'-venda'
-      end
-      object N3: TMenuItem
-        Caption = '-'
-      end
-      object Oramento1: TMenuItem
-        Caption = 'Or'#231'amento'
-      end
     end
     object RELATRIOS1: TMenuItem
       Caption = 'RELAT'#211'RIOS'
-      object Vendas3: TMenuItem
-        Caption = 'Vendas'
-      end
-      object Prvendas1: TMenuItem
-        Caption = 'Pr'#233'-vendas'
-      end
-      object Oramentos1: TMenuItem
-        Caption = 'Or'#231'amentos'
-      end
-      object N4: TMenuItem
-        Caption = '-'
-      end
       object Produtos1: TMenuItem
         Caption = 'Produtos'
       end
       object Clientes1: TMenuItem
+        Caption = '-'
+      end
+      object Clientes2: TMenuItem
         Caption = 'Clientes'
       end
     end

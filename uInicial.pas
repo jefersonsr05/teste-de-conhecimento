@@ -18,15 +18,9 @@ type
     opSair: TMenuItem;
     opVendas: TMenuItem;
     N2: TMenuItem;
-    Prvenda1: TMenuItem;
-    N3: TMenuItem;
-    Oramento1: TMenuItem;
-    Vendas3: TMenuItem;
-    Prvendas1: TMenuItem;
-    Oramentos1: TMenuItem;
-    N4: TMenuItem;
     Produtos1: TMenuItem;
     Clientes1: TMenuItem;
+    Clientes2: TMenuItem;
     procedure opSairClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure opClientesClick(Sender: TObject);
