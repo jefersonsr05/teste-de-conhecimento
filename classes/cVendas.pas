@@ -1,4 +1,4 @@
-unit cVendas;
+﻿unit cVendas;
 
 interface
 
@@ -20,8 +20,9 @@ type
     _fValor_Venda:double;
     _fOperacao_Venda:string;
 
-    function PrimeiroCodigo: boolean;
+    function PrimeiroCodigoVenda: boolean;
     function InserirItens(cds: TClientDataSet; nrnota: integer): boolean;
+    function PrimeiroCodigoItemVenda: boolean;
 
   public
     { Public declarations }
@@ -71,13 +72,29 @@ begin
     qry:=TZQuery.Create(nil);
     qry.Connection:=ConexaoDB;
     qry.SQL.Clear;
-    qry.sql.Add('insert into item_venda (lcto,nr_venda,produto,qtde,valor_unit,valor_total)' +
-                ' values (1,:nr_venda,:produto,:qtde,:valor_unit,:valor_total)');
-    qry.ParamByName('nr_venda').AsInteger := nrnota;
-    qry.ParamByName('produto').AsInteger := cds.FieldByName('Código').AsInteger;
-    qry.ParamByName('qtde').AsFloat := cds.FieldByName('Quantidade').AsFloat;
-    qry.ParamByName('valor_unit').AsFloat := cds.FieldByName('Unitário').AsFloat;
-    qry.ParamByName('valor_total').AsFloat := cds.FieldByName('Total').AsFloat;
+
+    if (PrimeiroCodigoItemVenda) then
+    begin
+      qry.sql.Add('insert into item_venda (lcto,nr_venda,produto,qtde,valor_unit,valor_total)' +
+                  ' values (1,:nr_venda,:produto,:qtde,:valor_unit,:valor_total)');
+      qry.ParamByName('nr_venda').AsInteger := nrnota;
+      qry.ParamByName('produto').AsInteger := cds.FieldByName('Código').AsInteger;
+      qry.ParamByName('qtde').AsFloat := cds.FieldByName('Quantidade').AsFloat;
+      qry.ParamByName('valor_unit').AsFloat := cds.FieldByName('Unitário').AsFloat;
+      qry.ParamByName('valor_total').AsFloat := cds.FieldByName('Total').AsFloat;
+    end
+    else
+    begin
+      qry.sql.Add('insert into item_venda (lcto,nr_venda,produto,qtde,valor_unit,valor_total)' +
+                  ' values ((SELECT max(lcto) FROM item_venda)+1,:nr_venda,:produto,:qtde,:valor_unit,:valor_total)');
+      qry.ParamByName('nr_venda').AsInteger := nrnota;
+      qry.ParamByName('produto').AsInteger := cds.FieldByName('Código').AsInteger;
+      qry.ParamByName('qtde').AsFloat := cds.FieldByName('Quantidade').AsFloat;
+      qry.ParamByName('valor_unit').AsFloat := cds.FieldByName('Unitário').AsFloat;
+      qry.ParamByName('valor_total').AsFloat := cds.FieldByName('Total').AsFloat;
+    end;
+
+
 
     try
       qry.ExecSQL;
@@ -88,6 +105,31 @@ begin
   finally
     if Assigned(qry) then
       FreeAndNil(qry)
+  end;
+end;
+
+function TVendas.PrimeiroCodigoItemVenda: boolean;
+var qry :TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear; //Limpar possiveis sujeiras na memoria.
+    qry.SQL.Add('select lcto from item_venda');
+      try
+        qry.Open;
+
+        if qry.FieldByName('lcto').AsString = '' then
+          result := true
+        else
+          result := false;
+      except
+        result := false;
+      end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
   end;
 end;
 
@@ -105,7 +147,7 @@ begin
     qry:=TZQuery.Create(nil);
     qry.Connection:=ConexaoDB;
     qry.SQL.Clear;
-    if (PrimeiroCodigo) then
+    if (PrimeiroCodigoVenda) then
     begin
       qry.SQL.Add('Insert into venda values (1,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
       qry.ParamByName('emissao').AsDateTime := self._fEmissao;
@@ -151,7 +193,7 @@ begin
 end;
 end;
 
-function TVendas.PrimeiroCodigo: boolean;
+function TVendas.PrimeiroCodigoVenda: boolean;
 var qry :TZQuery;
 begin
   try
