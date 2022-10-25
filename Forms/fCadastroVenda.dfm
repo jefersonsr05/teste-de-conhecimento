@@ -4,7 +4,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   ClientWidth = 1023
   WindowState = wsMaximized
   OnActivate = FormActivate
-  ExplicitTop = -28
   ExplicitWidth = 1039
   ExplicitHeight = 557
   PixelsPerInch = 96
@@ -90,7 +89,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       DataField = 'NRNOTA'
       DataSource = DataSourceCadastro
       Enabled = False
-      TabOrder = 0
+      TabOrder = 1
     end
     object DBEditCodCLiente: TDBEdit
       Left = 336
@@ -99,7 +98,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 21
       DataField = 'CLIENTE'
       DataSource = DataSourceCadastro
-      TabOrder = 1
+      TabOrder = 2
       OnExit = DBEditCodCLienteExit
     end
     object ButtonCliente: TButton
@@ -107,7 +106,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 34
       Height = 25
-      TabOrder = 2
+      TabOrder = 0
       OnClick = ButtonClienteClick
     end
     object DBComboBoxTipoVenda: TDBComboBox
@@ -121,7 +120,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Items.Strings = (
         'A VISTA'
         'PRAZO')
-      TabOrder = 3
+      TabOrder = 4
     end
     object DBComboBoxOpVenda: TDBComboBox
       Left = 681
@@ -135,7 +134,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
         'Or'#231'amento'
         'Pr'#233'-Venda'
         'Venda')
-      TabOrder = 4
+      TabOrder = 3
       OnExit = DBComboBoxOpVendaExit
     end
     object DBEditEmissao: TDBEdit
@@ -223,38 +222,43 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Font.Style = []
       ParentFont = False
     end
+    object Label2: TLabel
+      Left = 927
+      Top = 23
+      Width = 215
+      Height = 43
+      Caption = 'Para Excluir um Item adicionado d'#234' um duplo clique sobre o mesmo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6248624
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsItalic]
+      ParentFont = False
+      WordWrap = True
+    end
     object ButtonProduto: TButton
       Left = 175
       Top = 32
       Width = 34
       Height = 25
-      TabOrder = 0
+      TabOrder = 7
       OnClick = ButtonProdutoClick
     end
     object ButtonAdicionar: TButton
       Left = 816
-      Top = 14
-      Width = 89
-      Height = 41
-      Caption = 'ADICIONAR'
-      TabOrder = 1
-      OnClick = ButtonAdicionarClick
-    end
-    object ButtonExcluir: TButton
-      Left = 920
       Top = 16
       Width = 89
       Height = 41
-      Caption = 'EXCLUIR'
-      TabOrder = 2
-      OnClick = ButtonExcluirClick
+      Caption = 'ADICIONAR'
+      TabOrder = 6
+      OnClick = ButtonAdicionarClick
     end
     object EditProduto: TEdit
       Left = 96
       Top = 35
       Width = 73
       Height = 21
-      TabOrder = 3
+      TabOrder = 0
       OnExit = EditProdutoExit
     end
     object EditQtd: TEdit
@@ -262,7 +266,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 74
       Height = 21
-      TabOrder = 4
+      TabOrder = 2
       OnExit = EditQtdExit
     end
     object EditValorUnit: TEdit
@@ -270,7 +274,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 87
       Height = 21
-      TabOrder = 5
+      TabOrder = 3
       OnExit = EditValorUnitExit
     end
     object EditValorTotal: TEdit
@@ -278,7 +282,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Top = 35
       Width = 81
       Height = 21
-      TabOrder = 6
+      TabOrder = 5
     end
     object EditLcto: TEdit
       Left = 16
@@ -286,7 +290,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Width = 57
       Height = 21
       Enabled = False
-      TabOrder = 7
+      TabOrder = 1
     end
     object DBEditTotalVenda: TDBEdit
       Left = 704
@@ -295,13 +299,14 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       Height = 21
       DataField = 'VALOR_VENDA'
       DataSource = DataSourceCadastro
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 4
     end
   end
   object PanelItems: TPanel [3]
@@ -324,6 +329,7 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = DBGridItensVendaDblClick
       Columns = <
         item
           Expanded = False

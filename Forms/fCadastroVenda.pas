@@ -47,7 +47,6 @@ type
     ButtonProduto: TButton;
     LabelLcto: TLabel;
     ButtonAdicionar: TButton;
-    ButtonExcluir: TButton;
     DBGridItensVenda: TDBGrid;
     FDTransactionItemNota: TFDTransaction;
     EditProduto: TEdit;
@@ -73,6 +72,7 @@ type
     Label1: TLabel;
     DBEditTotalVenda: TDBEdit;
     FDQuery1: TFDQuery;
+    Label2: TLabel;
     procedure ButtonClienteClick(Sender: TObject);
     procedure BitBtnNovoClick(Sender: TObject);
     procedure ButtonProdutoClick(Sender: TObject);
@@ -87,9 +87,9 @@ type
     procedure EditQtdExit(Sender: TObject);
     procedure EditValorUnitExit(Sender: TObject);
     procedure DBComboBoxOpVendaExit(Sender: TObject);
-    procedure ButtonExcluirClick(Sender: TObject);
     procedure EditProdutoExit(Sender: TObject);
     procedure DBEditCodCLienteExit(Sender: TObject);
+    procedure DBGridItensVendaDblClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -102,6 +102,7 @@ type
     procedure BuscaNomeCliente;
     procedure GeraNumeroLcto;
     procedure BaixaEstoque;
+    procedure CalculaTotalVenda;
 
   public
     { Public declarations }
@@ -163,7 +164,7 @@ begin
   inherited;
 
   FDQueryItemNota.Post;
-  BaixaEstoque;
+  //BaixaEstoque;
 
 end;
 
@@ -240,7 +241,7 @@ begin
   GravarItem;
   LimpaCamposItens;
 
-
+  EditProduto.SetFocus;
 
 end;
 procedure TfrmCadastroVenda.ButtonClienteClick(Sender: TObject);
@@ -257,14 +258,6 @@ begin
     FreeAndNil(frmPesquisarClientes);
   end;
 end;
-procedure TfrmCadastroVenda.ButtonExcluirClick(Sender: TObject);
-begin
-  inherited;
-
-  DBGridItensVenda.DataSource.DataSet.Delete;
-
-end;
-
 procedure TfrmCadastroVenda.ButtonProdutoClick(Sender: TObject);
 begin
   inherited;
@@ -278,6 +271,15 @@ begin
     FreeAndNil(frmPesquisarProdutos);
   end;
 end;
+procedure TfrmCadastroVenda.CalculaTotalVenda;
+var
+  totalVenda: double;
+
+begin
+  totalVenda := StrToFloat(DBEditTotalVenda.Text);
+  DBEditTotalVenda.Text := FloatToStr(totalVenda + StrToFloat(EditValorTotal.Text))
+end;
+
 procedure TfrmCadastroVenda.CalculaValorTotalItem;
 begin
 
@@ -300,6 +302,19 @@ procedure TfrmCadastroVenda.DBEditCodCLienteExit(Sender: TObject);
 begin
   inherited;
   BuscaNomeCliente;
+end;
+
+procedure TfrmCadastroVenda.DBGridItensVendaDblClick(Sender: TObject);
+var
+  totalVenda: Double;
+begin
+  inherited;
+  DBGridItensVenda.DataSource.DataSet.Delete;
+
+  totalVenda := StrToFloat(DBEditTotalVenda.Text);
+  DBEditTotalVenda.Text :=  FloatToStr(totalVenda - StrToFloat(DBGridItensVenda.Columns.Items[5].Field.Text))
+
+
 end;
 
 procedure TfrmCadastroVenda.EditProdutoExit(Sender: TObject);
@@ -435,9 +450,9 @@ begin
   FDQueryItemNotaNR_VENDA.AsInteger  := StrToInt(DBEditNrNota.Text);
   FDQueryItemNotaVALOR_TOTAL.AsFloat := StrToFloat(EditValorTotal.Text);
 
-
-  totalVenda := StrToFloat(DBEditTotalVenda.Text);
-  DBEditTotalVenda.Text := FloatToStr(totalVenda + StrToFloat(EditValorTotal.Text))
+  CalculaTotalVenda
+  //totalVenda := StrToFloat(DBEditTotalVenda.Text);
+  //DBEditTotalVenda.Text := FloatToStr(totalVenda + StrToFloat(EditValorTotal.Text))
 
 end;
 procedure TfrmCadastroVenda.LimpaCamposItens;
