@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
   fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, System.ImageList, Vcl.ImgList,
-  fPesquisarVenda;
+  fPesquisarVenda, Vcl.Imaging.pngimage;
 
 type
   TfrmMain = class(TForm)
@@ -32,6 +32,7 @@ type
     ButtonCadCliente: TButton;
     ButtonCadProd: TButton;
     ButtonVenda: TButton;
+    Image1: TImage;
     procedure Clientes1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);
