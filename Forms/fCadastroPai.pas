@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   uDmDados, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  System.ImageList, Vcl.ImgList;
 
 type
   TfrmCadastroPai = class(TForm)
@@ -21,6 +22,7 @@ type
     FDQueryCadastro: TFDQuery;
     FDUpdateSQLCadastro: TFDUpdateSQL;
     FDTransactionCadastro: TFDTransaction;
+    ImageList1: TImageList;
     procedure BitBtnNovoClick(Sender: TObject);
     procedure BitBtnSairClick(Sender: TObject);
     procedure BitBtnSalvarClick(Sender: TObject);

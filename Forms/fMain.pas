@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
   fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda,
-  Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls;
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TfrmMain = class(TForm)
@@ -27,11 +27,18 @@ type
     Clientes3: TMenuItem;
     Clientes4: TMenuItem;
     PanelAcessoRapido: TPanel;
+    ImageList1: TImageList;
+    ButtonCadCliente: TButton;
+    ButtonCadProd: TButton;
+    ButtonVenda: TButton;
     procedure Clientes1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
     procedure Clientes2Click(Sender: TObject);
     procedure Podutos1Click(Sender: TObject);
     procedure CriarNovaVenda1Click(Sender: TObject);
+    procedure ButtonCadProdClick(Sender: TObject);
+    procedure ButtonCadClienteClick(Sender: TObject);
+    procedure ButtonVendaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,6 +51,66 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMain.ButtonCadClienteClick(Sender: TObject);
+begin
+
+  //  Cria o form
+  frmCadastroCliente := TfrmCadastroCliente.Create(Self);
+
+  try
+
+    //  Exibe o form
+    frmCadastroCliente.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmCadastroCliente);
+
+  end;
+
+end;
+
+procedure TfrmMain.ButtonCadProdClick(Sender: TObject);
+begin
+
+  //  Cria o Form
+  frmCadastroProdutos := TfrmCadastroProdutos.Create(Self);
+
+  try
+
+    //  Exibe o Form
+    frmCadastroProdutos.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmCadastroProdutos);
+
+  end;
+
+end;
+
+procedure TfrmMain.ButtonVendaClick(Sender: TObject);
+begin
+
+  //  Cria o form
+  frmCadastroVenda := TfrmCadastroVenda.Create(Self);
+
+  try
+
+    //  Exibe o form
+    frmCadastroVenda.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmCadastroVenda);
+
+  end;
+
+end;
 
 procedure TfrmMain.Clientes1Click(Sender: TObject);
 begin
