@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, uDmDados, Vcl.ComCtrls;
 
 type
   TfrmPesquisarVenda = class(TfrmPesquisarPai)
@@ -18,6 +18,21 @@ type
     FDQueryPesquisarTIPO_VENDA: TWideStringField;
     FDQueryPesquisarVALOR_VENDA: TBCDField;
     FDQueryPesquisarOPERACAO_VENDA: TWideStringField;
+    FDQueryClientes: TFDQuery;
+    FDQueryPesquisarNomeCliente: TStringField;
+    PanelTipoVenda: TPanel;
+    LabelTiposVenda: TLabel;
+    LabelVista: TLabel;
+    LabelPrazo: TLabel;
+    PanelOpVenda: TPanel;
+    LabelOpVenda: TLabel;
+    LabelOrc: TLabel;
+    LabelPreVenda: TLabel;
+    LabelVenda: TLabel;
+    DateTimePickerInicial: TDateTimePicker;
+    DateTimePickerFinal: TDateTimePicker;
+    LabelPeriodoInicial: TLabel;
+    LabelPeriodoFinal: TLabel;
     procedure ButtonPesquisaClick(Sender: TObject);
   private
     { Private declarations }
@@ -64,6 +79,17 @@ begin
     FDQueryPesquisar.SQL.Add('and nrnota = ' + EditCodigo.Text);
 
   end;
+
+  //  Pesquisa por periodo
+  if (DateTimePickerInicial.Date <> null) and (DateTimePickerFinal.Date <> null) then
+  begin
+
+    FDQueryPesquisar.SQL.Add('and emissao between :dtIni and :dtFim');
+    FDQueryPesquisar.ParamByName('dtIni').AsDateTime := DateTimePickerInicial.DateTime;
+    FDQueryPesquisar.ParamByName('dtFim').AsDateTime := DateTimePickerFinal.DateTime;
+
+  end;
+
 
   //  Ordena o resultado pelo nome
   if RadioButtonNome.Checked = True then
