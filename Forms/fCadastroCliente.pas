@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, uDmDados;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, uDmDados, System.ImageList, Vcl.ImgList;
 
 type
   TfrmCadastroCliente = class(TfrmCadastroPai)

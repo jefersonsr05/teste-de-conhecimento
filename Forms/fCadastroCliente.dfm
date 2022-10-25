@@ -88,7 +88,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'NOME'
     DataSource = DataSourceCadastro
-    TabOrder = 9
+    TabOrder = 2
   end
   object DBEditEndereco: TDBEdit [12]
     Left = 16
@@ -97,7 +97,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'ENDERECO'
     DataSource = DataSourceCadastro
-    TabOrder = 10
+    TabOrder = 3
   end
   object DBEditBairro: TDBEdit [13]
     Left = 500
@@ -106,7 +106,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'BAIRRO'
     DataSource = DataSourceCadastro
-    TabOrder = 1
+    TabOrder = 4
   end
   object DBEditCidade: TDBEdit [14]
     Left = 16
@@ -115,7 +115,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'CIDADE'
     DataSource = DataSourceCadastro
-    TabOrder = 2
+    TabOrder = 5
   end
   object DBEditCep: TDBEdit [15]
     Left = 243
@@ -124,16 +124,16 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'CEP'
     DataSource = DataSourceCadastro
-    TabOrder = 3
+    TabOrder = 6
   end
   object DBEditUf: TDBEdit [16]
     Left = 475
-    Top = 195
+    Top = 198
     Width = 30
     Height = 21
     DataField = 'UF'
     DataSource = DataSourceCadastro
-    TabOrder = 4
+    TabOrder = 7
   end
   object DBEditFone: TDBEdit [17]
     Left = 530
@@ -142,7 +142,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'FONE'
     DataSource = DataSourceCadastro
-    TabOrder = 5
+    TabOrder = 8
   end
   object DBEditCelular: TDBEdit [18]
     Left = 19
@@ -151,7 +151,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'CELULAR'
     DataSource = DataSourceCadastro
-    TabOrder = 6
+    TabOrder = 9
   end
   object DBEditEmail: TDBEdit [19]
     Left = 224
@@ -160,7 +160,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Height = 21
     DataField = 'EMAIL'
     DataSource = DataSourceCadastro
-    TabOrder = 7
+    TabOrder = 10
   end
   object DBEditCodigo: TDBEdit [20]
     Left = 16
@@ -170,7 +170,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     DataField = 'CODIGO'
     DataSource = DataSourceCadastro
     Enabled = False
-    TabOrder = 8
+    TabOrder = 1
   end
   inherited FDQueryCadastro: TFDQuery
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint]

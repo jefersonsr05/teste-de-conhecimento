@@ -80,7 +80,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
   end
   object DBEditreferencia: TDBEdit [10]
     Left = 19
-    Top = 168
+    Top = 171
     Width = 199
     Height = 21
     DataField = 'REFERENCIA'
@@ -95,7 +95,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     DataField = 'DATA_VENDA'
     DataSource = DataSourceCadastro
     Enabled = False
-    TabOrder = 4
+    TabOrder = 5
   end
   object DBEditPrecoVenda: TDBEdit [12]
     Left = 472
@@ -104,7 +104,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     Height = 21
     DataField = 'PRECO_VENDA'
     DataSource = DataSourceCadastro
-    TabOrder = 5
+    TabOrder = 6
   end
   object DBEditSaldo: TDBEdit [13]
     Left = 19
@@ -113,13 +113,14 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
     Height = 21
     DataField = 'SALDO'
     DataSource = DataSourceCadastro
-    TabOrder = 6
+    TabOrder = 7
   end
   object DBComboBox1: TDBComboBox [14]
     Left = 240
     Top = 168
     Width = 65
     Height = 21
+    Style = csDropDownList
     DataField = 'UNIDADE'
     DataSource = DataSourceCadastro
     Items.Strings = (
@@ -130,7 +131,7 @@ inherited frmCadastroProdutos: TfrmCadastroProdutos
       'L'
       'M'
       'TON')
-    TabOrder = 7
+    TabOrder = 4
   end
   inherited FDQueryCadastro: TFDQuery
     SQL.Strings = (
