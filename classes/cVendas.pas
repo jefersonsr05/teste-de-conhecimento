@@ -3,7 +3,8 @@ unit cVendas;
 interface
 
 uses System.Classes, vcl.Controls, vcl.ExtCtrls, vcl.Dialogs,
-      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, System.SysUtils;
+      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, System.SysUtils,
+      data.DB, datasnap.DBClient;
 
 type
   TVendas = class
@@ -20,12 +21,13 @@ type
     _fOperacao_Venda:string;
 
     function PrimeiroCodigo: boolean;
+    function InserirItens(cds: TClientDataSet; nrnota: integer): boolean;
 
   public
     { Public declarations }
     constructor Create(_Conexao:TZConnection);
     destructor Destroy; override;
-    function Inserir:boolean;
+    function Inserir(cds:TClientDataSet):boolean;
     function Atualizar:boolean;
     function Apagar:boolean;
     function Selecionar(id:Integer):boolean;
@@ -59,9 +61,41 @@ end;
 
 {$endregion}
 
+{$region 'FUCTIONS E PROCEDURES'}
+
+function TVendas.InserirItens(cds:TClientDataSet; nrnota:integer):boolean;
+var qry:TZQuery;
+begin
+  try
+    result := true;
+    qry:=TZQuery.Create(nil);
+    qry.Connection:=ConexaoDB;
+    qry.SQL.Clear;
+    qry.sql.Add('insert into item_venda (lcto,nr_venda,produto,qtde,valor_unit,valor_total)' +
+                ' values (1,:nr_venda,:produto,:qtde,:valor_unit,:valor_total)');
+    qry.ParamByName('nr_venda').AsInteger := nrnota;
+    qry.ParamByName('produto').AsInteger := cds.FieldByName('Código').AsInteger;
+    qry.ParamByName('qtde').AsFloat := cds.FieldByName('Quantidade').AsFloat;
+    qry.ParamByName('valor_unit').AsFloat := cds.FieldByName('Unitário').AsFloat;
+    qry.ParamByName('valor_total').AsFloat := cds.FieldByName('Total').AsFloat;
+
+    try
+      qry.ExecSQL;
+    except
+      result := false;
+    end;
+
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry)
+  end;
+end;
+
+{$endregion}
+
 {$region 'CRUD'}
 
-function TVendas.Inserir: boolean;
+function TVendas.Inserir(cds:TClientDataSet): boolean;
 var qry:TZQuery;
 IdItens:Integer;
 begin
@@ -92,11 +126,19 @@ begin
 
     try
       qry.ExecSQL;
-      //qry.sql.Clear;
+      qry.sql.Clear;
       //qry.SQL.Add('select scope_identity() as IdItens');
-      //qry.Open;
+      qry.SQL.Add('SELECT max(nrnota) as IdItens FROM venda');
+      qry.Open;
 
-      //IdItens:=qry.FieldByName('IdItens').AsInteger;
+      IdItens:=qry.FieldByName('IdItens').AsInteger;
+
+      cds.First;
+      while not cds.Eof do
+      begin
+        InserirItens(cds, IdItens);
+        cds.Next;
+      end;
 
       ConexaoDB.Commit;
     except

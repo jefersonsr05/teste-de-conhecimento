@@ -1,5 +1,6 @@
 ﻿inherited frmVendas: TfrmVendas
   Caption = 'Vendas'
+  ExplicitTop = -61
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
@@ -318,6 +319,10 @@
     end
   end
   inherited pnlBaixo: TPanel
+    inherited btnSalvar: TBitBtn
+      Top = 6
+      ExplicitTop = 6
+    end
     inherited btnNavegar: TDBNavigator
       Hints.Strings = ()
     end

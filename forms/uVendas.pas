@@ -109,7 +109,7 @@ begin
     _Vendas.operacao_Venda := 'O';
 
   if (EstadoDocadastro=ecInserir) then
-    Result := _Vendas.Inserir
+    Result := _Vendas.Inserir(dtmVenda.cdsItensVenda)
   else if (EstadoDocadastro=ecAlterar) then
     Result := _Vendas.Atualizar;
 end;
