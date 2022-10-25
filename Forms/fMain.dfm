@@ -106,6 +106,7 @@ object frmMain: TfrmMain
     end
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
+      Enabled = False
       object Vendas2: TMenuItem
         Caption = 'Vendas'
       end

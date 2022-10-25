@@ -113,8 +113,38 @@ var
 implementation
 {$R *.dfm}
 procedure TfrmCadastroVenda.BaixaEstoque;
+var
+  nrnota: string;
 
 begin
+
+  nrnota := DBEditNrNota.text;
+
+  FDQueryItemNota.Close;
+  FDQueryItemNota.SQL.Clear;
+  FDQueryItemNota.SQL.Add('select * from item_venda ');
+  FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota));
+  FDQueryItemNota.Open();
+
+  while not FDQueryItemNota.Eof do
+  begin
+
+    FDQueryProduto.Close;
+    FDQueryProduto.SQL.Clear;
+    FDQueryProduto.SQL.Add('update produtos ');
+    FDQueryProduto.SQL.Add(' set ');
+    FDQueryProduto.SQL.Add('saldo = saldo - :pr00 ');
+    FDQueryProduto.SQL.Add('where codigo = :pr01 ');
+
+    FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
+    FDQueryProduto.Params[1].AsFloat :=  FDQueryItemNotaPRODUTO.Value;
+
+    FDQueryProduto.ExecSQL;
+
+    FDQueryItemNota.Next;
+
+  end;
+
 
   //  Se for venda ira baixar o estoque e
   //  adicionar data da ultima venda no produto
@@ -127,12 +157,14 @@ begin
     //FDQuery1.SQL.Add(' where nr_venda = ' + QuotedStr(DBEditNrNota.Text));
     //FDQuery1.Open;
 
-    FDQueryProduto.Close;
-    FDQueryProduto.SQL.Add('update produtos set saldo = saldo :qtde, data_venda = :data where codigo = :cod');
-    FDQueryProduto.Open;
-    FDQueryProduto.ParamByName('cod').AsInteger := FDQueryProduto.FieldByName('codigo').AsInteger;
-    FDQueryProduto.ParamByName('qtde').AsFloat := FDQueryItemNota.FieldByName('qtde').AsFloat;
-    FDQueryProduto.ParamByName('data').AsDate := FDQueryCadastro.FieldByName('emissao').AsDateTime;
+//    FDQueryProduto.Close;
+//    FDQueryProduto.SQL.Add('update produtos set saldo = saldo :qtde, data_venda = :data where codigo = :cod');
+//    FDQueryProduto.Open;
+//    FDQueryProduto.ParamByName('cod').AsInteger := FDQueryProduto.FieldByName('codigo').AsInteger;
+//    FDQueryProduto.ParamByName('qtde').AsFloat := FDQueryItemNota.FieldByName('qtde').AsFloat;
+//    FDQueryProduto.ParamByName('data').AsDate := FDQueryCadastro.FieldByName('emissao').AsDateTime;
+
+
 
 
   //end;
@@ -164,7 +196,7 @@ begin
   inherited;
 
   FDQueryItemNota.Post;
-  //BaixaEstoque;
+  BaixaEstoque;
 
 end;
 
