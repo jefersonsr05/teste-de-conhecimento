@@ -18,15 +18,12 @@ uses
 type
   TVenda = class
   private
-    FID: integer;
-    FCliente: Tcliente;
-    FVendedor: TVendedor;
-    FFormaPagamento: TFPagamento;
-    FEmissao: TDateTime;
-    FDataVencimento: TDateTime;
-    FDesconto: double;
-    FTotal: double;
-    FObs: String;
+    FNRNOTA: integer;
+    FEMISSAO: TDateTime;
+    FCLIENTE: Integer;
+    FOPERACAO_VENDA: string;
+    FTIPO_VENDA: string;
+    FVALOR_VENDA: Double;
 
     FListaVendaItem: TObjectList<TItem>;
 
@@ -45,20 +42,14 @@ type
     class function GeraProximoID: integer;
     class function Existe(pId: integer): boolean;
 
-    property ID: integer read FID write FID;
-    property Cliente: Tcliente read FCliente write FCliente;
-    property Vendedor: TVendedor read FVendedor write FVendedor;
-    property FormaPagamento: TFPagamento read FFormaPagamento
-      write FFormaPagamento;
-    property Emissao: TDateTime read FEmissao write FEmissao;
-    property DataVencimento: TDateTime read FDataVencimento
-      write FDataVencimento;
-    property Desconto: double read FDesconto write FDesconto;
-    property Total: double read FTotal write FTotal;
-    property Obs: String read FObs write FObs;
+    property NRNOTA: integer read FNRNOTA write FNRNOTA;
+    property EMISSAO: TDateTime read FEMISSAO write FEMISSAO;
+    property CLIENTE: integer read FCLIENTE write FCLIENTE; //ou fazer do tipo Tcliente
+    property OPERACAO_VENDA: string read FOPERACAO_VENDA write FOPERACAO_VENDA;
+    property TIPO_VENDA: string read FTIPO_VENDA write FTIPO_VENDA;
+    property VALOR_VENDA: Double read FVALOR_VENDA write FVALOR_VENDA;
 
-    property ListaVendaItem: TObjectList<TItem> read FListaVendaItem
-      write FListaVendaItem;
+    property ListaVendaItem: TObjectList<TItem> read FListaVendaItem write FListaVendaItem;
   end;
 
 implementation
@@ -74,9 +65,9 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT * FROM VENDA ');
-    lQuery.SQL.Add(' WHERE ID = :ID        ');
-    lQuery.ParamByName('ID').AsInteger := FID;
+    lQuery.SQL.Add(' SELECT * FROM VENDAS ');
+    lQuery.SQL.Add(' WHERE NRNOTA = :NRNOTA        ');
+    lQuery.ParamByName('NRNOTA').AsInteger := FNRNOTA;
     lQuery.Open;
 
     if lQuery.RecordCount > 0 then
