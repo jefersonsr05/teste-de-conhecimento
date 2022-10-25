@@ -72,7 +72,31 @@ end;
 
 function TfrmVendas.Salvar(EstadoDocadastro: TEstadoDoCadastro): boolean;
 begin
+  if (edtNrnota.Text <> EmptyStr) then
+    _Vendas.nrnota := StrToInt(edtNrnota.Text)
+  else
 
+  _Vendas.nrnota := 0;
+  _Vendas.emissao := edtEmissao.Date;
+  _Vendas.cliente := lkpCliente.KeyValue;
+  _Vendas.valor_Venda := edtValorVenda.Value;
+
+  if (rgpPagamento.ItemIndex = 1) then
+    _Vendas.tipo_Venda := 'A'
+  else
+    _vendas.tipo_Venda := 'P';
+
+  if (rgpVenda.ItemIndex = 0) then
+    _Vendas.operacao_Venda := 'V'
+  else if (rgpVenda.ItemIndex = 1) then
+    _Vendas.operacao_Venda := 'P'
+  else
+    _Vendas.operacao_Venda := 'O';
+
+  if (EstadoDocadastro=ecInserir) then
+    Result := _Vendas.Inserir
+  else if (EstadoDocadastro=ecAlterar) then
+    Result := _Vendas.Atualizar;
 end;
 
 {$region}
@@ -87,14 +111,14 @@ begin
     lkpCliente.KeyValue := _Vendas.cliente;
     edtValorVenda.Value := _Vendas.valor_Venda;
 
-    if _Vendas.tipo_Venda = 'A' then
+    if (_Vendas.tipo_Venda) = 'A' then
       rgpPagamento.ItemIndex := 1
     else
       rgpVenda.ItemIndex := 0;
 
-    if _Vendas.operacao_Venda = 'V' then
+    if (_Vendas.operacao_Venda) = 'V' then
       rgpVenda.ItemIndex := 0
-    else if _Vendas.operacao_Venda = 'P' then
+    else if (_Vendas.operacao_Venda) = 'P' then
       rgpVenda.ItemIndex := 1
     else
       rgpVenda.ItemIndex := 2;

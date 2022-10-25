@@ -38,7 +38,7 @@ type
     property cliente:integer         read _fCliente         write _fCliente;
     property tipo_Venda:string       read _fTipo_Venda      write _fTipo_Venda;
     property valor_Venda:double      read _fValor_Venda     write _fValor_Venda;
-    property operacao_Venda:string   read _fOpercao_Venda   write _fOpercao_Venda;
+    property operacao_Venda:string   read _fOperacao_Venda   write _fOperacao_Venda;
   end;
 
 implementation
@@ -63,8 +63,80 @@ end;
 {$region 'CRUD'}
 
 function TVendas.Inserir: boolean;
- begin
+var qry:TZQuery;
+IdItens:Integer;
+begin
+  try
+    result := true;
+    ConexaoDB.StartTransaction;
+    qry:=TZQuery.Create(nil);
+    qry.Connection:=ConexaoDB;
+    qry.SQL.Clear;
+    if (PrimeiroCodigo) then
+    begin
+      qry.SQL.Add('Insert into venda (1,emissao,cliente,tipo_venda,valor_venda,operacao_venda' +
+                ' values (:nrnota,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
+      qry.ParamByName('nrnota').AsInteger := self._fNrnota;
+      qry.ParamByName('emissao').AsDateTime := self._fEmissao;
+      qry.ParamByName('cliente').AsInteger := self._fCliente;
+      qry.ParamByName('valor_venda').AsFloat := self._fValor_Venda;
+      qry.ParamByName('tipo_venda').AsString := self._fTipo_Venda;
+      qry.ParamByName('operacao_venda').AsString := self._fOperacao_Venda;
+    end
+    else
+    begin
+      qry.SQL.Add('Insert into venda ((SELECT max(nrnota) FROM venda)+1,emissao,cliente,tipo_venda,valor_venda,operacao_venda' +
+                ' values (:nrnota,:emissao,:cliente,:tipo_venda,:valor_venda,:operacao_venda)');
+      qry.ParamByName('nrnota').AsInteger := self._fNrnota;
+      qry.ParamByName('emissao').AsDateTime := self._fEmissao;
+      qry.ParamByName('cliente').AsInteger := self._fCliente;
+      qry.ParamByName('valor_venda').AsFloat := self._fValor_Venda;
+      qry.ParamByName('tipo_venda').AsString := self._fTipo_Venda;
+      qry.ParamByName('operacao_venda').AsString := self._fOperacao_Venda;
+    end;
 
+    try
+      qry.ExecSQL;
+      qry.sql.Clear;
+      qry.SQL.Add('select scope_identity() as IdItens');
+      qry.Open;
+
+      IdItens:=qry.FieldByName('IdItens').AsInteger;
+
+      ConexaoDB.Commit;
+    except
+      conexaodb.Rollback;
+      result:=false;
+    end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+end;
+end;
+
+function TVendas.PrimeiroCodigo: boolean;
+var qry :TZQuery;
+begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear; //Limpar possiveis sujeiras na memoria.
+    qry.SQL.Add('select nrnota from venda');
+      try
+        qry.Open;
+
+        if qry.FieldByName('nrnota').AsString = '' then
+          result := true
+        else
+          result := false;
+      except
+        result := false;
+      end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+  end;
 end;
 
 function TVendas.Apagar: boolean;
@@ -99,12 +171,31 @@ begin
 end;
 
 function TVendas.Atualizar: boolean;
- begin
-
-end;
-
-function TVendas.PrimeiroCodigo: boolean;
+var qry:TZQuery;
 begin
+  try
+    result := true;
+    qry := TZQuery.Create(nil);
+    qry.Connection := ConexaoDB;
+    qry.SQL.Clear;
+    qry.sql.Add('update venda set nrnota=:nrnota, emissao=:emissao' +
+                ' cliente:=cliente, valor_venda:=valor_venda, tipo_venda=:tipo_venda' +
+                ' operacao_venda=:operacao_venda where nrnota=:nrnota ');
+    qry.ParamByName('nrnota').AsInteger := self._fNrnota;
+    qry.ParamByName('emissao').AsDateTime := self._fEmissao;
+    qry.ParamByName('cliente').AsInteger := self._fCliente;
+    qry.ParamByName('valor_venda').AsFloat := self._fValor_Venda;
+    qry.ParamByName('tipo_venda').AsString := self._fTipo_Venda;
+    qry.ParamByName('operacao_venda').AsString := self._fOperacao_Venda;
+    try
+      qry.ExecSQL;
+    except
+      result:=false;
+    end;
+  finally
+    if Assigned(qry) then
+      FreeAndNil(qry);
+  end;
 
 end;
 

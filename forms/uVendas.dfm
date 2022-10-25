@@ -3,6 +3,7 @@
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
+    ActivePage = TabSheet2
     inherited TabListagem: TTabSheet
       inherited grdListagem: TDBGrid
         Columns = <
