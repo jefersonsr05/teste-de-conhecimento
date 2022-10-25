@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, fCadastroCliente,
   fCadastroProduto, fPesquisarCliente, fPesquisarProdutos, fCadastroVenda,
-  Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, System.ImageList, Vcl.ImgList;
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, System.ImageList, Vcl.ImgList,
+  fPesquisarVenda;
 
 type
   TfrmMain = class(TForm)
@@ -39,6 +40,7 @@ type
     procedure ButtonCadProdClick(Sender: TObject);
     procedure ButtonCadClienteClick(Sender: TObject);
     procedure ButtonVendaClick(Sender: TObject);
+    procedure ConsultarVendas1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -151,6 +153,27 @@ begin
     FreeAndNil(frmPesquisarClientes);
 
   end;
+
+end;
+
+procedure TfrmMain.ConsultarVendas1Click(Sender: TObject);
+begin
+
+  //  Cria o Form
+  frmPesquisarVenda := TfrmPesquisarVenda.Create(Self);
+
+  try
+
+    //  Exibe o Form
+    frmPesquisarVenda.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmPesquisarVenda);
+
+  end;
+
 
 end;
 

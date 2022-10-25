@@ -72,7 +72,7 @@ object frmPesquisarPai: TfrmPesquisarPai
       Top = 19
       Width = 97
       Height = 41
-      Caption = 'Visualizar'
+      Caption = 'Editar'
       TabOrder = 3
       OnClick = ButtonVisualizarClick
     end

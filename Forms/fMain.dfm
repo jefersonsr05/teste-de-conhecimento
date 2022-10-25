@@ -101,6 +101,7 @@ object frmMain: TfrmMain
       end
       object ConsultarVendas1: TMenuItem
         Caption = 'Consultar Vendas'
+        OnClick = ConsultarVendas1Click
       end
     end
     object Relatrios1: TMenuItem
