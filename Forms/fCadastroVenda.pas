@@ -247,17 +247,20 @@ begin
       LabelDescProd.Caption := FDQueryProduto1.FieldByName('descricao').AsString;
       EditValorUnit.Text    := FDQueryProduto1.FieldByName('preco_venda').AsString;
 
+      EditQtd.Text     := '1';
+      EditQtd.SetFocus;
+
     end
     else
     begin
 
       ShowMessage('Produto não encontrado!');
-
+      EditProduto.SetFocus;
+      EditProduto.Clear;
 
     end;
 
-    EditQtd.Text     := '1';
-    EditQtd.SetFocus;
+
 
   end;
 
