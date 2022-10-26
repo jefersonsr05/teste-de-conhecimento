@@ -57,6 +57,7 @@ begin
     setValorIni(vFileName, 'CONFIGURACAO', 'LOCAL_DB', EditLocal.Text);
 
     showmessage('Configuração realizada com sucesso!');
+    showmessage('Abra o Sistema novamente!');
     Application.Terminate;
 
     Self.Close;
