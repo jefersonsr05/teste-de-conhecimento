@@ -52,7 +52,7 @@ $query_produto = mysqli_query($mysqli, "SELECT * FROM PRODUTOS WHERE CODIGO='" .
             <input type="text" name="preco_venda" maxlength="10" value="<?php echo $preco_venda?>">
             <label for="saldo">Saldo</label>
             <input type="text" name="saldo" maxlength="2" value="<?php echo $saldo?>">
-            <div>
+            <div class="btnForm">
                 <button type="button" href="./produtos.php">Cancelar</button>
                 <button type="submit" id="enviarProduto" name="enviarProduto">Salvar</button>
             </div>

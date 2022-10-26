@@ -62,7 +62,7 @@ $query_cliente = mysqli_query($mysqli, "SELECT * FROM CLIENTE WHERE CODIGO='" . 
             <input type="text" name="celular" maxlength="15" value="<?php echo $celular?>">
             <label for="email">E-mail</label>
             <input type="text" name="email" maxlength="50" value="<?php echo $email?>">
-            <div>
+            <div class="btnForm">
                 <button type="button" href="./clientes.php">Cancelar</button>
                 <button type="submit" id="enviarClient" name="enviarClient">Salvar</button>
             </div>
