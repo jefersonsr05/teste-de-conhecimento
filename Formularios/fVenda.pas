@@ -3,7 +3,8 @@ unit fVenda;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls,
   Vcl.Imaging.pngimage, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
   Datasnap.DBClient, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
@@ -51,12 +52,14 @@ type
     tblItemValorUnitario: TFloatField;
     tblItemValorTotal: TFloatField;
     procedure btnCancelarFrmClick(Sender: TObject);
-    procedure btnConfirmarClick(Sender: TObject);
+
   private
     { Private declarations }
+    function RetornaUltimoCodigo: integer;
     procedure LimparCampos;
+
   public
-    { Public declarations }
+
   end;
 
 var
@@ -67,55 +70,39 @@ implementation
 {$R *.dfm}
 
 uses fPrincipal, dConexao, fCliente, fProduto, fConsultaVenda;
+{ TfrmVenda }
+
+{ TfrmVenda }
 
 procedure TfrmVenda.btnCancelarFrmClick(Sender: TObject);
 begin
-frmVenda.close; // fecha tela
+  close;
 end;
 
-procedure TfrmVenda.btnConfirmarClick(Sender: TObject);
-begin
-var
-  lTotal: Double;
-begin
-  if edtProduto.Text <> EmptyStr then
-  begin
-    if StrToFloat(edtProduto.Text) > 0.5 then
-    begin
-    lTotal := StrToFloat(edtTotal.Text);
-    tblItem.append;
-    tblItemLcto.AsString := edtNrVenda.Text;
-    tblItemProduto.AsString := edtProduto.Text;
-    tblItemQuantidade.AsString := edtQuantidade.Text;
-    tblItemValorUnitario.AsString := edtValor.Text;
-    tblItemValorTotal.AsString := edtTotal.Text;
-    tblItem.Post;
-     // edtTotal.Caption := FormatFloat('#,##0.00', StrToFloat(edtTotal.Caption) + lTotal);
-     // AlimentaLabelTotal;
-      LimparCampos;
-    end
-    else
-    begin
-      ShowMessage('Não é permitido vender abaixo de 0,5 unidades.');
-      LimparCampos;
-    end;
-  end
-  else
-  begin
-    ShowMessage('Nenhum produto foi selecionado.');
-    LimparCampos;
-  end;
-end;
-end;
 procedure TfrmVenda.LimparCampos;
 begin
-        edtCliente.clear;
-        cmbOperacaoVenda.clear;
-        cmbTipoVenda.clear;
-        edtProduto.clear;
-        edtQuantidade.clear;
-        edtValor.clear;
-        edtTotal.clear;
+  edtProduto.clear;
+  edtQuantidade.clear;
+  edtValor.clear;
+  edtTotal.clear;
+end;
+
+function TfrmVenda.RetornaUltimoCodigo: integer;
+var
+  lQuery: TFDQuery;
+begin
+  Result := 0;
+  lQuery := TFDQuery.Create(nil);
+  try
+    lQuery.Connection := dtmConexao.Conexao; // passei a conexao para qry
+    lQuery.close;
+    lQuery.SQL.clear;
+    lQuery.SQL.add('   select max(nrnota) as codigo from vendas  ');
+    lQuery.Open;
+    Result := lQuery.FieldByName('nrnota').AsInteger + 1;
+  finally
+    lQuery.Free;
+  end;
 
 end;
 

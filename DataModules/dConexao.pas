@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
-  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client;
+  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  frxClass, frxDBSet;
 
 type
   TdtmConexao = class(TDataModule)
@@ -24,7 +25,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses fCliente, fConsultaVenda, fPrincipal, fProduto, fVenda;
+uses fCliente, fConsultaVenda, fPrincipal, fProduto, fVenda, fRelatorioCliente;
 {$R *.dfm}
 
 end.

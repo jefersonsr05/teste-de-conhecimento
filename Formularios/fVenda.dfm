@@ -495,6 +495,7 @@ object frmVenda: TfrmVenda
       Top = 77
       Width = 147
       Height = 21
+      ItemIndex = 0
       TabOrder = 4
       Items.Strings = (
         'Venda'
@@ -1001,7 +1002,6 @@ object frmVenda: TfrmVenda
       Height = 25
       Caption = 'Confirmar'
       TabOrder = 0
-      OnClick = btnConfirmarClick
     end
     object btnExcluirProduto: TButton
       Left = 424

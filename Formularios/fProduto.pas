@@ -80,7 +80,7 @@ type
     function RetornaUltimoCodigo: integer;
   public
     { Public declarations }
-     property TipoOperacao: string read FTipoOperacao write FTipoOperacao;
+    property TipoOperacao: string read FTipoOperacao write FTipoOperacao;
   end;
 
 var
@@ -89,6 +89,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses fCliente, fConsultaVenda, fPrincipal, fVenda;
 
 procedure TfrmProduto.btnAlterarClick(Sender: TObject);
 begin
@@ -112,8 +114,8 @@ end;
 
 procedure TfrmProduto.btnCancelarClick(Sender: TObject);
 begin
- FTipoOperacao := 'Consultar';
- MontarTela;
+  FTipoOperacao := 'Consultar';
+  MontarTela;
 end;
 
 procedure TfrmProduto.btnConfirmarClick(Sender: TObject);
@@ -146,7 +148,7 @@ begin
       begin
         ConfirmarEditar;
       end;
-      FTipoOperacao:= 'Consultar';
+      FTipoOperacao := 'Consultar';
       MontarTela;
       Consultar; // atualiza a qry
     end;
@@ -189,7 +191,7 @@ end;
 
 procedure TfrmProduto.Button1Click(Sender: TObject);
 begin
-  close;
+  close; // fecha tela
 end;
 
 procedure TfrmProduto.Consultar;
@@ -246,7 +248,7 @@ end;
 procedure TfrmProduto.edtFiltroProdutoChange(Sender: TObject);
 begin
   qryCadastroProduto.Filtered := False;
-  qryCadastroProduto.Filter := 'DESCRICAO like' +   // filtro produto não exato
+  qryCadastroProduto.Filter := 'DESCRICAO like' + // filtro produto não exato
   QuotedStr('%' + edtFiltroProduto.Text + '%');
   qryCadastroProduto.Filtered := True;
 end;
@@ -297,7 +299,7 @@ end;
 
 procedure TfrmProduto.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-      if (Key = #13) then
+  if (Key = #13) then
   begin
     Key := #0;
     Perform(WM_NEXTDLGCTL, 0, 0);
@@ -317,11 +319,11 @@ end;
 
 procedure TfrmProduto.LimparCampos;
 begin
-    edtDescricao.clear;
-    edtReferencia.clear;
-    edtUnidade.clear;
-    edtPrecoVenda.clear;
-    edtSaldo.clear;
+  edtDescricao.Clear;
+  edtReferencia.Clear;
+  edtUnidade.Clear;
+  edtPrecoVenda.Clear;
+  edtSaldo.Clear;
 end;
 
 procedure TfrmProduto.MontarTela;
@@ -330,10 +332,10 @@ begin
   begin
     tbsCadastro.TabVisible := True;
     tbsConsulta.TabVisible := False;
-    pgcPrincipal.ActivePage := tbsCadastro; // abre na tela consulta
-    pnlBotoes.Visible := false;
+    pgcPrincipal.ActivePage := tbsCadastro; // abre na tela cadastro
+    pnlBotoes.Visible := False;
 
-    if TipoOperacao = 'Incluir'  then
+    if TipoOperacao = 'Incluir' then
       edtCodigo.Text := RetornaUltimoCodigo.ToString;
 
     edtDescricao.SetFocus;
@@ -343,7 +345,7 @@ begin
     tbsCadastro.TabVisible := False;
     tbsConsulta.TabVisible := True;
     pgcPrincipal.ActivePage := tbsConsulta; // abre na tela consulta
-    pnlBotoes.Visible := true;
+    pnlBotoes.Visible := True;
     Consultar;
   end;
 end;
@@ -360,7 +362,7 @@ begin
     lQuery.SQL.Clear;
     lQuery.SQL.add(' SELECT MAX(CODIGO) AS CODIGO FROM PRODUTOS ');
     lQuery.Open;
-    Result := lQuery.FieldByName('codigo').AsInteger +1 ;
+    Result := lQuery.FieldByName('codigo').AsInteger + 1;
   finally
     lQuery.Free;
   end;
@@ -394,8 +396,8 @@ begin
   qryCadastroProduto.ParamByName('REFERENCIA').AsString := edtReferencia.Text;
   qryCadastroProduto.ParamByName('UNIDADE').AsString := edtUnidade.Text;
   qryCadastroProduto.ParamByName('DATA_VENDA').AsDateTime := dtpDataVenda.Date;
-  qryCadastroProduto.ParamByName('PRECO_VENDA').AsFloat :=StrToFloatDef(edtPrecoVenda.Text, 0);
-  qryCadastroProduto.ParamByName('SALDO').AsFloat :=StrToFloatDef(edtSaldo.Text, 0);
+  qryCadastroProduto.ParamByName('PRECO_VENDA').AsFloat := StrToFloatDef(edtPrecoVenda.Text, 0);
+  qryCadastroProduto.ParamByName('SALDO').AsFloat := StrToFloatDef(edtSaldo.Text, 0);
   qryCadastroProduto.ExecSQL;
   qryCadastroProduto.Connection.Commit;
 end;

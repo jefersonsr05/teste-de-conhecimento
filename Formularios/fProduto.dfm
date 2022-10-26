@@ -213,7 +213,7 @@ object frmProduto: TfrmProduto
           end
           object edtPrecoVenda: TEdit
             Left = 2
-            Top = 233
+            Top = 236
             Width = 121
             Height = 21
             TabOrder = 5

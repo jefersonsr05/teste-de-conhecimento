@@ -203,16 +203,14 @@ object frmCliente: TfrmCliente
             Caption = 'Email'
           end
           object edtNome: TEdit
-            Tag = 5
             Left = 0
-            Top = 88
+            Top = 90
             Width = 121
             Height = 21
             Hint = 'Nome'
             TabOrder = 1
           end
           object edtEndereco: TEdit
-            Tag = 5
             Left = 1
             Top = 136
             Width = 121
@@ -221,7 +219,6 @@ object frmCliente: TfrmCliente
             TabOrder = 2
           end
           object edtCodigo: TEdit
-            Tag = 5
             Left = 0
             Top = 42
             Width = 121
@@ -231,7 +228,6 @@ object frmCliente: TfrmCliente
             TabOrder = 0
           end
           object edtBairro: TEdit
-            Tag = 5
             Left = 0
             Top = 182
             Width = 121
@@ -240,7 +236,6 @@ object frmCliente: TfrmCliente
             TabOrder = 3
           end
           object edtCidade: TEdit
-            Tag = 5
             Left = 0
             Top = 235
             Width = 121
@@ -249,7 +244,6 @@ object frmCliente: TfrmCliente
             TabOrder = 4
           end
           object edtCep: TEdit
-            Tag = 5
             Left = 0
             Top = 281
             Width = 121
@@ -259,7 +253,6 @@ object frmCliente: TfrmCliente
             OnKeyPress = edtCepKeyPress
           end
           object edtUf: TEdit
-            Tag = 5
             Left = 216
             Top = 42
             Width = 121
@@ -275,7 +268,6 @@ object frmCliente: TfrmCliente
             TabOrder = 7
           end
           object edtCelular: TEdit
-            Tag = 5
             Left = 216
             Top = 136
             Width = 121
@@ -402,6 +394,7 @@ object frmCliente: TfrmCliente
     Top = 416
   end
   object qryConsultaCliente: TFDQuery
+    Active = True
     Connection = dtmConexao.Conexao
     UpdateOptions.AssignedValues = [uvUpdateMode, uvLockMode]
     UpdateOptions.UpdateMode = upWhereAll
