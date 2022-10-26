@@ -19,11 +19,6 @@ type
     dtsClientes: TDataSource;
     dtsProdutos: TDataSource;
     qryConsultaProdutos: TFDQuery;
-    qryConsultaFPagamento: TFDQuery;
-    dtsFPagamento: TDataSource;
-    qryConsultaFPagamentoID: TIntegerField;
-    qryConsultaFPagamentoDESCRICAO: TStringField;
-    qryConsultaFPagamentoTIPO: TStringField;
     qryVenda: TFDQuery;
     dtsItens: TDataSource;
     tblConsultaItens: TFDMemTable;

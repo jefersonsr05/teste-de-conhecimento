@@ -12,7 +12,6 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
-  fConsultaDefault,
   Data.DB,
   Vcl.Grids,
   Vcl.DBGrids,
@@ -22,7 +21,10 @@ uses
   Vcl.ComCtrls,
   fVendas,
   uVenda,
-  fFiltroVenda, uItem, FireDAC.Comp.Client, fAlteraVenda;
+  fFiltroVenda,
+  uItem,
+  FireDAC.Comp.Client,
+  fAlteraVenda;
 
 type
   TfrmConsultaVenda = class(TForm)
@@ -30,6 +32,8 @@ type
     dtpEmissao: TDateTimePicker;
     cbxFiltraData: TCheckBox;
     lblFiltroData: TLabel;
+    edtPesquisar: TEdit;
+    cbxFiltro: TComboBox;
     procedure cbxFiltroChange(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -68,51 +72,35 @@ begin
 
   dtmconexao.qryVenda.close;
   dtmconexao.qryVenda.sql.clear;
-  dtmconexao.qryVenda.sql.Add(' SELECT                            ');
-  dtmconexao.qryVenda.sql.Add(' V.ID                              ');
-  dtmconexao.qryVenda.sql.Add(' , V.FK_CLIENTE                    ');
-  dtmconexao.qryVenda.sql.Add(' , C.NOME                          ');
-  dtmconexao.qryVenda.sql.Add(' , V.FK_VENDEDOR                   ');
-  dtmconexao.qryVenda.sql.Add(' , VN.NOME                         ');
-  dtmconexao.qryVenda.sql.Add(' , V.FK_FORMAPAGAMENTO             ');
-  dtmconexao.qryVenda.sql.Add(' , FP.DESCRICAO                    ');
-  dtmconexao.qryVenda.sql.Add(' , V.OBS                           ');
-  dtmconexao.qryVenda.sql.Add(' , V.DESCONTO                      ');
-  dtmconexao.qryVenda.sql.Add(' , V.TOTAL                         ');
-  dtmconexao.qryVenda.sql.Add(' , V.EMISSAO                       ');
-  dtmconexao.qryVenda.sql.Add(' , V.DATA_VENCIMENTO               ');
-  dtmconexao.qryVenda.sql.Add(' from VENDA V                      ');
-  dtmconexao.qryVenda.sql.Add(' inner join CLIENTE C              ');
-  dtmconexao.qryVenda.sql.Add(' on V.FK_CLIENTE = C.ID            ');
-  dtmconexao.qryVenda.sql.Add(' inner join VENDEDOR VN            ');
-  dtmconexao.qryVenda.sql.Add(' on V.FK_VENDEDOR = VN.ID          ');
-  dtmconexao.qryVenda.sql.Add(' inner join FORMAPAGAMENTO FP      ');
-  dtmconexao.qryVenda.sql.Add(' on V.FK_FORMAPAGAMENTO = FP.ID    ');
+  dtmconexao.qryVenda.sql.Add(' SELECT                  ');
+  dtmconexao.qryVenda.sql.Add(' V.NRNOTA                ');
+  dtmconexao.qryVenda.sql.Add(' , V.EMISSAO             ');
+  dtmconexao.qryVenda.sql.Add(' , V.CLIENTE             ');
+  dtmconexao.qryVenda.sql.Add(' , C.NOME                ');
+  dtmconexao.qryVenda.sql.Add(' , V.OPERACAO_VENDA      ');
+  dtmconexao.qryVenda.sql.Add(' , V.TIPO_VENDA          ');
+  dtmconexao.qryVenda.sql.Add(' , V.VALOR_VENDA         ');
+  dtmconexao.qryVenda.sql.Add(' from VENDA V            ');
+  dtmconexao.qryVenda.sql.Add(' LEFT JOIN CLIENTE C     ');
+  dtmconexao.qryVenda.sql.Add(' from VENDA V            ');
 
   if edtPesquisar.Text <> emptyStr then
   begin
     case cbxFiltro.ItemIndex of
       0:
         begin
-          dtmconexao.qryVenda.sql.Add('WHERE V.ID LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryVenda.sql.Add('WHERE V.NRNOTA LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
       1:
         begin
-          dtmconexao.qryVenda.sql.Add('WHERE C.NOME LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryVenda.sql.Add('WHERE V.CLIENTE LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
       2:
         begin
-          dtmconexao.qryVenda.sql.Add('WHERE VN.NOME LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
-        end;
-      3:
-        begin
-          dtmconexao.qryVenda.sql.Add(' WHERE FP.DESCRICAO LIKE ' +
-            QuotedStr('%' + edtPesquisar.Text + '%'));
+          dtmconexao.qryVenda.sql.Add('WHERE C.NOME LIKE ' + QuotedStr('%' + edtPesquisar.Text + '%'));
         end;
     end;
+
     if cbxFiltraData.Checked then
     begin
       dtmconexao.qryVenda.sql.Add(' AND V.EMISSAO = ' +
@@ -121,10 +109,9 @@ begin
   end
   else if cbxFiltraData.Checked then
   begin
-    dtmconexao.qryVenda.sql.Add(' WHERE V.EMISSAO = ' +
-      DateToStr(dtpEmissao.Date));
+    dtmconexao.qryVenda.sql.Add(' WHERE V.EMISSAO = ' + DateToStr(dtpEmissao.Date));
   end;
-  dtmconexao.qryVenda.sql.Add(' ORDER BY ID ');
+  dtmconexao.qryVenda.sql.Add(' ORDER BY V.NRNOTA ');
   dtmconexao.qryVenda.open;
 end;
 
@@ -507,15 +494,9 @@ begin
       begin
         edtPesquisar.clear;
         edtPesquisar.SetFocus;
-        edtPesquisar.NumbersOnly := false;
+        edtPesquisar.NumbersOnly := true;
       end;
     2:
-      begin
-        edtPesquisar.clear;
-        edtPesquisar.SetFocus;
-        edtPesquisar.NumbersOnly := false;
-      end;
-    3:
       begin
         edtPesquisar.clear;
         edtPesquisar.SetFocus;

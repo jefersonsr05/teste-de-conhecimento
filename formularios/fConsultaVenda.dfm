@@ -11,6 +11,7 @@ object frmConsultaVenda: TfrmConsultaVenda
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 19
   object pnlPesquisa: TPanel
@@ -20,8 +21,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Height = 88
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -308
-    ExplicitWidth = 1092
     object cbxFiltro: TComboBox
       Left = 14
       Top = 6
@@ -36,12 +35,12 @@ object frmConsultaVenda: TfrmConsultaVenda
       ItemIndex = 0
       ParentFont = False
       TabOrder = 0
-      Text = 'Id'
+      Text = 'N'#176' Nota'
+      OnChange = cbxFiltroChange
       Items.Strings = (
-        'Id'
-        'Cliente'
-        'Vendedor'
-        'F.Pagamento')
+        'N'#176' Nota'
+        'N'#176' Cliente'
+        'Cliente Nome')
     end
     object edtPesquisar: TEdit
       Left = 14
@@ -57,6 +56,7 @@ object frmConsultaVenda: TfrmConsultaVenda
       NumbersOnly = True
       ParentFont = False
       TabOrder = 1
+      OnChange = edtPesquisarChange
     end
     object pnlData: TPanel
       Left = 181
@@ -113,9 +113,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Color = clTeal
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = -308
-    ExplicitTop = 342
-    ExplicitWidth = 1092
     object btnAtualizar: TButton
       Left = 361
       Top = 1
@@ -124,6 +121,7 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Atualizar'
       TabOrder = 4
+      OnClick = btnAtualizarClick
     end
     object btnIncluir: TButton
       Left = 1
@@ -188,10 +186,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Align = alClient
     Caption = 'pnlGrid'
     TabOrder = 2
-    ExplicitLeft = -308
-    ExplicitTop = -208
-    ExplicitWidth = 1092
-    ExplicitHeight = 590
     object grdConsulta: TDBGrid
       Left = 1
       Top = 1
@@ -297,7 +291,5 @@ object frmConsultaVenda: TfrmConsultaVenda
     Color = clTeal
     ParentBackground = False
     TabOrder = 3
-    ExplicitLeft = -308
-    ExplicitWidth = 1092
   end
 end

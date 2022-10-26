@@ -10,17 +10,15 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   uCliente,
-  uFPagamento,
-  uVendedor,
-  System.Generics.Collections,
-  uItem;
+  uItem,
+  System.Generics.Collections;
 
 type
   TVenda = class
   private
     FNRNOTA: integer;
     FEMISSAO: TDateTime;
-    FCLIENTE: Integer;
+    FCLIENTE: Tcliente;
     FOPERACAO_VENDA: string;
     FTIPO_VENDA: string;
     FVALOR_VENDA: Double;
@@ -44,7 +42,7 @@ type
 
     property NRNOTA: integer read FNRNOTA write FNRNOTA;
     property EMISSAO: TDateTime read FEMISSAO write FEMISSAO;
-    property CLIENTE: integer read FCLIENTE write FCLIENTE; //ou fazer do tipo Tcliente
+    property CLIENTE: Tcliente read FCLIENTE write FCLIENTE;
     property OPERACAO_VENDA: string read FOPERACAO_VENDA write FOPERACAO_VENDA;
     property TIPO_VENDA: string read FTIPO_VENDA write FTIPO_VENDA;
     property VALOR_VENDA: Double read FVALOR_VENDA write FVALOR_VENDA;
@@ -65,27 +63,28 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT * FROM VENDAS ');
-    lQuery.SQL.Add(' WHERE NRNOTA = :NRNOTA        ');
+    lQuery.SQL.Add(' SELECT                  ');
+    lQuery.SQL.Add(' NRNOTA                  ');
+    lQuery.SQL.Add(' , EMISSAO               ');
+    lQuery.SQL.Add(' , CLIENTE               ');
+    lQuery.SQL.Add(' , OPERACAO_VENDA        ');
+    lQuery.SQL.Add(' , TIPO_VENDA            ');
+    lQuery.SQL.Add(' , VALOR_VENDA           ');
+    lQuery.SQL.Add(' FROM VENDAS             ');
+    lQuery.SQL.Add(' WHERE NRNOTA = :NRNOTA  ');
     lQuery.ParamByName('NRNOTA').AsInteger := FNRNOTA;
     lQuery.Open;
 
     if lQuery.RecordCount > 0 then
     begin
-      FCliente.ID := lQuery.FieldByName('FK_CLIENTE').AsInteger;
-      FCliente.Carrega;
-
-      FVendedor.ID := lQuery.FieldByName('FK_VENDEDOR').AsInteger;
-      FVendedor.Carrega;
-
-      FFormaPagamento.ID := lQuery.FieldByName('FK_FORMAPAGAMENTO').AsInteger;
-      FFormaPagamento.Carrega;
-
-      FEmissao := lQuery.FieldByName('EMISSAO').AsDateTime;
-      FDataVencimento := lQuery.FieldByName('DATA_VENCIMENTO').AsDateTime;
-      FDesconto := lQuery.FieldByName('DESCONTO').AsFloat;
-      FTotal := lQuery.FieldByName('TOTAL').AsFloat;
-      FObs := lQuery.FieldByName('OBS').AsString;
+      FCliente.CODIGO := lQuery.FieldByName('CLIENTE').AsInteger;
+      //FCliente.Carrega;
+      //FNRNOTA := lQuery.FieldByName('NRNOTA').AsInteger;
+      FEMISSAO := lQuery.FieldByName('EMISSAO').AsInteger;
+      FCLIENTE := lQuery.FieldByName('CLIENTE').AsInteger;
+      FOPERACAO_VENDA := lQuery.FieldByName('OPERACAO_VENDA').AsInteger;
+      FTIPO_VENDA := lQuery.FieldByName('TIPO_VENDA').AsInteger;
+      FVALOR_VENDA := lQuery.FieldByName('VALOR_VENDA').AsInteger;
     end;
   finally
     lQuery.Free;
@@ -100,8 +99,8 @@ begin
   lQuery := TFDQuery.Create(nil);
   try
     lQuery.Connection := dtmConexao.FDConnection;
-    lQuery.SQL.Add('SELECT * FROM VENDA WHERE ID = :ID');
-    lQuery.ParamByName('ID').AsInteger := pId;
+    lQuery.SQL.Add('SELECT * FROM VENDAS WHERE NRNOTA = :NRNOTA');
+    lQuery.ParamByName('NRNOTA').AsInteger := pId;
     lQuery.Open;
 
     if (lQuery.RecordCount > 0) then
@@ -113,7 +112,7 @@ begin
         FObjetoBusca := TVenda.Create;
       end;
 
-      FObjetoBusca.FID := pId;
+      FObjetoBusca.FNRNOTA := pId;
       FObjetoBusca.Carrega;
     end;
   finally
@@ -131,10 +130,17 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' select gen_id(gen_venda_id, 0) codigo from VENDA ');
+    lQuery.SQL.Add(' SELECT FIRST(1) NRNOTA FROM VENDAS ORDER BY NRNOTA DESC ');
     lQuery.Open;
 
-    result := lQuery.FieldByName('codigo').AsInteger + 1;
+    if lQuery.RecordCount > 0 then
+    begin
+      result := lQuery.FieldByName('NRNOTA').AsInteger + 1;
+    end
+    else
+    begin
+      result := 1;
+    end;
 
   finally
     lQuery.Free;
@@ -151,35 +157,28 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' INSERT INTO VENDA (   ');
-    lQuery.SQL.Add('  FK_CLIENTE           ');
-    lQuery.SQL.Add(' ,FK_VENDEDOR          ');
-    lQuery.SQL.Add(' ,FK_FORMAPAGAMENTO    ');
-    lQuery.SQL.Add(' ,EMISSAO              ');
-    lQuery.SQL.Add(' ,DATA_VENCIMENTO      ');
-    lQuery.SQL.Add(' ,DESCONTO             ');
-    lQuery.SQL.Add(' ,TOTAL                ');
-    lQuery.SQL.Add(' ,OBS                  ');
+    lQuery.SQL.Add(' INSERT INTO VENDAS ( ');
+    lQuery.SQL.Add(' NRNOTA               ');
+    lQuery.SQL.Add(' , EMISSAO            ');
+    lQuery.SQL.Add(' , CLIENTE            ');
+    lQuery.SQL.Add(' , OPERACAO_VENDA     ');
+    lQuery.SQL.Add(' , TIPO_VENDA         ');
+    lQuery.SQL.Add(' , VALOR_VENDA        ');
+    lQuery.SQL.Add(' )VALUES (            ');
+    lQuery.SQL.Add(' :NRNOTA              ');
+    lQuery.SQL.Add(' , :EMISSAO           ');
+    lQuery.SQL.Add(' , :CLIENTE           ');
+    lQuery.SQL.Add(' , :OPERACAO_VENDA    ');
+    lQuery.SQL.Add(' , :TIPO_VENDA        ');
+    lQuery.SQL.Add(' , :VALOR_VENDA       ');
+    lQuery.SQL.Add(' )                    ');
 
-    lQuery.SQL.Add(' )VALUES (             ');
-    lQuery.SQL.Add('  :FK_CLIENTE          ');
-    lQuery.SQL.Add(' ,:FK_VENDEDOR         ');
-    lQuery.SQL.Add(' ,:FK_FORMAPAGAMENTO   ');
-    lQuery.SQL.Add(' ,:EMISSAO             ');
-    lQuery.SQL.Add(' ,:DATA_VENCIMENTO      ');
-    lQuery.SQL.Add(' ,:DESCONTO            ');
-    lQuery.SQL.Add(' ,:TOTAL               ');
-    lQuery.SQL.Add(' ,:OBS                 ');
-    lQuery.SQL.Add(' )                     ');
-
-    lQuery.ParamByName('FK_CLIENTE').AsInteger := FCliente.ID;
-    lQuery.ParamByName('FK_VENDEDOR').AsInteger := FVendedor.ID;
-    lQuery.ParamByName('FK_FORMAPAGAMENTO').AsInteger := FFormaPagamento.ID;
-    lQuery.ParamByName('EMISSAO').AsDateTime := FEmissao;
-    lQuery.ParamByName('DATA_VENCIMENTO').AsDateTime := FDataVencimento;
-    lQuery.ParamByName('TOTAL').AsFloat := FTotal;
-    lQuery.ParamByName('DESCONTO').AsFloat := FDesconto;
-    lQuery.ParamByName('OBS').AsString := FObs;
+    lQuery.FieldByName('NRNOTA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('EMISSAO').AsDateTime := FEMISSAO;
+    lQuery.FieldByName('CLIENTE').AsInteger := FCLIENTE.CODIGO;
+    lQuery.FieldByName('OPERACAO_VENDA').AsString := FOPERACAO_VENDA;
+    lQuery.FieldByName('TIPO_VENDA').AsString := FTIPO_VENDA;
+    lQuery.FieldByName('VALOR_VENDA').AsFloat := FVALOR_VENDA;
     lQuery.ExecSQL;
 
     if FListaVendaItem.Count > 0 then
@@ -208,27 +207,20 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' UPDATE VENDA SET                        ');
-    lQuery.SQL.Add('  FK_CLIENTE = :FK_CLIENTE               ');
-    lQuery.SQL.Add(' ,FK_VENDEDOR = :FK_VENDEDOR             ');
-    lQuery.SQL.Add(' ,FK_FORMAPAGAMENTO = :FK_FORMAPAGAMENTO ');
-    lQuery.SQL.Add(' ,EMISSAO = :EMISSAO                     ');
-    lQuery.SQL.Add(' ,DATA_VENCIMENTO = :DATA_VENCIMENTO     ');
-    lQuery.SQL.Add(' ,DESCONTO = :DESCONTO                   ');
-    lQuery.SQL.Add(' ,TOTAL = :TOTAL                         ');
-    lQuery.SQL.Add(' ,OBS = :OBS                             ');
+    lQuery.SQL.Add(' UPDATE VENDA SET                   ');
+    lQuery.SQL.Add(' EMISSAO = :EMISSAO                 ');
+    lQuery.SQL.Add(' , CLIENTE = :CLIENTE               ');
+    lQuery.SQL.Add(' , OPERACAO_VENDA = :OPERACAO_VENDA ');
+    lQuery.SQL.Add(' , TIPO_VENDA = :TIPO_VENDA         ');
+    lQuery.SQL.Add(' , VALOR_VENDA = :VALOR_VENDA       ');
+    lQuery.SQL.Add(' WHERE NRNOTA = :NRNOTA             ');
 
-    lQuery.SQL.Add(' WHERE ID = :ID                          ');
-
-    lQuery.ParamByName('ID').AsInteger := FID;
-    lQuery.ParamByName('FK_CLIENTE').AsInteger := FCliente.ID;
-    lQuery.ParamByName('FK_VENDEDOR').AsInteger := FVendedor.ID;
-    lQuery.ParamByName('FK_FORMAPAGAMENTO').AsInteger := FFormaPagamento.ID;
-    lQuery.ParamByName('EMISSAO').AsDateTime := FEmissao;
-    lQuery.ParamByName('DATA_VENCIMENTO').AsDateTime := FDataVencimento;
-    lQuery.ParamByName('TOTAL').AsFloat := FTotal;
-    lQuery.ParamByName('DESCONTO').AsFloat := FDesconto;
-    lQuery.ParamByName('OBS').AsString := FObs;
+    lQuery.FieldByName('NRNOTA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('EMISSAO').AsDateTime := FEMISSAO;
+    lQuery.FieldByName('CLIENTE').AsInteger := FCLIENTE.CODIGO;
+    lQuery.FieldByName('OPERACAO_VENDA').AsString := FOPERACAO_VENDA;
+    lQuery.FieldByName('TIPO_VENDA').AsString := FTIPO_VENDA;
+    lQuery.FieldByName('VALOR_VENDA').AsFloat := FVALOR_VENDA;
 
     lQuery.ExecSQL;
 
@@ -247,15 +239,15 @@ var
 begin
   lQuery := TFDQuery.Create(nil);
   try
-    if (MessageDlg('Confirma a Exclusão da Venda: ' + FID.ToString + '?',
+    if (MessageDlg('Confirma a Exclusão da Venda: ' + FNRNOTA.ToString + '?',
       mtInformation, [mbyes, mbno], 0) = mryes) then
     begin
       lQuery.Connection := dtmConexao.FDConnection;
       lQuery.Close;
       lQuery.SQL.Clear;
-      lQuery.SQL.Add(' DELETE FROM VENDA    ');
-      lQuery.SQL.Add(' WHERE ID = :ID       ');
-      lQuery.ParamByName('ID').AsInteger := FID;
+      lQuery.SQL.Add(' DELETE FROM VENDAS    ');
+      lQuery.SQL.Add(' WHERE NRNOTA = :NRNOTA       ');
+      lQuery.ParamByName('NRNOTA').AsInteger := FNRNOTA;
       lQuery.ExecSQL;
 
       if pEfetuarCommit = true then
@@ -278,30 +270,26 @@ var
 begin
   FListaVendaItem.Add(TItem.Create);
   I := FListaVendaItem.Count - 1;
-  FListaVendaItem[I].Venda := pItem.Venda;
-  FListaVendaItem[I].Emissao := FEmissao;
-  FListaVendaItem[I].Produto.ID := pItem.Produto.ID;
-  FListaVendaItem[I].Valor := pItem.Valor;
-  FListaVendaItem[I].Quantidade := pItem.Quantidade;
-  FListaVendaItem[I].Desconto := pItem.Desconto;
+  FListaVendaItem[I].NR_VENDA := pItem.NR_VENDA;
+  FListaVendaItem[I].Produto.CODIGO := pItem.Produto.CODIGO;
+  FListaVendaItem[I].QTDE := pItem.QTDE;
+  FListaVendaItem[I].VALOR_UNIT := pItem.VALOR_UNIT;
+  FListaVendaItem[I].VALOR_TOTAL := pItem.VALOR_TOTAL;
 end;
 
 procedure TVenda.Inicializar;
 begin
-  FID := 0;
-  FEmissao := 0;
-  FDataVencimento := 0;
-  FTotal := 0;
-  FDesconto := 0;
-  FObs := emptystr;
+  FNRNOTA := 0;
+  FCLIENTE := 0;
+  FOPERACAO_VENDA := EmptyStr;
+  FTIPO_VENDA := EmptyStr;
+  FVALOR_VENDA := 0;
 end;
 
 constructor TVenda.Create;
 begin
   Inicializar;
   FCliente := Tcliente.Create;
-  FVendedor := TVendedor.Create;
-  FFormaPagamento := TFPagamento.Create;
   FListaVendaItem := TObjectList<TItem>.Create;
 end;
 
@@ -309,8 +297,6 @@ destructor TVenda.Destroy;
 begin
   inherited;
   FCliente.Free;
-  FVendedor.Free;
-  FFormaPagamento.Free;
   FListaVendaItem.Free;
 end;
 

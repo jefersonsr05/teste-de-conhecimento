@@ -3,19 +3,24 @@ unit uItem;
 interface
 
 uses
-  FireDAC.Comp.Client, dconexao, Vcl.Dialogs, System.SysUtils, Vcl.Controls,
-  Vcl.Forms, uProduto;
+  FireDAC.Comp.Client
+  , dconexao
+  , Vcl.Dialogs
+  , System.SysUtils
+  , Vcl.Controls
+  , Vcl.Forms
+  , uProduto;
 
 type
   TItem = class
   private
-    FID: integer;
-    FEmissao: TDateTime;
-    FProduto: TProduto;
-    FVenda: integer;
-    FValor: double;
-    FDesconto: double;
-    FQuantidade: double;
+    FLCTO: Integer;
+    FNR_VENDA: Integer;
+    FPRODUTO: TProduto;
+    FQTDE: Double;
+    FVALOR_UNIT: Double;
+    FVALOR_TOTAL: Double;
+
     class var FObjetoBusca: TItem;
   public
     destructor Destroy; override;
@@ -29,13 +34,12 @@ type
     class property ObjetoBusca: TItem read FObjetoBusca write FObjetoBusca;
     class function GeraProximoID: integer; static;
 
-    property ID: integer read FID write FID;
-    property Emissao: TDateTime read FEmissao write FEmissao;
-    property Venda: integer read FVenda write FVenda;
-    property Produto: TProduto read FProduto write FProduto;
-    property Valor: double read FValor write FValor;
-    property Desconto: double read FDesconto write FDesconto;
-    property Quantidade: double read FQuantidade write FQuantidade;
+    property LCTO: Integer read FLCTO write FLCTO;
+    property NR_VENDA: Integer read FNR_VENDA write FNR_VENDA;
+    property PRODUTO: TProduto read FPRODUTO write FPRODUTO;
+    property QTDE: Double read FQTDE write FQTDE;
+    property VALOR_UNIT: Double read FVALOR_UNIT write FVALOR_UNIT;
+    property VALOR_TOTAL: Double read FVALOR_TOTAL write FVALOR_TOTAL;
   end;
 
 implementation
@@ -51,22 +55,28 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT * FROM VENDA_ITEM ');
-    lQuery.SQL.Add(' WHERE ID = :ID           ');
-    lQuery.ParamByName('ID').AsInteger := FID;
+    lQuery.SQL.Add(' SELECT             ');
+    lQuery.SQL.Add(' LCTO               ');
+    lQuery.SQL.Add(' , NR_VENDA         ');
+    lQuery.SQL.Add(' , PRODUTO          ');
+    lQuery.SQL.Add(' , QTDE             ');
+    lQuery.SQL.Add(' , VALOR_UNIT       ');
+    lQuery.SQL.Add(' , VALOR_TOTAL      ');
+    lQuery.SQL.Add(' FROM ITEM_VENDA    ');
+    lQuery.SQL.Add(' WHERE LCTO = :LCTO ');
+    lQuery.ParamByName('LCTO').AsInteger := FLCTO;
     lQuery.Open;
 
     if lQuery.RecordCount > 0 then
     begin
-      FProduto.ID := lQuery.FieldByName('FK_PRODUTO').AsInteger;
+      FProduto.CODIGO := lQuery.FieldByName('PRODUTO').AsInteger;
       FProduto.Carrega;
 
-      FID := lQuery.ParamByName('ID').AsInteger;
-      FEmissao := lQuery.FieldByName('EMISSAO').AsDateTime;
-      FVenda := lQuery.FieldByName('FK_VENDA').AsInteger;
-      FValor := lQuery.FieldByName('VALOR').AsInteger;
-      FDesconto := lQuery.FieldByName('DESCONTO').AsInteger;
-      FQuantidade := lQuery.FieldByName('QUANTIDADE').AsInteger;
+      //FLCTO := lQuery.ParamByName('LCTO').AsInteger;
+      FNR_VENDA := lQuery.FieldByName('FNR_VENDA').AsInteger;
+      FQTDE := lQuery.FieldByName('QTDE').AsFloat;
+      FVALOR_UNIT := lQuery.FieldByName('VALOR_UNIT').AsFloat;
+      FVALOR_TOTAL := lQuery.FieldByName('VALOR_TOTAL').AsFloat;
     end;
   finally
     lQuery.Free;
@@ -84,10 +94,17 @@ begin
     lQuery.Close;
     lQuery.SQL.Clear;
     lQuery.SQL.Add
-      (' select gen_id(gen_venda_item_id, 0) codigo from VENDA_ITEM ');
+      (' SELECT FIRST(1) LCTO FROM ITEM_VENDA ORDER BY LCTO DESC ');
     lQuery.Open;
 
-    result := lQuery.FieldByName('codigo').AsInteger + 1;
+    if lQuery.RecordCount > 0 then
+    begin
+      result := lQuery.FieldByName('LCTO').AsInteger + 1;
+    end
+    else
+    begin
+      result := 1;
+    end;
 
   finally
     lQuery.Free;
@@ -103,27 +120,28 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' INSERT INTO VENDA_ITEM (   ');
-    lQuery.SQL.Add('  EMISSAO                   ');
-    lQuery.SQL.Add(' ,FK_VENDA                  ');
-    lQuery.SQL.Add(' ,FK_PRODUTO                ');
-    lQuery.SQL.Add(' ,VALOR                     ');
-    lQuery.SQL.Add(' ,DESCONTO                  ');
-    lQuery.SQL.Add(' ,QUANTIDADE                ');
+    lQuery.SQL.Add(' INSERT INTO ITEM_VENDA (   ');
+    lQuery.SQL.Add(' LCTO                       ');
+    lQuery.SQL.Add(' , NR_VENDA                 ');
+    lQuery.SQL.Add(' , PRODUTO                  ');
+    lQuery.SQL.Add(' , QTDE                     ');
+    lQuery.SQL.Add(' , VALOR_UNIT               ');
+    lQuery.SQL.Add(' , VALOR_TOTAL              ');
     lQuery.SQL.Add(' )VALUES (                  ');
-    lQuery.SQL.Add('  :EMISSAO                  ');
-    lQuery.SQL.Add(' ,:FK_VENDA                 ');
-    lQuery.SQL.Add(' ,:FK_PRODUTO               ');
-    lQuery.SQL.Add(' ,:VALOR                    ');
-    lQuery.SQL.Add(' ,:DESCONTO                 ');
-    lQuery.SQL.Add(' ,:QUANTIDADE               ');
+    lQuery.SQL.Add(' :LCTO                      ');
+    lQuery.SQL.Add(' , :NR_VENDA                ');
+    lQuery.SQL.Add(' , :PRODUTO                 ');
+    lQuery.SQL.Add(' , :QTDE                    ');
+    lQuery.SQL.Add(' , :VALOR_UNIT              ');
+    lQuery.SQL.Add(' , :VALOR_TOTAL             ');
     lQuery.SQL.Add(' )                          ');
-    lQuery.ParamByName('EMISSAO').AsDateTime := FEmissao;
-    lQuery.ParamByName('FK_VENDA').AsInteger := FVenda;
-    lQuery.ParamByName('FK_PRODUTO').AsInteger := FProduto.ID;
-    lQuery.ParamByName('VALOR').AsFloat := FValor;
-    lQuery.ParamByName('DESCONTO').AsFloat := FDesconto;
-    lQuery.ParamByName('QUANTIDADE').AsFloat := FQuantidade;
+
+    lQuery.ParamByName('LCTO').AsInteger := FLCTO;
+    lQuery.FieldByName('PRODUTO').AsInteger := FProduto.CODIGO;
+    lQuery.FieldByName('FNR_VENDA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('QTDE').AsFloat := FQTDE;
+    lQuery.FieldByName('VALOR_UNIT').AsFloat := FVALOR_UNIT;
+    lQuery.FieldByName('VALOR_TOTAL').AsFloat := FVALOR_TOTAL;
     lQuery.ExecSQL;
 
     if pEfetuarCommit then
@@ -144,21 +162,21 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' UPDATE VENDA_ITEM SET      ');
-    lQuery.SQL.Add('  EMISSAO = :FEMISSAO       ');
-    lQuery.SQL.Add(' ,FK_VENDA = :FK_VENDA      ');
-    lQuery.SQL.Add(' ,FK_PRODUTO = :FK_PRODUTO  ');
-    lQuery.SQL.Add(' ,VALOR = :VALOR            ');
-    lQuery.SQL.Add(' ,DESCONTO = :DESCONTO      ');
-    lQuery.SQL.Add(' ,QUANTIDADE = :QUANTIDADE  ');
-    lQuery.SQL.Add(' WHERE ID = :ID             ');
+    lQuery.SQL.Add(' UPDATE ITEM_VENDA SET        ');
+    lQuery.SQL.Add(' LCTO = :LCTO                 ');
+    lQuery.SQL.Add(' , NR_VENDA = :NR_VENDA       ');
+    lQuery.SQL.Add(' , PRODUTO = :PRODUTO         ');
+    lQuery.SQL.Add(' , QTDE = :QTDE               ');
+    lQuery.SQL.Add(' , VALOR_UNIT = :VALOR_UNIT   ');
+    lQuery.SQL.Add(' , VALOR_TOTAL = :VALOR_TOTAL ');
+    lQuery.SQL.Add(' WHERE LCTO = :LCTO           ');
 
-    lQuery.ParamByName('EMISSAO').AsDateTime := FEmissao;
-    lQuery.ParamByName('FK_VENDA').AsInteger := FVenda;
-    lQuery.ParamByName('FK_PRODUTO').AsInteger := FProduto.ID;
-    lQuery.ParamByName('VALOR').AsFloat := FValor;
-    lQuery.ParamByName('DESCONTO').AsFloat := FDesconto;
-    lQuery.ParamByName('QUANTIDADE').AsFloat := FQuantidade;
+    lQuery.ParamByName('LCTO').AsInteger := FLCTO;
+    lQuery.FieldByName('PRODUTO').AsInteger := FProduto.CODIGO;
+    lQuery.FieldByName('FNR_VENDA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('QTDE').AsFloat := FQTDE;
+    lQuery.FieldByName('VALOR_UNIT').AsFloat := FVALOR_UNIT;
+    lQuery.FieldByName('VALOR_TOTAL').AsFloat := FVALOR_TOTAL;
     lQuery.ExecSQL;
 
     if pEfetuarCommit = true then
@@ -180,9 +198,9 @@ begin
     lQuery.Connection := dtmConexao.FDConnection;
     lQuery.Close;
     lQuery.SQL.Clear;
-    lQuery.SQL.Add(' DELETE FROM VENDA_ITEM     ');
-    lQuery.SQL.Add(' WHERE FK_VENDA = :FK_VENDA ');
-    lQuery.ParamByName('FK_VENDA').AsInteger := FVenda;
+    lQuery.SQL.Add(' DELETE FROM ITEM_VENDA ');
+    lQuery.SQL.Add(' WHERE NR_VENDA = :NR_VENDA     ');
+    lQuery.ParamByName('NR_VENDA').AsInteger := FNRNOTA;
     lQuery.ExecSQL;
 
     if pEfetuarCommit = true then
@@ -201,17 +219,17 @@ end;
 
 procedure TItem.Inicializar;
 begin
-  FID := 0;
-  FEmissao := 0;
-  FValor := 0;
-  FDesconto := 0;
-  FQuantidade := 0;
+  FLCTO := 0;
+  FQTDE := 0;
+  FProduto := TProduto.Create;
+  NR_VENDA := 0;
+  FVALOR_UNIT := 0;
+  FVALOR_TOTAL := 0;
 end;
 
 constructor TItem.Create;
 begin
   Inicializar;
-  FProduto := TProduto.Create;
 end;
 
 destructor TItem.Destroy;

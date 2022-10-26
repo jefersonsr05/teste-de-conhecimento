@@ -1,6 +1,6 @@
 object dtmConexao: TdtmConexao
   OldCreateOrder = False
-  Height = 455
+  Height = 365
   Width = 268
   object FDConnection: TFDConnection
     Params.Strings = (
@@ -148,34 +148,6 @@ object dtmConexao: TdtmConexao
       Precision = 18
     end
   end
-  object qryConsultaFPagamento: TFDQuery
-    Connection = FDConnection
-    SQL.Strings = (
-      'SELECT * FROM FORMAPAGAMENTO')
-    Left = 152
-    Top = 198
-    object qryConsultaFPagamentoID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      Required = True
-    end
-    object qryConsultaFPagamentoDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 25
-    end
-    object qryConsultaFPagamentoTIPO: TStringField
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      FixedChar = True
-      Size = 1
-    end
-  end
-  object dtsFPagamento: TDataSource
-    DataSet = qryConsultaFPagamento
-    Left = 32
-    Top = 200
-  end
   object qryVenda: TFDQuery
     Connection = FDConnection
     SQL.Strings = (
@@ -205,8 +177,8 @@ object dtmConexao: TdtmConexao
       ' '
       'inner join FORMAPAGAMENTO FP'
       ' on V.FK_FORMAPAGAMENTO = FP.ID')
-    Left = 144
-    Top = 288
+    Left = 136
+    Top = 192
     object qryVendaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -275,7 +247,7 @@ object dtmConexao: TdtmConexao
   object dtsItens: TDataSource
     DataSet = tblConsultaItens
     Left = 32
-    Top = 368
+    Top = 280
   end
   object tblConsultaItens: TFDMemTable
     Active = True
@@ -323,7 +295,7 @@ object dtmConexao: TdtmConexao
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
     Left = 136
-    Top = 368
+    Top = 280
     object tblConsultaItensFK_VENDA: TIntegerField
       Alignment = taLeftJustify
       FieldName = 'FK_VENDA'
@@ -359,6 +331,6 @@ object dtmConexao: TdtmConexao
   object dtsVenda: TDataSource
     DataSet = qryVenda
     Left = 32
-    Top = 288
+    Top = 200
   end
 end
