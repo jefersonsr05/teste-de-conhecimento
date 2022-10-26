@@ -128,7 +128,6 @@ object frmConsultaCliente: TfrmConsultaCliente
       TitleFont.Height = -16
       TitleFont.Name = 'Arial'
       TitleFont.Style = []
-      OnDrawColumnCell = grdConsultaDrawColumnCell
       Columns = <
         item
           Expanded = False

@@ -155,7 +155,7 @@ begin
     lFormulario.edtID.Text := lProduto.CODIGO.tostring;
     lFormulario.edtDESCRICAO.Text := lProduto.DESCRICAO;
     lFormulario.edtREFERENCIA.Text := lProduto.REFERENCIA;
-    lFormulario.edtUnidade.Text := lProduto.Unidade.tostring;
+    lFormulario.edtUnidade.Text := lProduto.Unidade;
     lFormulario.dtpDataVenda.date := lProduto.DATA_VENDA;
     lFormulario.edtSaldo.Text := lProduto.SALDO.tostring;
     lFormulario.edtPreco.Text := lProduto.PRECO_VENDA.tostring;
@@ -197,7 +197,7 @@ begin
     lFormulario.edtID.Text := lProduto.CODIGO.tostring;
     lFormulario.edtDESCRICAO.Text := lProduto.DESCRICAO;
     lFormulario.edtREFERENCIA.Text := lProduto.REFERENCIA;
-    lFormulario.edtUnidade.Text := lProduto.Unidade.tostring;
+    lFormulario.edtUnidade.Text := lProduto.Unidade;
     lFormulario.dtpDataVenda.date := lProduto.DATA_VENDA;
     lFormulario.edtSaldo.Text := lProduto.SALDO.tostring;
     lFormulario.edtPreco.Text := lProduto.PRECO_VENDA.tostring;

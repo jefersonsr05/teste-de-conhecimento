@@ -64,7 +64,6 @@ type
     qryDetalheVALOR: TBCDField;
     qryDetalheDESCONTO: TCurrencyField;
     RLImage1: TRLImage;
-    procedure RLImage1BeforePrint(Sender: TObject; var PrintIt: Boolean);
   private
     { Private declarations }
   public
@@ -77,17 +76,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmRelatorioVenda.RLImage1BeforePrint(Sender: TObject;
-  var PrintIt: Boolean);
-var
-  lProduto: TProduto;
-begin
-  lProduto := TProduto.Create;
-  lProduto.ID := qryDetalhe.FieldByName('FK_PRODUTO').asinteger;
-  lProduto.carrega; // aqui carrega propriedades do cliente na classe
-
-  lProduto.CarregaRLImagem(RLImage1);
-end;
 
 end.

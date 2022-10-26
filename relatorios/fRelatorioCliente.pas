@@ -26,7 +26,6 @@ uses
   FireDAC.Comp.DataSet,
   FireDAC.Comp.Client,
   dconexao,
-  uHelpersRLImagensBase64,
   uCliente;
 
 type
@@ -61,7 +60,6 @@ type
     txtCod: TRLDBText;
     procedure txtcpfcnpjBeforePrint(Sender: TObject; var AText: string;
       var PrintIt: Boolean);
-    procedure RLImage1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLLabel2BeforePrint(Sender: TObject; var AText: string;
       var PrintIt: Boolean);
   private
@@ -76,18 +74,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmRelatorioCliente.RLImage1BeforePrint(Sender: TObject;
-  var PrintIt: Boolean);
-var
-  lCliente: TCliente;
-begin
-  lCliente := TCliente.Create;
-  lCliente.ID := qryRelatorio.FieldByName('ID').asinteger;
-  lCliente.carrega; // aqui carrega propriedades do cliente na classe
-
-  lCliente.CarregaRLImagem(RLImage1);
-end;
 
 procedure TfrmRelatorioCliente.RLLabel2BeforePrint(Sender: TObject;
   var AText: string; var PrintIt: Boolean);

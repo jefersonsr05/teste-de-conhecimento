@@ -66,10 +66,6 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Produto'
         OnClick = mnuProdutoClick
       end
-      object mnuFPagamento: TMenuItem
-        Caption = 'Forma de Pagamento'
-        OnClick = mnuFPagamentoClick
-      end
       object mnuVendas: TMenuItem
         Caption = 'Vendas'
         OnClick = mnuVendasClick
@@ -84,10 +80,6 @@ object frmPrincipal: TfrmPrincipal
       object mnuProdutoRelat: TMenuItem
         Caption = 'Produto'
         OnClick = mnuProdutoRelatClick
-      end
-      object mnuFPagamentoRelat: TMenuItem
-        Caption = 'Forma de Pagamento'
-        OnClick = mnuFPagamentoRelatClick
       end
       object mnuVendaRelat: TMenuItem
         Caption = 'Vendas'

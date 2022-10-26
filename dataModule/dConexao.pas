@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase, Data.DB,
   FireDAC.Comp.Client, FireDAC.Comp.UI, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.Forms,
-  Vcl.Dialogs;
+  Vcl.Dialogs, FireDAC.Stan.StorageBin;
 
 type
   TdtmConexao = class(TDataModule)
@@ -23,26 +23,6 @@ type
     dtsItens: TDataSource;
     tblConsultaItens: TFDMemTable;
     dtsVenda: TDataSource;
-    tblConsultaItensFK_PRODUTO: TIntegerField;
-    tblConsultaItensFK_VENDA: TIntegerField;
-    tblConsultaItensEMISSAO: TDateField;
-    tblConsultaItensVALOR: TFloatField;
-    tblConsultaItensDESCONTO: TFloatField;
-    tblConsultaItensQUANTIDADE: TFloatField;
-    tblConsultaItensDESCRICAO: TStringField;
-    tblConsultaItensTOTAL: TFloatField;
-    qryVendaID: TIntegerField;
-    qryVendaFK_CLIENTE: TIntegerField;
-    qryVendaNOME: TStringField;
-    qryVendaFK_VENDEDOR: TIntegerField;
-    qryVendaNOME_1: TStringField;
-    qryVendaFK_FORMAPAGAMENTO: TIntegerField;
-    qryVendaDESCRICAO: TStringField;
-    qryVendaOBS: TStringField;
-    qryVendaDESCONTO: TCurrencyField;
-    qryVendaTOTAL: TBCDField;
-    qryVendaEMISSAO: TSQLTimeStampField;
-    qryVendaDATA_VENCIMENTO: TSQLTimeStampField;
     qryConsultaClientesCODIGO: TIntegerField;
     qryConsultaClientesNOME: TStringField;
     qryConsultaClientesENDERECO: TStringField;
@@ -60,6 +40,20 @@ type
     qryConsultaProdutosDATA_VENDA: TDateField;
     qryConsultaProdutosPRECO_VENDA: TBCDField;
     qryConsultaProdutosSALDO: TBCDField;
+    qryVendaNRNOTA: TIntegerField;
+    qryVendaEMISSAO: TDateField;
+    qryVendaCLIENTE: TIntegerField;
+    qryVendaNOME: TStringField;
+    qryVendaOPERACAO_VENDA: TStringField;
+    qryVendaTIPO_VENDA: TStringField;
+    qryVendaVALOR_VENDA: TBCDField;
+    tblConsultaItensLCTO: TIntegerField;
+    tblConsultaItensNR_VENDA: TIntegerField;
+    tblConsultaItensPRODUTO: TIntegerField;
+    tblConsultaItensQTDE: TBCDField;
+    tblConsultaItensVALOR_UNIT: TBCDField;
+    tblConsultaItensVALOR_TOTAL: TBCDField;
+    tblConsultaItensPROD_NOME: TStringField;
   private
     { Private declarations }
     function DevolveCaminhoBanco: String;

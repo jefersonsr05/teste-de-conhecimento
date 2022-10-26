@@ -39,7 +39,6 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure btnAtualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btnVisualizarClick(Sender: TObject);
     procedure edtPesquisarChange(Sender: TObject);
     procedure btnRelatClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -50,7 +49,6 @@ type
     procedure Incluir;
     procedure Alterar;
     procedure Excluir;
-    procedure Visualizar;
     procedure Relatorio;
   public
     { Public declarations }
@@ -72,17 +70,17 @@ begin
 
   dtmconexao.qryVenda.close;
   dtmconexao.qryVenda.sql.clear;
-  dtmconexao.qryVenda.sql.Add(' SELECT                  ');
-  dtmconexao.qryVenda.sql.Add(' V.NRNOTA                ');
-  dtmconexao.qryVenda.sql.Add(' , V.EMISSAO             ');
-  dtmconexao.qryVenda.sql.Add(' , V.CLIENTE             ');
-  dtmconexao.qryVenda.sql.Add(' , C.NOME                ');
-  dtmconexao.qryVenda.sql.Add(' , V.OPERACAO_VENDA      ');
-  dtmconexao.qryVenda.sql.Add(' , V.TIPO_VENDA          ');
-  dtmconexao.qryVenda.sql.Add(' , V.VALOR_VENDA         ');
-  dtmconexao.qryVenda.sql.Add(' from VENDA V            ');
-  dtmconexao.qryVenda.sql.Add(' LEFT JOIN CLIENTE C     ');
-  dtmconexao.qryVenda.sql.Add(' from VENDA V            ');
+  dtmconexao.qryVenda.sql.Add(' SELECT                    ');
+  dtmconexao.qryVenda.sql.Add(' V.NRNOTA                  ');
+  dtmconexao.qryVenda.sql.Add(' , V.EMISSAO               ');
+  dtmconexao.qryVenda.sql.Add(' , V.CLIENTE               ');
+  dtmconexao.qryVenda.sql.Add(' , C.NOME                  ');
+  dtmconexao.qryVenda.sql.Add(' , V.OPERACAO_VENDA        ');
+  dtmconexao.qryVenda.sql.Add(' , V.TIPO_VENDA            ');
+  dtmconexao.qryVenda.sql.Add(' , V.VALOR_VENDA           ');
+  dtmconexao.qryVenda.sql.Add(' FROM VENDA V              ');
+  dtmconexao.qryVenda.sql.Add(' LEFT JOIN CLIENTE C       ');
+  dtmconexao.qryVenda.sql.Add(' ON (C.CODIGO = V.CLIENTE) ');
 
   if edtPesquisar.Text <> emptyStr then
   begin
@@ -139,60 +137,48 @@ var
   lQuery: TFDQuery;
 begin
   lValor := 0;
-  lDesc := 0;
   lQuant := 0;
   lTotalItem := 0;
   lSubTotal := 0;
+
   lFormulario := TfrmAlteraVenda.Create(nil);
   lQuery := TFDQuery.Create(nil);
   lVenda := TVenda.Create;
   try
 
-    lVenda.ID := dtmconexao.qryVenda.FieldByName('ID').AsInteger;
+    lVenda.NRNOTA := dtmconexao.qryVenda.FieldByName('NRNOTA').AsInteger;
     lVenda.Carrega;
 
-    lQuery.Connection := dtmconexao.FDConnection;
-    lQuery.close;
-    lQuery.sql.clear;
-    lQuery.sql.Add(' SELECT * FROM VENDA_ITEM ');
-    lQuery.sql.Add(' inner join PRODUTO P     ');
-    lQuery.sql.Add(' on fk_produto = p.id     ');
-    lQuery.sql.Add(' WHERE FK_VENDA = :ID     ');
-    lQuery.sql.Add(' ORDER BY fk_produto      ');
-    lQuery.ParamByName('ID').AsInteger := lVenda.ID;
-    lQuery.open;
+    lQuery.Connection := dtmConexao.FDConnection;
+    lQuery.Close;
+    lQuery.SQL.Clear;
+    lQuery.SQL.Add(' SELECT             ');
+    lQuery.SQL.Add(' LCTO               ');
+    lQuery.SQL.Add(' , NR_VENDA         ');
+    lQuery.SQL.Add(' , PRODUTO          ');
+    lQuery.SQL.Add(' , QTDE             ');
+    lQuery.SQL.Add(' , VALOR_UNIT       ');
+    lQuery.SQL.Add(' , VALOR_TOTAL      ');
+    lQuery.SQL.Add(' FROM ITEM_VENDA    ');
+    lQuery.SQL.Add(' WHERE LCTO = :LCTO ');
+    lQuery.ParamByName('NR_VENDA').AsInteger := lVenda.NRNOTA;
+    lQuery.Open;
 
     lQuery.First;
     while not lQuery.Eof do
     begin
 
-      lValor := lQuery.FieldByName('VALOR').AsFloat;
-      lDesc := lQuery.FieldByName('DESCONTO').AsFloat;
-      lQuant := lQuery.FieldByName('QUANTIDADE').AsFloat;
+      lValor := lQuery.FieldByName('VALOR_UNIT').AsFloat;
+      lQuant := lQuery.FieldByName('QTDE').AsFloat;
 
       lTotalItem := lQuant * lValor;
 
-      if lDesc > 0 then
-      begin
-        lTotalItem := lTotalItem - (lDesc * (lTotalItem)) / 100;
-      end;
-
       dtmconexao.tblConsultaItens.append;
-      dtmconexao.tblConsultaItensFK_VENDA.AsInteger :=
-        lQuery.FieldByName('FK_Venda').AsInteger;
-      dtmconexao.tblConsultaItensFK_PRODUTO.AsInteger :=
-        lQuery.FieldByName('FK_PRODUTO').AsInteger;
-      dtmconexao.tblConsultaItensDESCRICAO.AsString :=
-        lQuery.FieldByName('DESCRICAO').AsString;
-      dtmconexao.tblConsultaItensEMISSAO.AsDateTime :=
-        lQuery.FieldByName('EMISSAO').AsDateTime;
-      dtmconexao.tblConsultaItensVALOR.AsFloat :=
-        lQuery.FieldByName('VALOR').AsFloat;
-      dtmconexao.tblConsultaItensDESCONTO.AsFloat :=
-        lQuery.FieldByName('DESCONTO').AsFloat;
-      dtmconexao.tblConsultaItensQUANTIDADE.AsFloat :=
-        lQuery.FieldByName('QUANTIDADE').AsFloat;
-      dtmconexao.tblConsultaItensTotal.AsFloat := lTotalItem;
+      dtmconexao.tblConsultaItensNR_VENDA.AsInteger := lQuery.FieldByName('NR_VENDA').AsInteger;
+      dtmconexao.tblConsultaItensPRODUTO.AsInteger := lQuery.FieldByName('PRODUTO').AsInteger;
+      dtmconexao.tblConsultaItensVALOR_UNIT.AsFloat := lQuery.FieldByName('VALOR_UNIT').AsFloat;
+      dtmconexao.tblConsultaItensQTDE.AsFloat := lQuery.FieldByName('QTDE').AsFloat;
+      dtmconexao.tblConsultaItensVALOR_TOTAL.AsFloat := lTotalItem;
       dtmconexao.tblConsultaItens.Post;
 
       lSubTotal := lSubTotal + lTotalItem;
@@ -202,36 +188,27 @@ begin
 
     lQuery.First;
 
-    if lSubTotal < lVenda.Total then
+    if lSubTotal < lVenda.VALOR_VENDA then
     begin
       lFormulario.rdgAcrsDesc.ItemIndex := 1;
     end
-    else if lSubTotal = lVenda.Total then
+    else if lSubTotal = lVenda.VALOR_VENDA then
     begin
       lFormulario.rdgAcrsDesc.ItemIndex := 0;
     end
-    else if lSubTotal > lVenda.Total then
+    else if lSubTotal > lVenda.VALOR_VENDA then
     begin
       lFormulario.rdgAcrsDesc.ItemIndex := 2;
     end;
 
-    lFormulario.edtIdVenda.Text := lVenda.ID.tostring;
-    lFormulario.edtIdCliente.Text := lVenda.Cliente.ID.tostring;
-    lFormulario.lblNomeCliente.Caption := lVenda.Cliente.NOME;
-    lFormulario.edtIdVendedor.Text := lVenda.Vendedor.ID.tostring;
-    lFormulario.lblNomeVendedor.Caption := lVenda.Vendedor.NOME;
-    lFormulario.edtIdFPagamento.Text := lVenda.FormaPagamento.ID.tostring;
-    lFormulario.edtTipo.Text := lVenda.FormaPagamento.TIPO;
-    lFormulario.lblNomeFPagamento.Caption := lVenda.FormaPagamento.DESCRICAO;
-    lFormulario.memoObs.Text := lVenda.Obs;
-    lFormulario.edtValorAcrsDesc.Text := FormatFloat('#,##0.00',
-      lVenda.Desconto);
-    lFormulario.edtPorcentual.Text := FormatFloat('#,##0.00%',
-      lVenda.Desconto / lSubTotal * 100);
+    lFormulario.edtIdVenda.Text := lVenda.NRNOTA;
+    lFormulario.edtIdCliente.Text := lVenda.CLIENTE.CODIGO.tostring;
+    lFormulario.lblNomeCliente.Caption := lVenda.CLIENTE.NOME;
+
+    lFormulario.edtTipo.Text := lVenda.TIPO_VENDA.tostring;
+
     lFormulario.lblSubTotalNum.Caption := FormatFloat('#,##0.00', lSubTotal);
-    lFormulario.lblAcrsDescNum.Caption :=
-      FormatFloat('#,##0.00', lVenda.Desconto);
-    lFormulario.lblTotalNum.Caption := FormatFloat('#,##0.00', lVenda.Total);
+    lFormulario.lblTotalNum.Caption := FormatFloat('#,##0.00', lVenda.VALOR_VENDA);
     lFormulario.EmissaoAntiga := lVenda.Emissao;
 
     lFormulario.ShowModal;
@@ -251,8 +228,8 @@ begin
   lVenda := TVenda.Create;
   lItem := TItem.Create;
   try
-    lVenda.ID := dtmconexao.qryVenda.FieldByName('ID').AsInteger;
-    lItem.Venda := dtmconexao.qryVenda.FieldByName('ID').AsInteger;
+    lVenda.NRNOTA := dtmconexao.qryVenda.FieldByName('NRNOTA').AsInteger;
+    lItem.NR_VENDA := dtmconexao.qryVenda.FieldByName('NR_VENDA').AsInteger;
 
     lItem.Excluir(true);
     lVenda.Excluir(true);
@@ -261,140 +238,6 @@ begin
   finally
     lVenda.Free;
     lItem.Free;
-  end;
-end;
-
-procedure TfrmConsultaVenda.Visualizar;
-var
-  lSubTotal: Double;
-  lValor, lDesc, lQuant, lTotalItem: Double;
-  lVenda: TVenda;
-  lItem: TItem;
-  lFormulario: TfrmAlteraVenda;
-  lQuery: TFDQuery;
-begin
-  lValor := 0;
-  lDesc := 0;
-  lQuant := 0;
-  lTotalItem := 0;
-  lSubTotal := 0;
-  lFormulario := TfrmAlteraVenda.Create(nil);
-  lQuery := TFDQuery.Create(nil);
-  lVenda := TVenda.Create;
-  try
-
-    lVenda.ID := dtmconexao.qryVenda.FieldByName('ID').AsInteger;
-    lVenda.Carrega;
-
-    lQuery.Connection := dtmconexao.FDConnection;
-    lQuery.close;
-    lQuery.sql.clear;
-    lQuery.sql.Add(' SELECT * FROM VENDA_ITEM ');
-    lQuery.sql.Add(' inner join PRODUTO P     ');
-    lQuery.sql.Add(' on fk_produto = p.id     ');
-    lQuery.sql.Add(' WHERE FK_VENDA = :ID     ');
-    lQuery.sql.Add(' ORDER BY fk_produto      ');
-    lQuery.ParamByName('ID').AsInteger := lVenda.ID;
-    lQuery.open;
-
-    lQuery.First;
-    while not lQuery.Eof do
-    begin
-
-      lValor := lQuery.FieldByName('VALOR').AsFloat;
-      lDesc := lQuery.FieldByName('DESCONTO').AsFloat;
-      lQuant := lQuery.FieldByName('QUANTIDADE').AsFloat;
-
-      lTotalItem := lQuant * lValor;
-
-      if lDesc > 0 then
-      begin
-        lTotalItem := lTotalItem - (lDesc * (lTotalItem)) / 100;
-      end;
-
-      dtmconexao.tblConsultaItens.append;
-      dtmconexao.tblConsultaItensFK_VENDA.AsInteger :=
-        lQuery.FieldByName('FK_Venda').AsInteger;
-      dtmconexao.tblConsultaItensFK_PRODUTO.AsInteger :=
-        lQuery.FieldByName('FK_PRODUTO').AsInteger;
-      dtmconexao.tblConsultaItensDESCRICAO.AsString :=
-        lQuery.FieldByName('DESCRICAO').AsString;
-      dtmconexao.tblConsultaItensEMISSAO.AsDateTime :=
-        lQuery.FieldByName('EMISSAO').AsDateTime;
-      dtmconexao.tblConsultaItensVALOR.AsFloat :=
-        lQuery.FieldByName('VALOR').AsFloat;
-      dtmconexao.tblConsultaItensDESCONTO.AsFloat :=
-        lQuery.FieldByName('DESCONTO').AsFloat;
-      dtmconexao.tblConsultaItensQUANTIDADE.AsFloat :=
-        lQuery.FieldByName('QUANTIDADE').AsFloat;
-      dtmconexao.tblConsultaItensTotal.AsFloat := lTotalItem;
-      dtmconexao.tblConsultaItens.Post;
-
-      lSubTotal := lSubTotal + lTotalItem;
-
-      lQuery.Next;
-    end;
-
-    lQuery.First;
-
-    if lSubTotal < lVenda.Total then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 1;
-    end
-    else if lSubTotal = lVenda.Total then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 0;
-    end
-    else if lSubTotal > lVenda.Total then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 2;
-    end;
-
-    lFormulario.edtIdVenda.Text := lVenda.ID.tostring;
-    lFormulario.edtIdCliente.Text := lVenda.Cliente.ID.tostring;
-    lFormulario.lblNomeCliente.Caption := lVenda.Cliente.NOME;
-    lFormulario.edtIdVendedor.Text := lVenda.Vendedor.ID.tostring;
-    lFormulario.lblNomeVendedor.Caption := lVenda.Vendedor.NOME;
-    lFormulario.edtIdFPagamento.Text := lVenda.FormaPagamento.ID.tostring;
-    lFormulario.edtTipo.Text := lVenda.FormaPagamento.TIPO;
-    lFormulario.lblNomeFPagamento.Caption := lVenda.FormaPagamento.DESCRICAO;
-    lFormulario.memoObs.Text := lVenda.Obs;
-    lFormulario.edtValorAcrsDesc.Text := FormatFloat('#,##0.00',
-      lVenda.Desconto);
-    lFormulario.edtPorcentual.Text := FormatFloat('#,##0.00%',
-      lVenda.Desconto / lSubTotal * 100);
-    lFormulario.lblSubTotalNum.Caption := FormatFloat('#,##0.00', lSubTotal);
-    lFormulario.lblAcrsDescNum.Caption :=
-      FormatFloat('#,##0.00', lVenda.Desconto);
-    lFormulario.lblTotalNum.Caption := FormatFloat('#,##0.00', lVenda.Total);
-    lFormulario.EmissaoAntiga := lVenda.Emissao;
-
-    lFormulario.edtIdCliente.ReadOnly := true;
-    lFormulario.edtIdVendedor.ReadOnly := true;
-    lFormulario.edtIdFPagamento.ReadOnly := true;
-    lFormulario.btnBuscaNomeCliente.Visible := false;
-    lFormulario.btnBuscaNomeVendedor.Visible := false;
-    lFormulario.btnBuscaFPagamento.Visible := false;
-    lFormulario.pnlVencimento.Enabled := false;
-    lFormulario.btnIncluir.Visible := false;
-    lFormulario.btnExcluir.Visible := false;
-    lFormulario.btnConfirmar.Visible := false;
-    lFormulario.btnCancelar.Caption := 'Sair';
-
-    lFormulario.rdgAcrsDesc.Enabled := false;
-    lFormulario.edtPorcentual.OnExit := nil;
-
-    lFormulario.edtValorAcrsDesc.ReadOnly := true;
-    lFormulario.edtPorcentual.ReadOnly := true;
-    lFormulario.memoObs.ReadOnly := true;
-
-    lFormulario.btnCancelar.SetFocus;
-    lFormulario.ShowModal;
-  finally
-    dtmconexao.tblConsultaItens.EmptyDataSet;
-    lFormulario.Free;
-    lVenda.Free;
-    lQuery.Free;
   end;
 end;
 
@@ -449,18 +292,6 @@ begin
   else
   begin
     ShowMessage('Não há registros para serem excluídos.');
-  end;
-end;
-
-procedure TfrmConsultaVenda.btnVisualizarClick(Sender: TObject);
-begin
-  if dtmconexao.qryVenda.RecordCount > 0 then
-  begin
-    Visualizar;
-  end
-  else
-  begin
-    ShowMessage('Não há registros para serem Visualizados.');
   end;
 end;
 

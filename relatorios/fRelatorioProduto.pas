@@ -34,7 +34,6 @@ type
     qryRelatorioDATA_VENDA: TDateField;
     qryRelatorioPRECO_VENDA: TBCDField;
     qryRelatorioSALDO: TBCDField;
-    procedure RLImage1BeforePrint(Sender: TObject; var PrintIt: Boolean);
   private
     { Private declarations }
   public
@@ -47,17 +46,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmRelatorioProduto.RLImage1BeforePrint(Sender: TObject;
-  var PrintIt: Boolean);
-var
-  lProduto: TProduto;
-begin
-  lProduto := TProduto.Create;
-  lProduto.ID := qryRelatorio.FieldByName('ID').asinteger;
-  lProduto.carrega; // aqui carrega propriedades do cliente na classe
-
-  lProduto.CarregaRLImagem(RLImage1);
-end;
 
 end.

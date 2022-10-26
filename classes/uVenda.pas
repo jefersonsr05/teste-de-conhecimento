@@ -77,13 +77,13 @@ begin
 
     if lQuery.RecordCount > 0 then
     begin
-      FCliente.CODIGO := lQuery.FieldByName('CLIENTE').AsInteger;
+      FCLIENTE.CODIGO := lQuery.FieldByName('CLIENTE').AsInteger;
       //FCliente.Carrega;
       //FNRNOTA := lQuery.FieldByName('NRNOTA').AsInteger;
       FEMISSAO := lQuery.FieldByName('EMISSAO').AsInteger;
-      FCLIENTE := lQuery.FieldByName('CLIENTE').AsInteger;
-      FOPERACAO_VENDA := lQuery.FieldByName('OPERACAO_VENDA').AsInteger;
-      FTIPO_VENDA := lQuery.FieldByName('TIPO_VENDA').AsInteger;
+
+      FOPERACAO_VENDA := lQuery.FieldByName('OPERACAO_VENDA').AsString;
+      FTIPO_VENDA := lQuery.FieldByName('TIPO_VENDA').AsString;
       FVALOR_VENDA := lQuery.FieldByName('VALOR_VENDA').AsInteger;
     end;
   finally
@@ -280,7 +280,6 @@ end;
 procedure TVenda.Inicializar;
 begin
   FNRNOTA := 0;
-  FCLIENTE := 0;
   FOPERACAO_VENDA := EmptyStr;
   FTIPO_VENDA := EmptyStr;
   FVALOR_VENDA := 0;

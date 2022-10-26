@@ -23,7 +23,6 @@ object frmCadastroProduto: TfrmCadastroProduto
     Color = clTeal
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 831
   end
   object pnlCentral: TPanel
     Left = 0
@@ -38,9 +37,6 @@ object frmCadastroProduto: TfrmCadastroProduto
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitLeft = 1
-    ExplicitTop = 36
-    ExplicitHeight = 321
     object lblID: TLabel
       Left = 16
       Top = 8
@@ -167,8 +163,6 @@ object frmCadastroProduto: TfrmCadastroProduto
     Color = clTeal
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 548
-    ExplicitWidth = 831
     object btnSair: TButton
       Left = 91
       Top = 1
@@ -184,8 +178,6 @@ object frmCadastroProduto: TfrmCadastroProduto
       ParentFont = False
       TabOrder = 1
       OnClick = btnSairClick
-      ExplicitLeft = 140
-      ExplicitTop = 6
     end
     object btnSalvar: TButton
       Left = 1
@@ -202,7 +194,6 @@ object frmCadastroProduto: TfrmCadastroProduto
       ParentFont = False
       TabOrder = 0
       OnClick = btnSalvarClick
-      ExplicitLeft = 23
     end
   end
 end

@@ -1,8 +1,8 @@
 object frmVendas: TfrmVendas
   Left = 0
   Top = 0
-  ClientHeight = 777
-  ClientWidth = 1059
+  ClientHeight = 682
+  ClientWidth = 752
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,18 +17,13 @@ object frmVendas: TfrmVendas
   TextHeight = 18
   object pnlProdutoFinal: TPanel
     Left = 0
-    Top = 608
-    Width = 1059
+    Top = 513
+    Width = 752
     Height = 129
     Align = alBottom
     TabOrder = 0
-    object lblObs: TLabel
-      Left = 304
-      Top = 6
-      Width = 97
-      Height = 18
-      Caption = 'Observa'#231#245'es:'
-    end
+    ExplicitTop = 608
+    ExplicitWidth = 1059
     object lblValorAcresDesc: TLabel
       Left = 164
       Top = 74
@@ -44,7 +39,7 @@ object frmVendas: TfrmVendas
       Caption = 'Percentual'
     end
     object pnlValorFinal: TPanel
-      Left = 559
+      Left = 452
       Top = 6
       Width = 230
       Height = 117
@@ -56,7 +51,7 @@ object frmVendas: TfrmVendas
       Font.Style = []
       ParentBackground = False
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
       object Label1: TLabel
         Left = 1
         Top = 38
@@ -165,14 +160,6 @@ object frmVendas: TfrmVendas
       OnExit = edtPorcentualExit
       OnKeyPress = edtPorcentualKeyPress
     end
-    object memoObs: TMemo
-      Left = 304
-      Top = 30
-      Width = 236
-      Height = 93
-      CharCase = ecUpperCase
-      TabOrder = 2
-    end
     object rdgAcrsDesc: TRadioGroup
       Left = 9
       Top = 6
@@ -202,23 +189,26 @@ object frmVendas: TfrmVendas
       TabStop = False
       CharCase = ecUpperCase
       Enabled = False
-      TabOrder = 4
+      TabOrder = 3
       OnExit = edtValorAcrsDescExit
       OnKeyPress = edtValorAcrsDescKeyPress
     end
   end
   object pnlGrid: TPanel
     Left = 0
-    Top = 305
-    Width = 1059
-    Height = 303
+    Top = 241
+    Width = 752
+    Height = 272
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 305
+    ExplicitWidth = 1059
+    ExplicitHeight = 303
     object gridItens: TDBGrid
       Left = 1
       Top = 1
-      Width = 1057
-      Height = 301
+      Width = 750
+      Height = 270
       Align = alClient
       Color = clWhite
       DataSource = dtmConexao.dtsItens
@@ -283,57 +273,35 @@ object frmVendas: TfrmVendas
   object pnlCabecalho: TPanel
     Left = 0
     Top = 40
-    Width = 1059
-    Height = 137
+    Width = 752
+    Height = 73
     Align = alTop
     TabOrder = 2
-    object lblVendedor: TLabel
-      Left = 134
-      Top = 72
-      Width = 72
-      Height = 18
-      Caption = 'Vendedor:'
-    end
-    object lblNomeVendedor: TLabel
-      Left = 240
-      Top = 104
-      Width = 135
-      Height = 18
-      Caption = '_______________'
-    end
+    ExplicitWidth = 851
     object lblCliente: TLabel
-      Left = 134
-      Top = 8
+      Left = 127
+      Top = 3
       Width = 53
       Height = 18
       Caption = 'Cliente:'
     end
     object lblNVenda: TLabel
-      Left = 16
-      Top = 8
+      Left = 9
+      Top = 3
       Width = 92
       Height = 18
       Caption = 'N'#176' da Venda:'
     end
     object lblNomeCliente: TLabel
-      Left = 240
-      Top = 40
+      Left = 233
+      Top = 30
       Width = 135
       Height = 18
       Caption = '_______________'
     end
-    object edtIdVendedor: TEdit
-      Left = 134
-      Top = 96
-      Width = 60
-      Height = 26
-      NumbersOnly = True
-      TabOrder = 3
-      OnExit = edtIdVendedorExit
-    end
     object edtIdCliente: TEdit
-      Left = 134
-      Top = 32
+      Left = 127
+      Top = 27
       Width = 60
       Height = 26
       NumbersOnly = True
@@ -341,8 +309,8 @@ object frmVendas: TfrmVendas
       OnExit = edtIdClienteExit
     end
     object edtIdVenda: TEdit
-      Left = 16
-      Top = 32
+      Left = 9
+      Top = 27
       Width = 60
       Height = 26
       TabStop = False
@@ -351,8 +319,8 @@ object frmVendas: TfrmVendas
       TabOrder = 0
     end
     object btnBuscaIDCliente: TButton
-      Left = 200
-      Top = 28
+      Left = 193
+      Top = 23
       Width = 34
       Height = 30
       ImageIndex = 0
@@ -361,22 +329,11 @@ object frmVendas: TfrmVendas
       TabStop = False
       OnClick = btnBuscaIDClienteClick
     end
-    object btnIdVendedor: TButton
-      Left = 200
-      Top = 96
-      Width = 34
-      Height = 30
-      ImageIndex = 0
-      Images = ImgButtons
-      TabOrder = 4
-      TabStop = False
-      OnClick = btnIdVendedorClick
-    end
   end
   object pnlTitulo: TPanel
     Left = 0
     Top = 0
-    Width = 1059
+    Width = 752
     Height = 40
     Align = alTop
     Caption = 'VENDAS'
@@ -389,15 +346,18 @@ object frmVendas: TfrmVendas
     ParentBackground = False
     ParentFont = False
     TabOrder = 3
+    ExplicitWidth = 1059
   end
   object pnlItens: TPanel
     Left = 0
-    Top = 177
-    Width = 1059
+    Top = 113
+    Width = 752
     Height = 128
     Align = alTop
     ParentBackground = False
     TabOrder = 4
+    ExplicitTop = 177
+    ExplicitWidth = 1059
     object lblProduto: TLabel
       Left = 9
       Top = 6
@@ -521,13 +481,15 @@ object frmVendas: TfrmVendas
   end
   object pnlBtnFinal: TPanel
     Left = 0
-    Top = 737
-    Width = 1059
+    Top = 642
+    Width = 752
     Height = 40
     Align = alBottom
     Color = clTeal
     ParentBackground = False
     TabOrder = 5
+    ExplicitTop = 737
+    ExplicitWidth = 1059
     object btnConfirmar: TButton
       Left = 1
       Top = 1
@@ -537,7 +499,6 @@ object frmVendas: TfrmVendas
       Caption = 'Confirmar'
       TabOrder = 0
       OnClick = btnConfirmarClick
-      ExplicitLeft = -5
       ExplicitTop = 0
     end
     object btnCancelar: TButton
@@ -556,8 +517,8 @@ object frmVendas: TfrmVendas
     DrawingStyle = dsTransparent
     Height = 32
     Width = 32
-    Left = 32
-    Top = 120
+    Left = 432
+    Top = 56
     Bitmap = {
       494C010101000800040020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000002000000001002000000000000040

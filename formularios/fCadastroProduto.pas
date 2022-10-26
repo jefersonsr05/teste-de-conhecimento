@@ -17,7 +17,7 @@ uses
   uProduto,
   FireDAC.Comp.Client,
   dConexao,
-  uHelpersImagensBase64, Vcl.ComCtrls;
+  Vcl.ComCtrls;
 
 type
   TfrmCadastroProduto = class(TForm)
@@ -80,7 +80,7 @@ begin
     lProduto.DATA_VENDA := dtpDataVenda.date;
     lProduto.PRECO_VENDA := StrToFloat(edtPreco.Text);
     lProduto.SALDO := StrToFloat(edtSaldo.Text);
-    lProduto.UNIDADE := StrToFloat(edtUnidade.Text);
+    lProduto.UNIDADE := edtUnidade.Text;
     lProduto.Incluir(true);
   finally
     lProduto.Free;
@@ -98,7 +98,7 @@ begin
     lProduto.DATA_VENDA := dtpDataVenda.date;
     lProduto.PRECO_VENDA := StrToFloat(edtPreco.Text);
     lProduto.SALDO := StrToFloat(edtSaldo.Text);
-    lProduto.UNIDADE := StrToFloat(edtUnidade.Text);
+    lProduto.UNIDADE := edtUnidade.Text;
     lProduto.Alterar(true);
   finally
     lProduto.Free;

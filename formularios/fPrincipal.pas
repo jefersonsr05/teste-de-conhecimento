@@ -17,20 +17,11 @@ uses
   Vcl.StdCtrls,
   FireDAC.Comp.Client,
   fConsultaCliente,
-//  fConsultaProduto,
-//  fConsultaFPagamento,
-//  fConsultaVendedor,
+  fConsultaProduto,
   Vcl.Buttons,
-//  fConsultaVenda,
-  fFiltroUsuario,
-  fRelatorioUsuario,
+  fConsultaVenda,
   fFiltroCliente,
-  fFiltroVendedor,
-  fFiltroProduto,
-  fRelatorioUnidade,
-  fRelatorioFPagamento,
-  uConfig;
-//  fConsultaDefault;
+  fFiltroProduto;
 
 type
   TfrmPrincipal = class(TForm)
@@ -42,11 +33,9 @@ type
     mnuCliente: TMenuItem;
     Relatrios1: TMenuItem;
     mnuProduto: TMenuItem;
-    mnuFPagamento: TMenuItem;
     mnuVendas: TMenuItem;
     mnuClienteRelat: TMenuItem;
     mnuProdutoRelat: TMenuItem;
-    mnuFPagamentoRelat: TMenuItem;
     mnuVendaRelat: TMenuItem;
     procedure mnuClienteClick(Sender: TObject);
     procedure mnuProdutoClick(Sender: TObject);

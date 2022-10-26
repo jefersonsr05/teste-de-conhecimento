@@ -2,8 +2,8 @@ inherited frmRelatorioVenda: TfrmRelatorioVenda
   Caption = 'frmRelatorioVenda'
   ClientHeight = 697
   ClientWidth = 792
-  ExplicitWidth = 810
-  ExplicitHeight = 742
+  ExplicitWidth = 808
+  ExplicitHeight = 736
   PixelsPerInch = 115
   TextHeight = 16
   inherited rlpRelatorio: TRLReport
@@ -243,7 +243,6 @@ inherited frmRelatorioVenda: TfrmRelatorioVenda
         Height = 105
         Center = True
         Scaled = True
-        BeforePrint = RLImage1BeforePrint
       end
     end
   end

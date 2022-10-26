@@ -15,8 +15,7 @@ uses
   Vcl.ExtCtrls,
   Vcl.StdCtrls,
   dConexao,
-  uCliente,
-  uHelpersImagensBase64;
+  uCliente;
 
 type
   TfrmCadastroCliente = class(TForm)

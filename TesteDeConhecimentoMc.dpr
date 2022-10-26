@@ -34,12 +34,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdtmConexao, dtmConexao);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmAlteraVenda, frmAlteraVenda);
-  Application.CreateForm(TfrmAlteraVendaItem, frmAlteraVendaItem);
-  Application.CreateForm(TfrmRotinaPagamento, frmRotinaPagamento);
-  Application.CreateForm(TfrmVendas, frmVendas);
-  Application.CreateForm(TfrmConsultaVenda, frmConsultaVenda);
-  Application.CreateForm(TfrmFiltroVenda, frmFiltroVenda);
-  Application.CreateForm(TfrmRelatorioVenda, frmRelatorioVenda);
   Application.Run;
 end.

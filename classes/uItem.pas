@@ -64,7 +64,7 @@ begin
     lQuery.SQL.Add(' , VALOR_TOTAL      ');
     lQuery.SQL.Add(' FROM ITEM_VENDA    ');
     lQuery.SQL.Add(' WHERE LCTO = :LCTO ');
-    lQuery.ParamByName('LCTO').AsInteger := FLCTO;
+    lQuery.ParamByName('NR_VENDA').AsInteger := FNR_VENDA;
     lQuery.Open;
 
     if lQuery.RecordCount > 0 then
@@ -72,8 +72,8 @@ begin
       FProduto.CODIGO := lQuery.FieldByName('PRODUTO').AsInteger;
       FProduto.Carrega;
 
-      //FLCTO := lQuery.ParamByName('LCTO').AsInteger;
-      FNR_VENDA := lQuery.FieldByName('FNR_VENDA').AsInteger;
+      FLCTO := lQuery.ParamByName('LCTO').AsInteger;
+//      FNR_VENDA := lQuery.FieldByName('FNR_VENDA').AsInteger;
       FQTDE := lQuery.FieldByName('QTDE').AsFloat;
       FVALOR_UNIT := lQuery.FieldByName('VALOR_UNIT').AsFloat;
       FVALOR_TOTAL := lQuery.FieldByName('VALOR_TOTAL').AsFloat;
@@ -138,7 +138,7 @@ begin
 
     lQuery.ParamByName('LCTO').AsInteger := FLCTO;
     lQuery.FieldByName('PRODUTO').AsInteger := FProduto.CODIGO;
-    lQuery.FieldByName('FNR_VENDA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('FNR_VENDA').AsInteger := FNR_VENDA;
     lQuery.FieldByName('QTDE').AsFloat := FQTDE;
     lQuery.FieldByName('VALOR_UNIT').AsFloat := FVALOR_UNIT;
     lQuery.FieldByName('VALOR_TOTAL').AsFloat := FVALOR_TOTAL;
@@ -173,7 +173,7 @@ begin
 
     lQuery.ParamByName('LCTO').AsInteger := FLCTO;
     lQuery.FieldByName('PRODUTO').AsInteger := FProduto.CODIGO;
-    lQuery.FieldByName('FNR_VENDA').AsInteger := FNRNOTA;
+    lQuery.FieldByName('FNR_VENDA').AsInteger := FNR_VENDA;
     lQuery.FieldByName('QTDE').AsFloat := FQTDE;
     lQuery.FieldByName('VALOR_UNIT').AsFloat := FVALOR_UNIT;
     lQuery.FieldByName('VALOR_TOTAL').AsFloat := FVALOR_TOTAL;
@@ -200,7 +200,7 @@ begin
     lQuery.SQL.Clear;
     lQuery.SQL.Add(' DELETE FROM ITEM_VENDA ');
     lQuery.SQL.Add(' WHERE NR_VENDA = :NR_VENDA     ');
-    lQuery.ParamByName('NR_VENDA').AsInteger := FNRNOTA;
+    lQuery.ParamByName('NR_VENDA').AsInteger := FNR_VENDA;
     lQuery.ExecSQL;
 
     if pEfetuarCommit = true then

@@ -3,12 +3,29 @@ unit fAlteraVenda;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Data.DB,
-  Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, fAlteraVendaItem, dConexao, uVenda,
-  uCliente, uVendedor, fConsultaCliente, fConsultaVendedor, uFPagamento,
-  fConsultaFPagamento, uItem, System.ImageList, Vcl.ImgList;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  fAlteraVendaItem,
+  dConexao,
+  uVenda,
+  uCliente,
+  fConsultaCliente,
+  uItem,
+  System.ImageList,
+  Vcl.ImgList;
 
 type
   TfrmAlteraVenda = class(TForm)
@@ -124,9 +141,7 @@ procedure TfrmAlteraVenda.btnExcluirClick(Sender: TObject);
 begin
   if dtmconexao.tblConsultaItens.RecordCount > 0 then
   begin
-    lblSubTotalNum.Caption := FormatFloat('#,##0.00',
-      StrToFloat(lblSubTotalNum.Caption) -
-      dtmconexao.tblConsultaItensTotal.AsFloat);
+//    lblSubTotalNum.Caption := FormatFloat('#,##0.00', StrToFloat(lblSubTotalNum.Caption) - dtmconexao.tblConsultaItensTotal.AsFloat);
     dtmconexao.tblConsultaItens.Delete;
 
     AlimentaLabelTotal;

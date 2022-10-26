@@ -3,7 +3,7 @@ object frmConsultaVenda: TfrmConsultaVenda
   Top = 0
   Caption = 'frmConsultaVenda'
   ClientHeight = 570
-  ClientWidth = 972
+  ClientWidth = 1062
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,10 +17,11 @@ object frmConsultaVenda: TfrmConsultaVenda
   object pnlPesquisa: TPanel
     Left = 0
     Top = 41
-    Width = 972
+    Width = 1062
     Height = 88
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 972
     object cbxFiltro: TComboBox
       Left = 14
       Top = 6
@@ -60,7 +61,7 @@ object frmConsultaVenda: TfrmConsultaVenda
     end
     object pnlData: TPanel
       Left = 181
-      Top = 6
+      Top = 5
       Width = 161
       Height = 75
       Color = clTeal
@@ -69,7 +70,7 @@ object frmConsultaVenda: TfrmConsultaVenda
       Visible = False
       object lblFiltroData: TLabel
         Left = 39
-        Top = 10
+        Top = 5
         Width = 102
         Height = 18
         Caption = 'Filtrar por data'
@@ -82,7 +83,7 @@ object frmConsultaVenda: TfrmConsultaVenda
       end
       object cbxFiltraData: TCheckBox
         Left = 16
-        Top = 11
+        Top = 6
         Width = 129
         Height = 17
         Font.Charset = DEFAULT_CHARSET
@@ -107,21 +108,23 @@ object frmConsultaVenda: TfrmConsultaVenda
   object pnlBotoes: TPanel
     Left = 0
     Top = 530
-    Width = 972
+    Width = 1062
     Height = 40
     Align = alBottom
     Color = clTeal
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 972
     object btnAtualizar: TButton
-      Left = 361
+      Left = 271
       Top = 1
       Width = 90
       Height = 38
       Align = alLeft
       Caption = 'Atualizar'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = btnAtualizarClick
+      ExplicitLeft = 361
     end
     object btnIncluir: TButton
       Left = 1
@@ -131,6 +134,7 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Incluir'
       TabOrder = 0
+      OnClick = btnIncluirClick
     end
     object btnAlterar: TButton
       Left = 91
@@ -140,15 +144,18 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Alterar'
       TabOrder = 1
+      Visible = False
+      OnClick = btnAlterarClick
     end
     object btnSair: TButton
-      Left = 541
+      Left = 451
       Top = 1
       Width = 90
       Height = 38
       Align = alLeft
       Caption = 'Sair'
-      TabOrder = 6
+      TabOrder = 5
+      ExplicitLeft = 541
     end
     object btnExcluir: TButton
       Left = 181
@@ -158,38 +165,32 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Excluir'
       TabOrder = 2
+      OnClick = btnExcluirClick
     end
     object btnRelat: TButton
-      Left = 451
+      Left = 361
       Top = 1
       Width = 90
       Height = 38
       Align = alLeft
       Caption = 'Relat'#243'rio'
-      TabOrder = 5
-    end
-    object btnVisualizar: TButton
-      Left = 271
-      Top = 1
-      Width = 90
-      Height = 38
-      Align = alLeft
-      Caption = 'Visualizar'
-      TabOrder = 3
+      TabOrder = 4
+      ExplicitLeft = 451
     end
   end
   object pnlGrid: TPanel
     Left = 0
     Top = 129
-    Width = 972
+    Width = 1062
     Height = 401
     Align = alClient
     Caption = 'pnlGrid'
     TabOrder = 2
+    ExplicitWidth = 972
     object grdConsulta: TDBGrid
       Left = 1
       Top = 1
-      Width = 970
+      Width = 1060
       Height = 399
       Align = alClient
       DataSource = dtmConexao.dtsVenda
@@ -203,81 +204,37 @@ object frmConsultaVenda: TfrmConsultaVenda
       Columns = <
         item
           Expanded = False
-          FieldName = 'ID'
-          Title.Caption = 'Id'
-          Width = 60
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FK_CLIENTE'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'NOME'
-          Title.Caption = 'Nome Cliente'
-          Width = 280
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FK_VENDEDOR'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'NOME_1'
-          Title.Caption = 'Nome Vendedor'
-          Width = 280
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FK_FORMAPAGAMENTO'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'DESCRICAO'
-          Title.Caption = 'Forma de Pagamento'
-          Width = 200
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'OBS'
-          Width = 300
-          Visible = True
-        end
-        item
-          Alignment = taLeftJustify
-          Expanded = False
-          FieldName = 'DESCONTO'
-          Title.Caption = 'Desconto'
-          Width = 100
-          Visible = True
-        end
-        item
-          Alignment = taLeftJustify
-          Expanded = False
-          FieldName = 'TOTAL'
-          Title.Caption = 'Total'
-          Width = 100
+          FieldName = 'NRNOTA'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'EMISSAO'
-          Title.Caption = 'Emiss'#227'o'
-          Width = 130
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'DATA_VENCIMENTO'
-          Title.Caption = 'Vencimento'
-          Width = 130
+          FieldName = 'CLIENTE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOME'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'OPERACAO_VENDA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_VENDA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VALOR_VENDA'
           Visible = True
         end>
     end
@@ -285,11 +242,12 @@ object frmConsultaVenda: TfrmConsultaVenda
   object pnlTitulo: TPanel
     Left = 0
     Top = 0
-    Width = 972
+    Width = 1062
     Height = 41
     Align = alTop
     Color = clTeal
     ParentBackground = False
     TabOrder = 3
+    ExplicitWidth = 972
   end
 end

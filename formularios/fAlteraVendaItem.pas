@@ -140,8 +140,8 @@ begin
       lblNomeProduto.Caption := TProduto.ObjetoBusca.DESCRICAO;
       edtQuantidade.text := '1,00';
       edtDesconto.text := '0';
-      edtValor.text := FormatFloat('#,##0.00', TProduto.ObjetoBusca.preco);
-      edtTotal.text := FormatFloat('#,##0.00', TProduto.ObjetoBusca.preco);
+//      edtValor.text := FormatFloat('#,##0.00', TProduto.ObjetoBusca.preco);
+//      edtTotal.text := FormatFloat('#,##0.00', TProduto.ObjetoBusca.preco);
     end
     else
     begin

@@ -192,7 +192,7 @@ object frmAlteraVenda: TfrmAlteraVenda
         Width = 111
         Height = 30
         Date = 44523.000000000000000000
-        Time = 0.394303437497001100
+        Time = 0.394303437497001200
         Enabled = False
         TabOrder = 0
       end

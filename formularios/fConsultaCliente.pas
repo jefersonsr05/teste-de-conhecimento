@@ -20,7 +20,6 @@ uses
   fCadastroCliente,
   dConexao,
   uCliente,
-  uConfig,
   fFiltroCliente;
 
 type
@@ -47,8 +46,6 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edtPesquisarChange(Sender: TObject);
     procedure cbxFiltroChange(Sender: TObject);
-    procedure grdConsultaDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnRelatClick(Sender: TObject);
@@ -59,7 +56,7 @@ type
     procedure Alterar;
     procedure Excluir;
     procedure Visualizar;
-    procedure SetaVisibleBtnCliente;
+
   public
     { Public declarations }
   end;
@@ -71,30 +68,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmConsultaCliente.SetaVisibleBtnCliente;
-begin
-  lConfig.CarregaRestricoesBanco;
-  if lConfig.INCLUIR < lConfig.CONFIGNACESSO then
-  begin
-    btnIncluir.visible := false;
-  end;
-  if lConfig.ALTERAR < lConfig.CONFIGNACESSO then
-  begin
-    btnAlterar.visible := false;
-  end;
-  if lConfig.EXCLUIR < lConfig.CONFIGNACESSO then
-  begin
-    btnExcluir.visible := false;
-  end;
-  if lConfig.VISUALIZAR < lConfig.CONFIGNACESSO then
-  begin
-    btnVisualizar.visible := false;
-  end;
-  if lConfig.RELATORIO < lConfig.CONFIGNACESSO then
-  begin
-    btnRelat.visible := false;
-  end;
-end;
+
 
 procedure TfrmConsultaCliente.CarregaClientes;
 begin
@@ -161,17 +135,6 @@ end;
 procedure TfrmConsultaCliente.edtPesquisarChange(Sender: TObject);
 begin
   CarregaClientes;
-end;
-
-procedure TfrmConsultaCliente.grdConsultaDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-begin
-  if gdSelected in State then
-  begin
-    grdConsulta.Canvas.brush.Color := StringToColor(lConfig.CONFIGCOR);
-    grdConsulta.Canvas.font.Color := clwhite;
-  end;
-  grdConsulta.DefaultDrawDataCell(Rect, Column.Field, State);
 end;
 
 procedure TfrmConsultaCliente.Incluir;
@@ -370,7 +333,6 @@ procedure TfrmConsultaCliente.FormShow(Sender: TObject);
 begin
   WindowState := wsMaximized;
   CarregaClientes;
-  SetaVisibleBtnCliente;
   edtPesquisar.SetFocus;
 end;
 
