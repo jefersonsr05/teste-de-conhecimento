@@ -119,6 +119,7 @@ implementation
 {$R *.dfm}
 procedure TfrmCadastroVenda.BaixaEstoque;
 var
+
   nrnota: string;
   data_emissao: TDate;
 
@@ -155,11 +156,10 @@ begin
       FDQueryProduto.SQL.Clear;
       FDQueryProduto.SQL.Add('update produtos ');
       FDQueryProduto.SQL.Add(' set ');
-      FDQueryProduto.SQL.Add('saldo = saldo - :pr00, ');
-      FDQueryProduto.SQL.Add('data_venda = :pr01 ');
-      FDQueryProduto.SQL.Add('where codigo = :pr02 ');
+      FDQueryProduto.SQL.Add(' saldo = saldo - :pr00, ');
+      FDQueryProduto.SQL.Add(' data_venda = :pr01 ');
+      FDQueryProduto.SQL.Add(' where codigo = :pr02 ');
 
-      //FDQueryProduto.ParamByName('data').AsDate := FDQueryCadastroEMISSAO.Value;
 
       FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
       FDQueryProduto.Params[1].AsDateTime := FDQueryVendaEMISSAO.Value;
@@ -170,7 +170,9 @@ begin
       FDQueryItemNota.Next;
 
     end;
+
   end;
+
 
   //  Se for pre venda ira baixar somente estoque
   if FDQueryCadastroOPERACAO_VENDA.Value = 'P' then
@@ -193,9 +195,9 @@ begin
       FDQueryProduto.Close;
       FDQueryProduto.SQL.Clear;
       FDQueryProduto.SQL.Add('update produtos ');
-      FDQueryProduto.SQL.Add(' set');
-      FDQueryProduto.SQL.Add('saldo = saldo - :pr00 ');
-      FDQueryProduto.SQL.Add('where codigo = :pr01 ');
+      FDQueryProduto.SQL.Add(' set ');
+      FDQueryProduto.SQL.Add(' saldo = saldo - :pr00 ');
+      FDQueryProduto.SQL.Add(' where codigo = :pr01 ');
 
       FDQueryProduto.Params[0].AsFloat :=  FDQueryItemNotaQTDE.Value;
       FDQueryProduto.Params[1].AsFloat :=  FDQueryItemNotaPRODUTO.Value;
@@ -223,6 +225,7 @@ begin
   FDTransactionItemNota.StartTransaction;
   FDQueryItemNota.Open();
   DBEditTotalVenda.Text := '0';
+  //FDQueryItemNota.ParamByName('nr_venda').AsString := DBEditNrNota.Text;
 
 end;
 procedure TfrmCadastroVenda.BitBtnSalvarClick(Sender: TObject);
@@ -231,6 +234,8 @@ begin
 
   FDQueryItemNota.Post;
   BaixaEstoque;
+
+
 
 end;
 
@@ -381,7 +386,14 @@ begin
   DBGridItensVenda.DataSource.DataSet.Delete;
 
   totalVenda := StrToFloat(DBEditTotalVenda.Text);
-  DBEditTotalVenda.Text :=  FloatToStr(totalVenda - StrToFloat(DBGridItensVenda.Columns.Items[5].Field.Text))
+
+  //showmessage(FloatToStr(totalVenda));
+
+  totalvenda := totalVenda - StrToFloat(DBGridItensVenda.Columns.Items[5].Field.Text);
+
+  //showmessage(FloatToStr(totalVenda));
+
+  DBEditTotalVenda.Text := FloatToStr(totalVenda);
 
 end;
 
@@ -441,6 +453,7 @@ begin
   inherited;
   LabelNomeCliente.Caption := '';
   LabelDescProd.Caption    := '';
+  FDQueryItemNota.ParamByName('nr_venda').AsString := DBEditNrNota.Text;
 end;
 procedure TfrmCadastroVenda.GeraNumeroLcto;
 var

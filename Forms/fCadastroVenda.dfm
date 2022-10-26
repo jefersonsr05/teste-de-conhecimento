@@ -11,6 +11,10 @@ inherited frmCadastroVenda: TfrmCadastroVenda
   inherited Panel1: TPanel
     Width = 1023
     ExplicitWidth = 1023
+    inherited BitBtnSalvar: TBitBtn
+      Top = 10
+      ExplicitTop = 10
+    end
     inherited BitBtnSair: TBitBtn
       Left = 911
       ExplicitLeft = 911
@@ -198,8 +202,8 @@ inherited frmCadastroVenda: TfrmCadastroVenda
       object LabelVenda: TLabel
         Left = 8
         Top = 73
-        Width = 233
-        Height = 31
+        Width = 219
+        Height = 26
         Caption = 'Venda: Baixa Estoque e grava data da '#250'ltima venda no produto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clHighlightText
@@ -221,8 +225,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Enabled = False
     ParentBackground = False
     TabOrder = 2
-    ExplicitLeft = 8
-    ExplicitTop = 228
     object LabelProduto: TLabel
       Left = 96
       Top = 16
@@ -383,8 +385,6 @@ inherited frmCadastroVenda: TfrmCadastroVenda
     Height = 343
     Align = alClient
     TabOrder = 3
-    ExplicitTop = 217
-    ExplicitHeight = 301
     object DBGridItensVenda: TDBGrid
       Left = 1
       Top = 1
