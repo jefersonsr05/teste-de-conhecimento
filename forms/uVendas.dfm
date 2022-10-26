@@ -3,6 +3,7 @@
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
+    ActivePage = TabListagem
     inherited TabListagem: TTabSheet
       inherited grdListagem: TDBGrid
         Columns = <
@@ -107,6 +108,8 @@
           Width = 1070
           Height = 89
           Align = alTop
+          Color = clWhite
+          ParentBackground = False
           TabOrder = 0
           object Label1: TLabel
             Left = 7
@@ -363,6 +366,7 @@
     object qryListagemVALOR_VENDA: TExtendedField
       DisplayLabel = 'Valor'
       FieldName = 'VALOR_VENDA'
+      DisplayFormat = ',R$ #0.00'
       Precision = 19
     end
     object qryListagemOPERACAO_VENDA: TWideStringField

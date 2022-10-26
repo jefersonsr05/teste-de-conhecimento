@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls, cCadClientes, uDtmConexao, uEnum,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, frxClass, frxDBSet;
 
 type
   TfrmCadClientes = class(TfrmTelaHeranca)
@@ -34,10 +34,14 @@ type
     pnlMeio: TPanel;
     lblGrandeNome: TLabel;
     lblGrandeCodigo: TLabel;
+    frxDBClientes: TfrxDBDataset;
+    frxReportClientes: TfrxReport;
+    btnRelatorio: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
+    procedure btnRelatorioClick(Sender: TObject);
   private
     { Private declarations }
     _Cliente:TCliente;
@@ -126,6 +130,16 @@ begin
   lblGrandeCodigo.Caption := '0';
   lblGrandeNome.Caption := 'Novo cliente';
   edtNome.SetFocus;
+end;
+
+procedure TfrmCadClientes.btnRelatorioClick(Sender: TObject);
+var
+  path:string;
+begin
+  path:=ExtractFileDir(ExtractFileDir(ExtractFileDir(ParamStr(0))))+'\reports\RelatorioClientes.fr3';
+  frxReportClientes.LoadFromFile(path);
+  frxReportClientes.ShowReport();
+
 end;
 
 procedure TfrmCadClientes.FormClose(Sender: TObject; var Action: TCloseAction);

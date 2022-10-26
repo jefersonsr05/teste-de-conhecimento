@@ -26,7 +26,6 @@ object frmTelaHeranca: TfrmTelaHeranca
     ActivePage = TabListagem
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 680
     object TabListagem: TTabSheet
       Caption = 'Listagem'
       object pnlListagemTopo: TPanel
@@ -35,6 +34,8 @@ object frmTelaHeranca: TfrmTelaHeranca
         Width = 1072
         Height = 57
         Align = alTop
+        Color = 15519415
+        ParentBackground = False
         TabOrder = 0
         object lblIndice: TLabel
           Left = 60
@@ -66,9 +67,14 @@ object frmTelaHeranca: TfrmTelaHeranca
         Top = 57
         Width = 1072
         Height = 571
+        Hint = 
+          'Clique sobre uma coluna para alterar o modo de pesquisa.'#13#10'Dois c' +
+          'liques para alterar um cadastro.'
         Align = alClient
         DataSource = dtsListagem
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -91,9 +97,9 @@ object frmTelaHeranca: TfrmTelaHeranca
     Width = 1080
     Height = 64
     Align = alBottom
+    Color = 15519415
+    ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 658
     DesignSize = (
       1080
       64)

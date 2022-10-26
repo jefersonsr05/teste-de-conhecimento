@@ -118,6 +118,9 @@ end;
 procedure TfrmTelaHeranca.ControleBotoes(btnNovo,btnAlterar,btnCancelar,btnGravar,btnApagar:TBitBtn;
             navegador:TDBNavigator; pgcPrincipal:TPageControl; flag:boolean);
 begin
+
+  //Manda flag para desabilitar os botoes ao inverso quando dos botoes true;
+
   btnNovo.Enabled     :=flag;
   btnApagar.Enabled   :=flag;
   btnAlterar.Enabled  :=flag;
@@ -154,6 +157,9 @@ end;
 function TfrmTelaHeranca.VerificarCampoObrigatorio:boolean;
 var i:integer;
 begin
+
+  //Percorre os componentes na tela e usa a Tag do componente para saber se e obrigatorio preenchimento.
+
   Result:=false;
   for i := 0 to ComponentCount-1 do
   begin
@@ -280,7 +286,7 @@ end;
 
 procedure TfrmTelaHeranca.mskPesquisaChange(Sender: TObject);
 begin
-  qryListagem.Locate(indiceAtual,TMaskEdit(Sender).Text, [loPartialKey]);
+  qryListagem.Locate(indiceAtual,TMaskEdit(Sender).Text,[loPartialKey, loCaseInsensitive]);
 end;
 
 procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);

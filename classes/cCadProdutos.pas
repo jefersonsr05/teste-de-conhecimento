@@ -1,4 +1,4 @@
-unit cCadProdutos;
+﻿unit cCadProdutos;
 
 interface
 
@@ -177,20 +177,34 @@ begin
     qry := TZQuery.Create(nil);
     qry.Connection := ConexaoDB;
     qry.SQL.Clear;
-    qry.SQL.Add('delete from produtos where codigo=:codigo');
-    qry.ParamByName('codigo').AsInteger := _fCodigo;
+    qry.SQL.Add('select count(lcto) as cont from item_venda where produto=:codigo');
+    qry.ParamByName('codigo').Value := self._fCodigo;
     try
-      qry.ExecSQL;
+      qry.Open;
+
+      if qry.FieldByName('cont').AsInteger = 0 then
+        begin
+        qry.SQL.Clear;
+        qry.SQL.Add('delete from produtos where codigo=:codigo');
+        qry.ParamByName('codigo').AsInteger := _fCodigo;
+        try
+          qry.ExecSQL;
+        except
+          result := false;
+        end;
+        end
+      else
+      begin
+        ShowMessage('Produto '+ _fDescricao +' tem vendas registradas e não pode ser excluido.');
+        result := false;
+      end;
     except
       result := false;
     end;
-
   finally
     if Assigned(qry) then
       FreeAndNil(qry);
   end;
-
-
 end;
 
 function TProduto.Atualizar: boolean;

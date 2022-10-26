@@ -193,14 +193,30 @@ begin
     qry := TZQuery.Create(nil);
     qry.Connection := ConexaoDB;
     qry.SQL.Clear;
-    qry.SQL.Add('delete from cliente where codigo=:codigo');
-    qry.ParamByName('codigo').AsInteger := _fCodigo;
+    qry.SQL.Add('select count(nrnota) as cont from venda where cliente=:codigo');
+    qry.ParamByName('codigo').Value := self._fCodigo;
     try
-      qry.ExecSQL;  
-    except
-      result := false;
-    end;
+      qry.Open;
 
+      if qry.FieldByName('cont').AsInteger = 0 then
+      begin;
+        qry.sql.Clear;
+        qry.SQL.Add('delete from cliente where codigo=:codigo');
+        qry.ParamByName('codigo').AsInteger := _fCodigo;
+        try
+          qry.ExecSQL;
+        except
+          result := false;
+        end;  
+      end
+      else
+      begin  
+        ShowMessage('Cliente '+ _fNome +' tem vendas registradas e não pode ser excluido.');
+        result := false;
+      end;
+    except
+      result := false;  
+    end;
   finally
     if Assigned(qry) then
       FreeAndNil(qry);

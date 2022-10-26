@@ -13,6 +13,19 @@ type
     qryProdutos: TZQuery;
     qryClientes: TZQuery;
     qryItensVendas: TZQuery;
+    qryClientesCODIGO: TIntegerField;
+    qryClientesNOME: TWideStringField;
+    qryClientesENDERECO: TWideStringField;
+    qryClientesCIDADE: TWideStringField;
+    qryClientesFONE: TWideStringField;
+    qryClientesCELULAR: TWideStringField;
+    qryProdutosCODIGO: TIntegerField;
+    qryProdutosDESCRICAO: TWideStringField;
+    qryProdutosREFERENCIA: TWideStringField;
+    qryProdutosUNIDADE: TWideStringField;
+    qryProdutosDATA_VENDA: TDateField;
+    qryProdutosPRECO_VENDA: TExtendedField;
+    qryProdutosSALDO: TExtendedField;
   private
     { Private declarations }
   public

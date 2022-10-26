@@ -8,7 +8,7 @@ uses
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls,
   RxToolEdit, RxCurrEdit, cCadProdutos, uEnum, uDtmConexao, Vcl.WinXPickers,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, frxClass, frxDBSet;
 
 type
   TfrmCadProdutos = class(TfrmTelaHeranca)
@@ -33,11 +33,15 @@ type
     lblGrandeCodigo: TLabel;
     lblGrandeDescricao: TLabel;
     pnlCimaCima: TPanel;
+    btnRelatorio: TBitBtn;
+    frxDBProdutos: TfrxDBDataset;
+    frxReportProdutos: TfrxReport;
     procedure btnAlterarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure pnlCimaCimaClick(Sender: TObject);
+    procedure btnRelatorioClick(Sender: TObject);
   private
     { Private declarations }
     _Produto:TProduto;
@@ -90,6 +94,15 @@ end;
 {$endregion}
 
 {$region 'INTERACOES NA TELA'}
+
+procedure TfrmCadProdutos.btnRelatorioClick(Sender: TObject);
+var
+  path:string;
+begin
+  path:=ExtractFileDir(ExtractFileDir(ExtractFileDir(ParamStr(0))))+'\reports\RelatorioProdutos.fr3';
+  frxReportProdutos.LoadFromFile(path);
+  frxReportProdutos.ShowReport();
+end;
 
 procedure TfrmCadProdutos.btnAlterarClick(Sender: TObject);
 begin
