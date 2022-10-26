@@ -23,12 +23,22 @@ uses
   uVenda,
   fFiltroVenda,
   uItem,
-  FireDAC.Comp.Client,
-  fAlteraVenda;
+  FireDAC.Comp.Client;
+//  fAlteraVenda;
 
 type
   TfrmConsultaVenda = class(TForm)
+    btnAlterar: TButton;
+    btnIncluir: TButton;
+    btnExcluir: TButton;
+    btnAtualizar: TButton;
+    btnRelat: TButton;
+    btnSair: TButton;
     pnlData: TPanel;
+    pnlGrid: TPanel;
+    pnlPesquisa: TPanel;
+    pnlTitulo: TPanel;
+    grdConsulta: TDBGrid;
     dtpEmissao: TDateTimePicker;
     cbxFiltraData: TCheckBox;
     lblFiltroData: TLabel;
@@ -128,96 +138,96 @@ begin
 end;
 
 procedure TfrmConsultaVenda.Alterar;
-var
-  lSubTotal: Double;
-  lValor, lDesc, lQuant, lTotalItem: Double;
-  lVenda: TVenda;
-  lItem: TItem;
-  lFormulario: TfrmAlteraVenda;
-  lQuery: TFDQuery;
+//var
+//  lSubTotal: Double;
+//  lValor, lDesc, lQuant, lTotalItem: Double;
+//  lVenda: TVenda;
+//  lItem: TItem;
+//  lFormulario: TfrmAlteraVenda;
+//  lQuery: TFDQuery;
 begin
-  lValor := 0;
-  lQuant := 0;
-  lTotalItem := 0;
-  lSubTotal := 0;
-
-  lFormulario := TfrmAlteraVenda.Create(nil);
-  lQuery := TFDQuery.Create(nil);
-  lVenda := TVenda.Create;
-  try
-
-    lVenda.NRNOTA := dtmconexao.qryVenda.FieldByName('NRNOTA').AsInteger;
-    lVenda.Carrega;
-
-    lQuery.Connection := dtmConexao.FDConnection;
-    lQuery.Close;
-    lQuery.SQL.Clear;
-    lQuery.SQL.Add(' SELECT             ');
-    lQuery.SQL.Add(' LCTO               ');
-    lQuery.SQL.Add(' , NR_VENDA         ');
-    lQuery.SQL.Add(' , PRODUTO          ');
-    lQuery.SQL.Add(' , QTDE             ');
-    lQuery.SQL.Add(' , VALOR_UNIT       ');
-    lQuery.SQL.Add(' , VALOR_TOTAL      ');
-    lQuery.SQL.Add(' FROM ITEM_VENDA    ');
-    lQuery.SQL.Add(' WHERE LCTO = :LCTO ');
-    lQuery.ParamByName('NR_VENDA').AsInteger := lVenda.NRNOTA;
-    lQuery.Open;
-
-    lQuery.First;
-    while not lQuery.Eof do
-    begin
-
-      lValor := lQuery.FieldByName('VALOR_UNIT').AsFloat;
-      lQuant := lQuery.FieldByName('QTDE').AsFloat;
-
-      lTotalItem := lQuant * lValor;
-
-      dtmconexao.tblConsultaItens.append;
-      dtmconexao.tblConsultaItensNR_VENDA.AsInteger := lQuery.FieldByName('NR_VENDA').AsInteger;
-      dtmconexao.tblConsultaItensPRODUTO.AsInteger := lQuery.FieldByName('PRODUTO').AsInteger;
-      dtmconexao.tblConsultaItensVALOR_UNIT.AsFloat := lQuery.FieldByName('VALOR_UNIT').AsFloat;
-      dtmconexao.tblConsultaItensQTDE.AsFloat := lQuery.FieldByName('QTDE').AsFloat;
-      dtmconexao.tblConsultaItensVALOR_TOTAL.AsFloat := lTotalItem;
-      dtmconexao.tblConsultaItens.Post;
-
-      lSubTotal := lSubTotal + lTotalItem;
-
-      lQuery.Next;
-    end;
-
-    lQuery.First;
-
-    if lSubTotal < lVenda.VALOR_VENDA then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 1;
-    end
-    else if lSubTotal = lVenda.VALOR_VENDA then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 0;
-    end
-    else if lSubTotal > lVenda.VALOR_VENDA then
-    begin
-      lFormulario.rdgAcrsDesc.ItemIndex := 2;
-    end;
-
-    lFormulario.edtIdVenda.Text := lVenda.NRNOTA;
-    lFormulario.edtIdCliente.Text := lVenda.CLIENTE.CODIGO.tostring;
-    lFormulario.lblNomeCliente.Caption := lVenda.CLIENTE.NOME;
-
-    lFormulario.edtTipo.Text := lVenda.TIPO_VENDA.tostring;
-
-    lFormulario.lblSubTotalNum.Caption := FormatFloat('#,##0.00', lSubTotal);
-    lFormulario.lblTotalNum.Caption := FormatFloat('#,##0.00', lVenda.VALOR_VENDA);
-    lFormulario.EmissaoAntiga := lVenda.Emissao;
-
-    lFormulario.ShowModal;
-  finally
-    dtmconexao.tblConsultaItens.EmptyDataSet;
-    lFormulario.Free;
-    lVenda.Free;
-    lQuery.Free;
-  end;
+//  lValor := 0;
+//  lQuant := 0;
+//  lTotalItem := 0;
+//  lSubTotal := 0;
+//
+//  lFormulario := TfrmAlteraVenda.Create(nil);
+//  lQuery := TFDQuery.Create(nil);
+//  lVenda := TVenda.Create;
+//  try
+//
+//    lVenda.NRNOTA := dtmconexao.qryVenda.FieldByName('NRNOTA').AsInteger;
+//    lVenda.Carrega;
+//
+//    lQuery.Connection := dtmConexao.FDConnection;
+//    lQuery.Close;
+//    lQuery.SQL.Clear;
+//    lQuery.SQL.Add(' SELECT             ');
+//    lQuery.SQL.Add(' LCTO               ');
+//    lQuery.SQL.Add(' , NR_VENDA         ');
+//    lQuery.SQL.Add(' , PRODUTO          ');
+//    lQuery.SQL.Add(' , QTDE             ');
+//    lQuery.SQL.Add(' , VALOR_UNIT       ');
+//    lQuery.SQL.Add(' , VALOR_TOTAL      ');
+//    lQuery.SQL.Add(' FROM ITEM_VENDA    ');
+//    lQuery.SQL.Add(' WHERE LCTO = :LCTO ');
+//    lQuery.ParamByName('NR_VENDA').AsInteger := lVenda.NRNOTA;
+//    lQuery.Open;
+//
+//    lQuery.First;
+//    while not lQuery.Eof do
+//    begin
+//
+//      lValor := lQuery.FieldByName('VALOR_UNIT').AsFloat;
+//      lQuant := lQuery.FieldByName('QTDE').AsFloat;
+//
+//      lTotalItem := lQuant * lValor;
+//
+//      dtmconexao.tblConsultaItens.append;
+//      dtmconexao.tblConsultaItensNR_VENDA.AsInteger := lQuery.FieldByName('NR_VENDA').AsInteger;
+//      dtmconexao.tblConsultaItensPRODUTO.AsInteger := lQuery.FieldByName('PRODUTO').AsInteger;
+//      dtmconexao.tblConsultaItensVALOR_UNIT.AsFloat := lQuery.FieldByName('VALOR_UNIT').AsFloat;
+//      dtmconexao.tblConsultaItensQTDE.AsFloat := lQuery.FieldByName('QTDE').AsFloat;
+//      dtmconexao.tblConsultaItensVALOR_TOTAL.AsFloat := lTotalItem;
+//      dtmconexao.tblConsultaItens.Post;
+//
+//      lSubTotal := lSubTotal + lTotalItem;
+//
+//      lQuery.Next;
+//    end;
+//
+//    lQuery.First;
+//
+//    if lSubTotal < lVenda.VALOR_VENDA then
+//    begin
+//      lFormulario.rdgAcrsDesc.ItemIndex := 1;
+//    end
+//    else if lSubTotal = lVenda.VALOR_VENDA then
+//    begin
+//      lFormulario.rdgAcrsDesc.ItemIndex := 0;
+//    end
+//    else if lSubTotal > lVenda.VALOR_VENDA then
+//    begin
+//      lFormulario.rdgAcrsDesc.ItemIndex := 2;
+//    end;
+//
+//    lFormulario.edtIdVenda.Text := lVenda.NRNOTA;
+//    lFormulario.edtIdCliente.Text := lVenda.CLIENTE.CODIGO.tostring;
+//    lFormulario.lblNomeCliente.Caption := lVenda.CLIENTE.NOME;
+//
+//    lFormulario.edtTipo.Text := lVenda.TIPO_VENDA.tostring;
+//
+//    lFormulario.lblSubTotalNum.Caption := FormatFloat('#,##0.00', lSubTotal);
+//    lFormulario.lblTotalNum.Caption := FormatFloat('#,##0.00', lVenda.VALOR_VENDA);
+//    lFormulario.EmissaoAntiga := lVenda.Emissao;
+//
+//    lFormulario.ShowModal;
+//  finally
+//    dtmconexao.tblConsultaItens.EmptyDataSet;
+//    lFormulario.Free;
+//    lVenda.Free;
+//    lQuery.Free;
+//  end;
 end;
 
 procedure TfrmConsultaVenda.Excluir;

@@ -7,22 +7,20 @@ object frmConsultaProduto: TfrmConsultaProduto
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -16
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 19
   object pnlPesquisa: TPanel
     Left = 0
     Top = 41
     Width = 783
-    Height = 80
+    Height = 48
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -223
-    ExplicitWidth = 1006
     object cbxFiltro: TComboBox
       Left = 14
       Top = 6
@@ -68,9 +66,6 @@ object frmConsultaProduto: TfrmConsultaProduto
     Color = clTeal
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = -223
-    ExplicitTop = 424
-    ExplicitWidth = 1006
     object btnAtualizar: TButton
       Left = 361
       Top = 1
@@ -109,6 +104,7 @@ object frmConsultaProduto: TfrmConsultaProduto
       Align = alLeft
       Caption = 'Sair'
       TabOrder = 6
+      OnClick = btnSairClick
     end
     object btnExcluir: TButton
       Left = 181
@@ -143,98 +139,62 @@ object frmConsultaProduto: TfrmConsultaProduto
   end
   object pnlGrid: TPanel
     Left = 0
-    Top = 121
+    Top = 89
     Width = 783
-    Height = 315
+    Height = 347
     Align = alClient
     Caption = 'pnlGrid'
     TabOrder = 2
-    ExplicitLeft = -223
-    ExplicitTop = 19
-    ExplicitWidth = 1006
-    ExplicitHeight = 445
+    ExplicitTop = 121
+    ExplicitHeight = 315
     object grdConsulta: TDBGrid
       Left = 1
       Top = 1
       Width = 781
-      Height = 313
+      Height = 345
       Align = alClient
-      Color = clWhite
       DataSource = dtmConexao.dtsProdutos
-      DefaultDrawing = False
-      GradientEndColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial'
-      Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-      ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -16
-      TitleFont.Name = 'Arial'
+      TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       Columns = <
         item
           Expanded = False
-          FieldName = 'ID'
-          Title.Caption = 'Id'
-          Width = 60
+          FieldName = 'CODIGO'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'DESCRICAO'
-          Title.Caption = 'Descri'#231#227'o'
-          Width = 300
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'REFERENCIA'
-          Title.Caption = 'Refer'#234'ncia'
-          Width = 150
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CUSTO'
-          Title.Alignment = taRightJustify
-          Title.Caption = 'Custo'
-          Width = 90
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'PRECO'
-          Title.Alignment = taRightJustify
-          Title.Caption = 'Pre'#231'o'
-          Width = 90
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'SALDO'
-          Title.Alignment = taRightJustify
-          Title.Caption = 'Saldo'
-          Width = 90
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'PESO'
-          Title.Alignment = taRightJustify
-          Title.Caption = 'Peso'
-          Width = 90
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'UNIDADE'
-          Title.Alignment = taCenter
-          Title.Caption = 'UN'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DATA_VENDA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PRECO_VENDA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'SALDO'
           Visible = True
         end>
     end
@@ -248,7 +208,5 @@ object frmConsultaProduto: TfrmConsultaProduto
     Color = clTeal
     ParentBackground = False
     TabOrder = 3
-    ExplicitLeft = -223
-    ExplicitWidth = 1006
   end
 end

@@ -22,8 +22,6 @@ object frmFiltroCliente: TfrmFiltroCliente
     Height = 205
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 398
-    ExplicitHeight = 227
     object chkListaTodos: TCheckBox
       Left = 8
       Top = 157
@@ -99,8 +97,6 @@ object frmFiltroCliente: TfrmFiltroCliente
     Color = clTeal
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 267
-    ExplicitWidth = 398
     object btnVisualizar: TButton
       Left = 1
       Top = 1
@@ -121,6 +117,5 @@ object frmFiltroCliente: TfrmFiltroCliente
     Color = clTeal
     ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 398
   end
 end

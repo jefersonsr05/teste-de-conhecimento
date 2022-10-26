@@ -9,13 +9,13 @@ inherited frmFiltroProduto: TfrmFiltroProduto
   TextHeight = 18
   inherited pnlTitulo: TPanel
     Width = 502
-    ExplicitWidth = 541
+    ExplicitWidth = 502
   end
   inherited Panel2: TPanel
     Width = 502
     Height = 169
-    ExplicitWidth = 541
-    ExplicitHeight = 182
+    ExplicitWidth = 502
+    ExplicitHeight = 169
     inherited cbxListaTodos: TCheckBox
       Left = 178
       Top = 8
@@ -83,7 +83,6 @@ inherited frmFiltroProduto: TfrmFiltroProduto
         Enabled = False
         ItemIndex = 0
         Items.Strings = (
-          'Custo'
           'Pre'#231'o'
           'Saldo')
         ParentBackground = False
@@ -113,15 +112,15 @@ inherited frmFiltroProduto: TfrmFiltroProduto
   inherited pnlBotoes: TPanel
     Top = 209
     Width = 502
-    ExplicitTop = 222
-    ExplicitWidth = 541
+    ExplicitTop = 209
+    ExplicitWidth = 502
     inherited btnVisualizar: TButton
       OnClick = btnVisualizarClick
     end
     inherited btnLimpar: TButton
       Left = 401
-      ExplicitLeft = 441
-      ExplicitTop = 6
+      Visible = False
+      ExplicitLeft = 401
     end
   end
 end

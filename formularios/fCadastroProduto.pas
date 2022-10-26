@@ -21,6 +21,9 @@ uses
 
 type
   TfrmCadastroProduto = class(TForm)
+    pnlCentral: TPanel;
+    pnlTitulo: TPanel;
+    pnlBotoes: TPanel;
     edtID: TEdit;
     lblID: TLabel;
     edtDescricao: TEdit;

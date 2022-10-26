@@ -41,7 +41,6 @@ object frmCadastroCliente: TfrmCadastroCliente
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitHeight = 512
     object lblNome: TLabel
       Left = 18
       Top = 64
@@ -174,7 +173,7 @@ object frmCadastroCliente: TfrmCadastroCliente
     end
     object edtNome: TEdit
       Left = 18
-      Top = 83
+      Top = 87
       Width = 300
       Height = 26
       CharCase = ecUpperCase
@@ -201,11 +200,11 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 50
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 7
     end
     object edtCep: TEdit
       Left = 18
-      Top = 304
+      Top = 305
       Width = 143
       Height = 26
       Font.Charset = ANSI_CHARSET
@@ -216,7 +215,7 @@ object frmCadastroCliente: TfrmCadastroCliente
       MaxLength = 10
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 5
     end
     object edtCidade: TEdit
       Left = 18
@@ -246,7 +245,7 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 20
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
     end
     object edtEndereco: TEdit
       Left = 18
@@ -261,7 +260,7 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 35
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 2
     end
     object edtID: TEdit
       Left = 18
@@ -292,7 +291,7 @@ object frmCadastroCliente: TfrmCadastroCliente
       Font.Style = []
       MaxLength = 2
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 6
     end
     object edtFone: TEdit
       Left = 346
@@ -336,7 +335,6 @@ object frmCadastroCliente: TfrmCadastroCliente
     Color = clTeal
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 553
     object btnSalvar: TButton
       Left = 1
       Top = 1

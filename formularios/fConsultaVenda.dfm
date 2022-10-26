@@ -21,7 +21,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Height = 88
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 972
     object cbxFiltro: TComboBox
       Left = 14
       Top = 6
@@ -114,7 +113,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Color = clTeal
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 972
     object btnAtualizar: TButton
       Left = 271
       Top = 1
@@ -124,7 +122,6 @@ object frmConsultaVenda: TfrmConsultaVenda
       Caption = 'Atualizar'
       TabOrder = 3
       OnClick = btnAtualizarClick
-      ExplicitLeft = 361
     end
     object btnIncluir: TButton
       Left = 1
@@ -155,7 +152,6 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Sair'
       TabOrder = 5
-      ExplicitLeft = 541
     end
     object btnExcluir: TButton
       Left = 181
@@ -175,7 +171,6 @@ object frmConsultaVenda: TfrmConsultaVenda
       Align = alLeft
       Caption = 'Relat'#243'rio'
       TabOrder = 4
-      ExplicitLeft = 451
     end
   end
   object pnlGrid: TPanel
@@ -186,7 +181,6 @@ object frmConsultaVenda: TfrmConsultaVenda
     Align = alClient
     Caption = 'pnlGrid'
     TabOrder = 2
-    ExplicitWidth = 972
     object grdConsulta: TDBGrid
       Left = 1
       Top = 1
@@ -248,6 +242,5 @@ object frmConsultaVenda: TfrmConsultaVenda
     Color = clTeal
     ParentBackground = False
     TabOrder = 3
-    ExplicitWidth = 972
   end
 end

@@ -146,10 +146,6 @@
             <Form>frmCadastroProduto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="formularios\fAlteraVenda.pas">
-            <Form>frmAlteraVenda</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="formularios\fAlteraVendaItem.pas">
             <Form>frmAlteraVendaItem</Form>
             <FormType>dfm</FormType>
@@ -195,8 +191,8 @@
                     <Source Name="MainSource">TesteDeConhecimentoMc.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">

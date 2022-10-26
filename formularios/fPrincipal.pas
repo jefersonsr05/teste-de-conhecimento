@@ -44,7 +44,6 @@ type
     procedure mnuVendasClick(Sender: TObject);
     procedure mnuClienteRelatClick(Sender: TObject);
     procedure mnuProdutoRelatClick(Sender: TObject);
-    procedure mnuFPagamentoRelatClick(Sender: TObject);
     procedure mnuVendaRelatClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
 
@@ -86,27 +85,27 @@ begin
 end;
 
 procedure TfrmPrincipal.mnuVendasClick(Sender: TObject);
-//var
-//  lFormulario: TfrmConsultaVenda;
+var
+  lFormulario: TfrmConsultaVenda;
 begin
-//  lFormulario := TfrmConsultaVenda.Create(nil);
-//  try
-//    lFormulario.ShowModal;
-//  finally
-//    lFormulario.Free;
-//  end;
+  lFormulario := TfrmConsultaVenda.Create(nil);
+  try
+    lFormulario.ShowModal;
+  finally
+    lFormulario.Free;
+  end;
 end;
 
 procedure TfrmPrincipal.mnuProdutoClick(Sender: TObject);
-//var
-//  lFormulario: TfrmConsultaProduto;
+var
+  lFormulario: TfrmConsultaProduto;
 begin
-//  lFormulario := TfrmConsultaProduto.Create(nil);
-//  try
-//    lFormulario.ShowModal;
-//  finally
-//    lFormulario.Free;
-//  end;
+  lFormulario := TfrmConsultaProduto.Create(nil);
+  try
+    lFormulario.ShowModal;
+  finally
+    lFormulario.Free;
+  end;
 end;
 
 procedure TfrmPrincipal.mnuClienteRelatClick(Sender: TObject);
@@ -130,27 +129,6 @@ begin
     lFormulario.ShowModal;
   finally
     lFormulario.Free;
-  end;
-end;
-
-procedure TfrmPrincipal.mnuFPagamentoRelatClick(Sender: TObject);
-var
-  lRelatorio: TfrmRelatorioFPagamento;
-begin
-  lRelatorio := TfrmRelatorioFPagamento.Create(nil);
-  try
-    lRelatorio.DataSource1.DataSet := lRelatorio.qryRelatorio;
-    lRelatorio.rlpRelatorio.datasource := lRelatorio.DataSource1;
-
-    lRelatorio.qryRelatorio.close;
-    lRelatorio.qryRelatorio.SQL.clear;
-    lRelatorio.qryRelatorio.SQL.Add('SELECT * FROM FORMAPAGAMENTO');
-
-    lRelatorio.qryRelatorio.Open;
-
-    lRelatorio.rlpRelatorio.preview;
-  finally
-    lRelatorio.Free;
   end;
 end;
 

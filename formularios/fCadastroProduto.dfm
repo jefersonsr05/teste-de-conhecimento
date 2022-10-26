@@ -125,7 +125,7 @@ object frmCadastroProduto: TfrmCadastroProduto
       Top = 91
       Width = 150
       Height = 26
-      TabOrder = 3
+      TabOrder = 4
       OnKeyPress = edtPrecoKeyPress
     end
     object edtSaldo: TEdit
@@ -133,7 +133,7 @@ object frmCadastroProduto: TfrmCadastroProduto
       Top = 152
       Width = 150
       Height = 26
-      TabOrder = 4
+      TabOrder = 5
       OnKeyPress = edtSaldoKeyPress
     end
     object edtUnidade: TEdit
@@ -141,8 +141,9 @@ object frmCadastroProduto: TfrmCadastroProduto
       Top = 215
       Width = 97
       Height = 26
+      CharCase = ecUpperCase
       MaxLength = 4
-      TabOrder = 5
+      TabOrder = 3
     end
     object dtpDataVenda: TDateTimePicker
       Left = 143

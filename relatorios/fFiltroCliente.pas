@@ -59,7 +59,7 @@ begin
       case rdgBusca.ItemIndex of
         0:
           begin
-            FRelatorio.qryRelatorio.SQL.Add('WHERE ID LIKE' +
+            FRelatorio.qryRelatorio.SQL.Add('WHERE CODIGO LIKE' +
               QuotedStr('%' + edtBusca.Text + '%'));
           end;
         1:
@@ -78,7 +78,7 @@ begin
     case rdgOrdem.ItemIndex of
         0:
           begin
-            FRelatorio.qryRelatorio.SQL.Add('ORDER BY ID');
+            FRelatorio.qryRelatorio.SQL.Add('ORDER BY CODIGO');
           end;
         1:
           begin

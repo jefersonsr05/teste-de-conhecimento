@@ -27,7 +27,6 @@ type
     pnlTitulo: TPanel;
     pnlBotoes: TPanel;
     pnlGrid: TPanel;
-    grdConsulta: TDBGrid;
     btnAtualizar: TButton;
     btnIncluir: TButton;
     btnAlterar: TButton;
@@ -38,6 +37,7 @@ type
     cbxFiltro: TComboBox;
     btnVisualizar: TButton;
     btnSair: TButton;
+    grdConsulta: TDBGrid;
     procedure btnIncluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -292,6 +292,7 @@ end;
 procedure TfrmConsultaProduto.FormShow(Sender: TObject);
 begin
   inherited;
+  WindowState := wsMaximized;
   CarregaProdutos;
 end;
 

@@ -61,15 +61,10 @@ begin
       case rdgBusca.ItemIndex of
         0:
           begin
-            FRelatorio.qryRelatorio.SQL.Add(' WHERE CUSTO >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
-            ' AND CUSTO <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));
-          end;
-        1:
-          begin
             FRelatorio.qryRelatorio.SQL.Add(' WHERE PRECO_VENDA >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
             ' AND PRECO_VENDA <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));
           end;
-        2:
+        1:
           begin
             FRelatorio.qryRelatorio.SQL.Add(' WHERE SALDO >= ' + QuotedStr('%' + edtMenValor.Text + '%') +
             ' AND SALDO <= ' + QuotedStr('%' + edtMaiValor.Text + '%'));

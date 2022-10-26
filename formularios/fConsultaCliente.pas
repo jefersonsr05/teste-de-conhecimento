@@ -317,7 +317,7 @@ end;
 
 procedure TfrmConsultaCliente.btnSairClick(Sender: TObject);
 begin
-  close;
+  Close;
 end;
 
 procedure TfrmConsultaCliente.FormKeyPress(Sender: TObject; var Key: Char);

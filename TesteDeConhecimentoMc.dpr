@@ -19,7 +19,6 @@ uses
   fConsultaCliente in 'formularios\fConsultaCliente.pas' {frmConsultaCliente},
   fConsultaProduto in 'formularios\fConsultaProduto.pas' {frmConsultaProduto},
   fCadastroProduto in 'formularios\fCadastroProduto.pas' {frmCadastroProduto},
-  fAlteraVenda in 'formularios\fAlteraVenda.pas' {frmAlteraVenda},
   fAlteraVendaItem in 'formularios\fAlteraVendaItem.pas' {frmAlteraVendaItem},
   fRotinaPagamento in 'formularios\fRotinaPagamento.pas' {frmRotinaPagamento},
   fVendas in 'formularios\fVendas.pas' {frmVendas},
