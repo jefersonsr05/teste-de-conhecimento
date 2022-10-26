@@ -185,7 +185,7 @@ begin
     FDQueryItemNota.Close;
     FDQueryItemNota.SQL.Clear;
     FDQueryItemNota.SQL.Add('select * from item_venda ');
-    FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota));
+    FDQueryItemNota.SQL.Add(' where nr_venda = ' + QuotedStr(nrnota) + '');
     FDQueryItemNota.Open();
 
     //  Atualiza o estoque dos produtos

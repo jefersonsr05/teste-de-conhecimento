@@ -33,6 +33,7 @@ type
     DateTimePickerFinal: TDateTimePicker;
     LabelPeriodoInicial: TLabel;
     LabelPeriodoFinal: TLabel;
+    RadioButtonData: TRadioButton;
     procedure ButtonPesquisaClick(Sender: TObject);
   private
     { Private declarations }
@@ -104,6 +105,14 @@ begin
   begin
 
     FDQueryPesquisar.SQL.Add('order by nrnota');
+
+  end;
+
+  //  Ordena o resultado por data
+  if RadioButtonData.Checked = True then
+  begin
+
+    FDQueryPesquisar.SQL.Add(' order by emissao');
 
   end;
 

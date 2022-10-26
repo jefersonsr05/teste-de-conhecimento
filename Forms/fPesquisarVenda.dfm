@@ -32,7 +32,9 @@ inherited frmPesquisarVenda: TfrmPesquisarVenda
       Enabled = False
     end
     inherited RadioButtonNome: TRadioButton
+      Width = 74
       Caption = 'Cod Cliente'
+      ExplicitWidth = 74
     end
     object PanelTipoVenda: TPanel
       Left = 753
@@ -128,6 +130,14 @@ inherited frmPesquisarVenda: TfrmPesquisarVenda
       Date = 44859.000000000000000000
       Time = 0.875328750000335300
       TabOrder = 10
+    end
+    object RadioButtonData: TRadioButton
+      Left = 183
+      Top = 98
+      Width = 60
+      Height = 17
+      Caption = 'Data'
+      TabOrder = 11
     end
   end
   inherited EditNome: TEdit
