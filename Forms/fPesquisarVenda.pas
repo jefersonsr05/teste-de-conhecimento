@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, uDmDados, Vcl.ComCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, uDmDados, Vcl.ComCtrls,
+  fItensVenda;
 
 type
   TfrmPesquisarVenda = class(TfrmPesquisarPai)
@@ -35,6 +36,7 @@ type
     LabelPeriodoFinal: TLabel;
     RadioButtonData: TRadioButton;
     procedure ButtonPesquisaClick(Sender: TObject);
+    procedure ButtonVisualizarClick(Sender: TObject);
   private
     { Private declarations }
     procedure Pesquisa;
@@ -57,6 +59,30 @@ begin
   inherited;
 
   Pesquisa;
+
+end;
+
+procedure TfrmPesquisarVenda.ButtonVisualizarClick(Sender: TObject);
+begin
+  inherited;
+
+  //  Cria o form
+  frmItensVenda := TfrmItensVenda.Create(Self);
+
+  try
+
+    //  Pega o registro selecionado na tabela e abre o cadastro
+    frmItensVenda.FDQueryCadastro.Locate('NRNOTA', FDQueryPesquisarNRNOTA.AsInteger, []);
+
+    //  Exibe o form
+    frmItensVenda.ShowModal;
+
+  finally
+
+    //  Libera da memoria
+    FreeAndNil(frmItensVenda);
+
+  end;
 
 end;
 

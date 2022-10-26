@@ -6,6 +6,7 @@ inherited frmPesquisarVenda: TfrmPesquisarVenda
   TextHeight = 13
   inherited Panel1: TPanel
     Width = 1079
+    ExplicitWidth = 1079
     inherited LabelNome: TLabel
       Width = 69
       Caption = 'C'#243'digo Cliente'
@@ -27,9 +28,6 @@ inherited frmPesquisarVenda: TfrmPesquisarVenda
     end
     inherited ButtonPesquisa: TButton
       OnClick = ButtonPesquisaClick
-    end
-    inherited ButtonVisualizar: TButton
-      Enabled = False
     end
     inherited RadioButtonNome: TRadioButton
       Width = 74
@@ -237,6 +235,7 @@ inherited frmPesquisarVenda: TfrmPesquisarVenda
     end
   end
   object FDQueryClientes: TFDQuery
+    Active = True
     Connection = dmDados.FDConnection
     SQL.Strings = (
       'select * from Cliente')
